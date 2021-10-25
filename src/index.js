@@ -7,6 +7,10 @@ import createRoutes from './router/routes'
 
 const routes = createRoutes();
 
+ReactDOM.render(
+    routes,
+    document.getElementById('root')
+);
 
 
 // If you want to start measuring performance in your app, pass a function
