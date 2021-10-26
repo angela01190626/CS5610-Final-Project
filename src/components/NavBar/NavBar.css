@@ -1,0 +1,109 @@
+.nav-bar-root{
+    height: 80px;
+    background-color: rgb(2 113 220);
+}
+.trademark-text{
+    cursor: pointer;
+    font-weight: 500;
+    /* color: rgb(27, 27, 235); */
+    color: white;
+    font-size: 30px;
+}
+.trademark-icon{
+    cursor: pointer;
+    color: rgb(248, 208, 32);
+    font-size: 30px;
+}
+.department-btn-root{
+    color: white !important;
+    padding: 8px 15px 8px 15px !important;
+    border: none !important;
+    cursor: pointer;
+    font-size: 16px !important;
+    border-radius: 20px !important;
+
+}
+
+.go-zip-btn{
+    padding: 8px 10px 8px 10px !important;
+    border: solid grey !important;
+    cursor: pointer;
+    font-size: 16px !important;
+    border-radius: 30px !important;
+
+}
+.search-bar{
+    height: 40px;
+    /* margin-left: 50px; */
+    border-radius: 20px !important;
+    border: none !important;
+}
+.search-icon{
+    display: flex;
+    border-radius: 100%;
+    position: relative;
+    right: 40px;
+    /* border: solid red; */
+    height: 30px;
+    width: 30px;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(248, 208, 32);
+}
+.user-location {
+    padding-right: 20px !important;
+}
+.location{
+    color: white;
+    cursor: pointer;
+    display: flex;
+    height: 40px;
+    width: 40px;
+    justify-content: center;
+    align-items: center;
+    border-radius: 100%;
+}
+.location:hover {
+    background-color: red;
+}
+.location-tooltip{
+    /* border: red; */
+}
+.location-tooltip:hover{
+        visibility: visible !important;
+        opacity: 1 !important;
+    
+}
+
+.extraClass {
+    font-size: 20px !important;
+    pointer-events: auto !important;
+    padding: 15px !important;
+    border-radius: 60px !important;
+    &:hover {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+.department-tt-class {
+    cursor: pointer;
+    font-size: 20px !important;
+    pointer-events: auto !important;
+    padding: 0 5px 0 0 !important;
+    &:hover {
+        visibility: visible !important;
+        opacity: 1 !important;
+    }
+}
+
+.d-list-item{
+    width: 150px;
+    padding: 10px 25px 10px 25px;
+    border-bottom: solid 1px gray;
+}
+.d-list-item:hover{
+    border-left: solid 5px rgb(2 113 220);
+    background-color: rgb(223, 208, 208);
+}

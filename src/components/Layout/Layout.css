@@ -1,0 +1,15 @@
+.nav-bar {
+    border: solid black;
+}
+.root-content {
+    height: 100%;
+}
+.side-bar{
+    border: solid red;
+}
+.main-content {
+    border: solid green;
+}
+.right-side-bar {
+    border: solid blue;
+}
