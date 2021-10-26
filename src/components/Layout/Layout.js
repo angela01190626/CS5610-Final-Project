@@ -16,9 +16,9 @@ class Layout extends Component {
                     <NavBar />
                 </div>
                 <div className="row root-content">
-                    {/* <div className="col-1 side-bar">{this.props.left}</div>
+                    <div className="col-1 side-bar">{this.props.left}</div>
                     <div className="col-10 main-content"> {this.props.main}</div>
-                    <div className="col-1 right-side-bar">{this.props.right}</div> */}
+                    <div className="col-1 right-side-bar">{this.props.right}</div>
                 </div>
             </div>
         )
