@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
+import './vendors/bootstrap/css/bootstrap.min.css';
+// import './vendors/bootstrap/bootstrap.min.css';
+// import './vendors/fontawesome/css/all.min.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import createRoutes from './router/routes'
