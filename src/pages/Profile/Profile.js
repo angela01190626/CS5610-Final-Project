@@ -15,7 +15,6 @@ class Profile extends Component {
                 <div>
                     Leave room for top nav-bar
                 </div>
-
                 <div className="col-3">
                     <Navigation/>
                 </div>

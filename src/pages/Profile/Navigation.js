@@ -13,11 +13,11 @@ class Navigation extends Component {
         return(
             <>
                 <div className="list-group">
-                    <Link to="/" className="list-group-item">
+                    <Link to="/Orders" className="list-group-item">
                         <i className="fas fa-box"/>
                         Your orders
                     </Link>
-                    <Link to="/" className="list-group-item">
+                    <Link to="/Profile" className="list-group-item">
                         <i className="fas fa-cog"/>
                             Your account settings
                     </Link>

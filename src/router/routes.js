@@ -8,7 +8,7 @@ import Profile from "../pages/Profile/Profile";
 const createRoutes = () => (
     <Router>
         <Route exact path={["/", "/home"]} component={Home}/>
-            <Link to = '/pages/Profile'>
+            <Link to = '/Profile'>
                 <Profile/>
             </Link>
         <Route exact path={"/checkout"} component={Checkout}/>
