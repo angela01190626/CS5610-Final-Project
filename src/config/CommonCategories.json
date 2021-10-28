@@ -1,0 +1,30 @@
+[
+    {
+        "name": "Fruits",
+        "bgImage": ""
+    },
+    {
+        "name": "Vegetables",
+        "bgImage": ""
+    },
+    {
+        "name": "Meat",
+        "bgImage": ""
+    },
+    {
+        "name": "Sea Food",
+        "bgImage": ""
+    },
+    {
+        "name": "Bathroom & Kitchen",
+        "bgImage": ""
+    },
+    {
+        "name": "Personal Care",
+        "bgImage": ""
+    },
+    {
+        "name": "Dairy, Eggs & Cheese",
+        "bgImage": ""
+    }
+]
