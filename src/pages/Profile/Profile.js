@@ -12,6 +12,10 @@ class Profile extends Component {
     render() {
         return(
             <div className ="container-fluid m-2 row">
+                <div>
+                    Leave room for top nav-bar
+                </div>
+
                 <div className="col-3">
                     <Navigation/>
                 </div>

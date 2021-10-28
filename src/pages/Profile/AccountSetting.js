@@ -11,12 +11,14 @@ class AccountSetting extends Component {
             <>
                 <h1>Account Information</h1>
                 <div className="input-group mb-3">
-                    <label htmlFor="email-address" className="input-group-text">Email Address</label>
+                    <label for="email-address" className="col-form-label">Email Address</label>
                     <input id="email-address" type="email" className="form-control"/>
                 </div>
-                <div className="input-group mb-3">
-                    <label htmlFor="password" className="input-group-text">Password</label>
-                    <input id="password" type="password" className="form-control"/>
+                <div className="form-group row mb-3">
+                    <label for="password" className="col-2">Password</label>
+                    <div className="col-10">
+                        <input id="password" type="password" className="form-control"/>
+                    </div>
                 </div>
                 <div className="btn-group" role="group" aria-label="Basic example">
                     <button type="button" className="btn btn-primary">Save</button>
