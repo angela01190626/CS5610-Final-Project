@@ -1,0 +1,78 @@
+.login-text-center {
+    text-align: center;
+}
+
+.login-sign-in-widget .login-form-field .login-label-text-focus {
+    position: absolute;
+    top: 0;
+    transition: all .25s ease-in-out;
+    transform: translateY(-14px);
+    background-color: #fff;
+    left: 10px;
+}
+
+.login-sign-in-widget .login-form-field .login-label-text {
+    padding: 0 5px;
+    font-size: 14px;
+    color: #6d6e71;
+}
+
+.login-sign-in-widget .login-form-field {
+    position: relative;
+    text-align: center;
+
+}
+
+.login-sign-in-widget .login-form-box {
+    text-align: left;
+    background-color: #fff;
+    margin: auto;
+    padding: 0 8px;
+    position: relative;
+}
+
+.login-sign-in-widget * {
+    box-sizing: border-box;
+}
+
+.login-input-field {
+    width: 100%;
+}
+
+.login-sign-in-widget .login-forgot-password-text-right {
+    text-align: right;
+}
+
+.login-sign-in-widget .login-forgot-password-link, .login-sign-in-widget .login-forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+.login-forgot-password-button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.login-sign-in-widget .login-sign-in-button {
+    background-color: #0065ff;
+    color: #fff;
+}
+
+.login-sign-in-widget .login-button {
+    font-size: 1.0rem;
+    height: 40px;
+    border: 0;
+    border-radius: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.login-sign-in-widget .login-create-button {
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding-top: 5px;
+}

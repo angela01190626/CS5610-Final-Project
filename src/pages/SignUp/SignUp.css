@@ -1,0 +1,78 @@
+.signUp-text-center {
+    text-align: center;
+}
+
+.signUp-sign-in-widget .signUp-form-field .signUp-label-text-focus {
+    position: absolute;
+    top: 0;
+    transition: all .25s ease-in-out;
+    transform: translateY(-14px);
+    background-color: #fff;
+    left: 10px;
+}
+
+.signUp-sign-in-widget .signUp-form-field .signUp-label-text {
+    padding: 0 5px;
+    font-size: 14px;
+    color: #6d6e71;
+}
+
+.signUp-sign-in-widget .signUp-form-field {
+    position: relative;
+    text-align: center;
+
+}
+
+.signUp-sign-in-widget .signUp-form-box {
+    text-align: left;
+    background-color: #fff;
+    margin: auto;
+    padding: 0 8px;
+    position: relative;
+}
+
+.signUp-sign-in-widget * {
+    box-sizing: border-box;
+}
+
+.signUp-input-field {
+    width: 100%;
+}
+
+.signUp-sign-in-widget .signUp-forgot-password-text-right {
+    text-align: right;
+}
+
+.signUp-sign-in-widget .signUp-forgot-password-link, .signUp-sign-in-widget .signUp-forgot-password-link:hover {
+    text-decoration: underline;
+}
+
+.signUp-forgot-password-button {
+    background: none !important;
+    border: none;
+    padding: 0 !important;
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.signUp-sign-in-widget .signUp-sign-in-button {
+    background-color: #0065ff;
+    color: #fff;
+}
+
+.signUp-sign-in-widget .signUp-button {
+    font-size: 1.0rem;
+    height: 40px;
+    border: 0;
+    border-radius: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+    width: 100%;
+}
+
+.signUp-sign-in-widget .signUp-create-button {
+    background: #fff;
+    color: #000;
+    border: 1px solid #000;
+    padding-top: 5px;
+}
