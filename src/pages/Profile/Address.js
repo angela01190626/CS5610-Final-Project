@@ -1,8 +1,9 @@
 import React, { Component } from "react";
 import Navigation from "./Navigation";
 import NavBar from "../../components/NavBar/NavBar";
+import AddressSetting from "./AddressSetting";
 
-class Orders extends Component {
+class Address extends Component {
     constructor(props) {
         super(props);
         this.state = {}
@@ -19,7 +20,8 @@ class Orders extends Component {
                         <Navigation/>
                     </div>
                     <div className="col-8">
-                        <h1>My Orders</h1>
+                        <h1>Delivery Address</h1>
+                        <AddressSetting/>
                     </div>
                 </div>
             </>
@@ -27,4 +29,4 @@ class Orders extends Component {
     }
 }
 
-export default Orders;
+export default Address;

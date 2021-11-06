@@ -6,6 +6,9 @@ import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
 import Privacypolicy from "../pages/Privacy policy/Privacypolicy";
 import Profile from "../pages/Profile/Profile";
+import Orders from "../pages/Profile/Orders";
+import Address from "../pages/Profile/Address";
+import Payment from "../pages/Profile/Payment";
 
 const createRoutes = () => (
     <Router>
@@ -16,6 +19,9 @@ const createRoutes = () => (
             <Route exact path={"/signUp"} component={SignUp}/>
             <Route exact path={"/privacypolicy"} component={Privacypolicy}/>
             <Route exact path={"/profile"} component={Profile}/>
+            <Route exact path={"/orders"} component={Orders}/>
+            <Route exact path={"/address"} component={Address}/>
+            <Route exact path={"/payment"} component={Payment}/>
         </div>
     </Router>
 );
