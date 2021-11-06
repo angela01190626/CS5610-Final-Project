@@ -4,6 +4,7 @@ import Checkout from '../pages/Checkout/Checkout';
 import Home from '../pages/Home/Home';
 import Login from "../pages/Login/Login";
 import SignUp from "../pages/SignUp/SignUp";
+import Privacypolicy from "../pages/Privacy policy/Privacypolicy";
 
 const createRoutes = () => (
     <Router>
@@ -12,6 +13,7 @@ const createRoutes = () => (
             <Route exact path={"/checkout"} component={Checkout}/>
             <Route exact path={"/login"} component={Login}/>
             <Route exact path={"/signUp"} component={SignUp}/>
+            <Route exact path={"/privacypolicy"} component={Privacypolicy}/>
         </div>
     </Router>
 );

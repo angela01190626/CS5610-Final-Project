@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Layout from '../../components/Layout/Layout';
 import Button from '../../components/Button/Button';
+import {Link} from "react-router-dom";
 
 class Home extends Component {
     constructor(props) {
@@ -52,6 +53,8 @@ class Home extends Component {
                     main={this.renderMainContent()}
                     right={this.renderRightContent()}
                 />
+
+                <Link to = "/privacypolicy">Privacy Policy</Link>
             </div>
         )
     }
