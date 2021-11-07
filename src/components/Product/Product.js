@@ -1,4 +1,5 @@
 import { Rating } from "@mui/material";
+import { height } from "@mui/system";
 import React, { Component } from "react";
 import "./Product.css";
 
@@ -21,10 +22,13 @@ class Product extends Component {
         });
     }
     render() {
+        const imgStyle = {
+            backgroundImage: `url(${this.props.prodImg})`
+        }
         return(
             <div className="product-root">
             <div className="product-image">
-                <img src="" alt="product"/>
+                <div style={imgStyle} className="prod-image"></div>
             </div>
             <div className="product-price">
                 ${this.props.cost} {this.props.cost !== this.props.originalPrice && (<span className="original-price">${this.props.originalPrice}</span>)}

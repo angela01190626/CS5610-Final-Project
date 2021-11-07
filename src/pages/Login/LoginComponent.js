@@ -1,10 +1,16 @@
+import Button from "../../components/Button/Button";
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
+import { withRouter } from "react-router-dom";
 
 class LoginComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+    }
+
+    demoOnClick(e) {
+        this.props.history.push("/das");
     }
 
     render() {
@@ -86,6 +92,7 @@ class LoginComponent extends Component {
                                       className="btn login-button login-create-button mt-4">
                                     Create account
                                 </Link>
+                                <Button text={"create Account"} onClick={e => this.demoOnClick(e)}/>
                             </div>
                         </form>
                     </div>
@@ -95,4 +102,4 @@ class LoginComponent extends Component {
     }
 }
 
-export default LoginComponent;
+export default withRouter(LoginComponent);
