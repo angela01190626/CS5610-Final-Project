@@ -1,6 +1,7 @@
 .nav-bar-root{
     height: 80px;
     background-color: rgb(2 113 220);
+    margin-bottom: 20px;
 }
 .trademark-text{
     cursor: pointer;

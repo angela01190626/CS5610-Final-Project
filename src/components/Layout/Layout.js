@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Footer from '../Footer/Footer';
 import NavBar from '../NavBar/NavBar';
 import './Layout.css'
 
@@ -16,9 +17,12 @@ class Layout extends Component {
                     <NavBar />
                 </div>
                 <div className="row root-content">
-                    <div className="col-1 side-bar">{this.props.left}</div>
-                    <div className="col-10 main-content"> {this.props.main}</div>
-                    <div className="col-1 right-side-bar">{this.props.right}</div>
+                    <div className="col-2 side-bar">{this.props.left}</div>
+                    <div className="col-8 main-content p-3"> {this.props.main}</div>
+                    <div className="col-2 right-side-bar">{this.props.right}</div>
+                </div>
+                <div className="row">
+                    <Footer />
                 </div>
             </div>
         )

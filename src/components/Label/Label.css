@@ -1,0 +1,17 @@
+.standard-label {
+    color: #2e2f32;
+}
+.dark-grey-small-label {
+    color: #2e2f32;
+    font-size: 20px;
+}
+.blue-medium-bold-label {
+    color: #1f46bb;
+    font-size: 25px;
+    font-weight: 500;
+}
+.grey-medium-bold-label {
+    color: #2e2f32;
+    font-size: 20px;
+    font-weight: 500;
+}
