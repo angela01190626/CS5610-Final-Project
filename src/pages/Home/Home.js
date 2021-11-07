@@ -129,6 +129,9 @@ class Home extends Component {
                     main={this.renderMainContent()}
                     right={this.renderRightContent()}
                 />
+
+                <Link to = "/privacypolicy">Privacy Policy</Link><br/>
+                <Link to = "/profile">Profile</Link>
             </div>
         )
     }

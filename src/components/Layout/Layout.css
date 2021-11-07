@@ -11,5 +11,11 @@
     /* border: solid green; */
 }
 .right-side-bar {
-    /* border: solid blue; */
+    border: solid blue;
+}
+
+.float-center{
+    float: bottom;
+    text-align: center;
+
 }
