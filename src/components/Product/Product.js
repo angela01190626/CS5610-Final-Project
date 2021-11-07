@@ -24,10 +24,10 @@ class Product extends Component {
         return(
             <div className="product-root">
             <div className="product-image">
-                <img src="" />
+                <img src="" alt="product"/>
             </div>
             <div className="product-price">
-                ${this.props.cost} {this.props.cost != this.props.originalPrice && (<span className="original-price">${this.props.originalPrice}</span>)}
+                ${this.props.cost} {this.props.cost !== this.props.originalPrice && (<span className="original-price">${this.props.originalPrice}</span>)}
             </div>
             {
                 this.state.quantity === 0 ? (

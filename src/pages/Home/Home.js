@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import Layout from '../../components/Layout/Layout';
-import Button from '../../components/Button/Button';
 import Category from '../../components/Category/Category';
 import CommonCategory from "../../config/CommonCategories.json"
 import offer from "../../config/offer.json";
@@ -38,7 +37,7 @@ class Home extends Component {
                     {
                         HomeCarouselImages.map(image => (
                             <div>
-                                <img src={image.url} className="carousel-image"/>
+                                <img src={image.url} className="carousel-image" alt="trending"/>
                             </div>
                         ))
                     }
