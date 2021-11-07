@@ -106,7 +106,7 @@ class SignUpComponent extends Component {
                                             By clicking Create Account, you acknowledge you have read and agreed to
                                             our&nbsp;
                                             <a
-                                                href=""
+                                                href="/#"
                                                 target="_blank"
                                                 rel="noopener"
                                                 aria-label="Terms of use, Opens in a new tab"
