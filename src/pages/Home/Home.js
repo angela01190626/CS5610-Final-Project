@@ -7,10 +7,10 @@ import offer from "../../config/offer.json";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import HomeCarouselImages from '../../config/HomeCarouselImages.json';
-import "./Home.css";
 import Label from '../../components/Label/Label';
 import ItemsCarousel from 'react-items-carousel';
 import Product from '../../components/Product/Product';
+import "./Home.css";
 
 class Home extends Component {
     constructor(props) {
@@ -86,13 +86,11 @@ class Home extends Component {
                                     cost={item.cost}
                                     originalPrice={item.originalPrice}
                                     rating={item.rating}
+                                    prodImg={item.prodImg}
                                 />
                             ))
                         }
                 </ItemsCarousel>
-                {/* Hello, This is the home page.
-                <Button text={"Button 1"} onClick={e => this.buttonCLickHandler1(e)} />
-                <Button text={"Button 2"} onClick={e => this.buttonCLickHandler2(e)} /> */}
             </div>
         )
     }
@@ -123,7 +121,7 @@ class Home extends Component {
 
     render() {
         return(
-            <div>
+            <div class="container-fluid">
                 <Layout
                     left={this.renderLeftContent()} 
                     main={this.renderMainContent()}

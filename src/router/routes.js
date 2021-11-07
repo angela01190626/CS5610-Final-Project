@@ -12,7 +12,7 @@ import Payment from "../pages/Profile/Payment";
 
 const createRoutes = () => (
     <Router>
-        <div className="container">
+        <div className="container-fluid">
             <Route exact path={["/", "/home"]} component={Home}/>
             <Route exact path={"/checkout"} component={Checkout}/>
             <Route exact path={"/login"} component={Login}/>
