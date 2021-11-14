@@ -8,6 +8,15 @@
     align-items: center;
     text-align: center;
     /* min-width: 220px; */
+    position: relative; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 250px 100%;
+    background-repeat: no-repeat
+}
+.category-name{
+    position: relative;
 }
 .category-root:hover {
     background-color: rgb(233, 232, 232);

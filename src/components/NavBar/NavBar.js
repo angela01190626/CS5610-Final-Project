@@ -1,37 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { withRouter } from 'react-router';
+import { useHistory } from "react-router";
 import ReactTooltip from 'react-tooltip';
 import './NavBar.css';
 
 const departmentList = ["Stationary", "Decor", "Kitchen", "Meat", "Deli"];
 
-const getNavButton = (buttonText, faClass) => {
-    return (
-        <button class="btn btn-sm btn-outline-secondary department-btn-root" type="button">
-            {!!faClass ? <span><i className={faClass}></i>&nbsp;&nbsp;&nbsp;</span> : ""}
-            {buttonText}
-        </button>
-    )
-}
-
-const searchBar = () => {
-    return (
-        <>
-            <input type="text" class="form-control search-bar" placeholder="Search For Anything!"></input>
-        </>
-    )
-}
-
-const locationTooltipContent = () => {
-    return (
-        <span className="d-flex">
-            <input type="text" class="form-control search-bar" placeholder="Enter zipcode"></input>
-            &nbsp;
-            <button class="btn btn-sm btn-outline-secondary go-zip-btn" type="button">
-                Go
-            </button>
-        </span>
-    )
-}
 
 const lisOfDepartment = () => {
     return(
@@ -42,10 +16,72 @@ const lisOfDepartment = () => {
         ))
     );
 }
-const NavBar = () => {
+
+function NavBar() {
+    const [item, setItem] = useState(localStorage.getItem("searchItem"));
+    const loggedIn = true; //remove hardcoding, get from rexus store.
+    const history = useHistory();
+    const onSearchClick = () => {
+        if(item && item.trim() && item.length !== 0 ) {
+            localStorage.setItem("searchItem", item);
+            history.push({
+                pathname:  "/search",
+                search: `?item=${item}`
+            });
+        }
+
+    }
+
+    const onChangeSearch = (e) => {
+        setItem(e.target.value);
+        
+    }
+    
+    const onEnterClick = (e) => {
+        if (e.key === 'Enter') {
+            onSearchClick();
+        }
+    }
+
+    const onClickNavLink = (buttonText) => {
+        const redirectionUrl = (buttonText === "Profile") ? "/profile" : "/login"
+        history.push({
+            pathname:  redirectionUrl
+        });
+    }
+
+    const getNavButton = (buttonText, faClass) => {
+        return (
+            <button class="btn btn-sm btn-outline-secondary department-btn-root"
+                type="button" onClick={() => onClickNavLink(buttonText)}>
+                {!!faClass ? <span><i className={faClass}></i>&nbsp;&nbsp;&nbsp;</span> : ""}
+                {buttonText}
+            </button>
+        )
+    }
+
+    const searchBar = () => {
+        return (
+            <>
+                <input type="text" class="form-control search-bar"
+                    placeholder="Search For Anything!"
+                    onChange={onChangeSearch}
+                    onKeyPress={onEnterClick}
+                    value={item}
+                ></input>
+            </>
+        )
+    }
+
+    const onLogoClick = () => {
+        history.push({
+            pathname:  "/"
+        });
+    }
+
     return (
         <nav className="navbar navbar-light nav-bar-root">
-            <div className="col-1 d-flex justify-content-start align-items-center ml-2">
+            <div className="col-1 d-flex justify-content-start align-items-center ml-2" onClick={onLogoClick}>
                 <span className="trademark-text">Wallcart&nbsp;&nbsp;</span>
                 <i className="fas fa-shopping-basket trademark-icon"></i>
             </div>
@@ -66,7 +102,7 @@ const NavBar = () => {
 
             <div className="col-7 d-flex justify-content-center align-items-center">
                 {searchBar()}
-                <div className="search-icon">
+                <div className="search-icon" onClick={onSearchClick}>
                     <i class="fas fa-search"></i>
                 </div>
             </div>
@@ -87,7 +123,13 @@ const NavBar = () => {
             </div>
 
             <div className="col-1 d-flex justify-content-center align-items-center">
-                {getNavButton("Sign In", "fas fa-user")}
+                {
+                    loggedIn ? (
+                        getNavButton("Profile", "fas fa-user")
+                    ) : (
+                        getNavButton("Sign In", "fas fa-user")
+                    )
+                }
             </div>
 
             <div className="col-1 d-flex justify-content-center align-items-center">
@@ -97,5 +139,19 @@ const NavBar = () => {
 
         </nav>
     )
+
 }
-export default NavBar;
+
+const locationTooltipContent = () => {
+    return (
+        <span className="d-flex">
+            <input type="text" class="form-control search-bar" placeholder="Enter zipcode"></input>
+            &nbsp;
+            <button class="btn btn-sm btn-outline-secondary go-zip-btn" type="button">
+                Go
+            </button>
+        </span>
+    )
+}
+
+export default withRouter(NavBar);
