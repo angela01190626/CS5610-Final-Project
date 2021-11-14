@@ -9,10 +9,12 @@ import Profile from "../pages/Profile/Profile";
 import Orders from "../pages/Profile/Orders";
 import Address from "../pages/Profile/Address";
 import Payment from "../pages/Profile/Payment";
+import Search from "../pages/Search/Search";
+import '../index.css';
 
 const createRoutes = () => (
     <Router>
-        <div className="container-fluid">
+        <div className="container-fluid border-padding">
             <Route exact path={["/", "/home"]} component={Home}/>
             <Route exact path={"/checkout"} component={Checkout}/>
             <Route exact path={"/login"} component={Login}/>
@@ -22,6 +24,7 @@ const createRoutes = () => (
             <Route exact path={"/orders"} component={Orders}/>
             <Route exact path={"/address"} component={Address}/>
             <Route exact path={"/payment"} component={Payment}/>
+            <Route exact path={"/search"} component={Search}/>
         </div>
     </Router>
 );

@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Link } from "react-router-dom";
 import Layout from '../../components/Layout/Layout';
 import Category from '../../components/Category/Category';
 import CommonCategory from "../../config/CommonCategories.json"
@@ -19,6 +18,10 @@ class Home extends Component {
             commonCategoryIndex: 0,
             offerItemsIndex: 0
         }
+    }
+
+    componentDidMount() {
+        localStorage.removeItem("searchItem");
     }
 
     renderMainContent() {
@@ -61,7 +64,7 @@ class Home extends Component {
                     >
                         {
                             CommonCategory.map((category, idx) => (
-                                <Category CategoryLabel={category.name} key={idx}/>  
+                                <Category CategoryLabel={category.name} key={idx} bgImage={category.bgImage}/>  
                             ))
                         }
                         </ItemsCarousel>
@@ -128,8 +131,6 @@ class Home extends Component {
                     right={this.renderRightContent()}
                 />
 
-                <Link to = "/privacypolicy">Privacy Policy</Link><br/>
-                <Link to = "/profile">Profile</Link>
             </div>
         )
     }
