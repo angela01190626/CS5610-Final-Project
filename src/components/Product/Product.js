@@ -1,5 +1,4 @@
 import { Rating } from "@mui/material";
-import { height } from "@mui/system";
 import React, { Component } from "react";
 import "./Product.css";
 
