@@ -29,7 +29,7 @@ class Navigation extends Component {
                         <i className="far fa-credit-card"/>
                             Payment methods
                     </Link>
-                    <Link to="/" className="list-group-item">
+                    <Link to="/notifications" className="list-group-item">
                         <i className="fa fa-bell"/>
                         Notifications
                     </Link>

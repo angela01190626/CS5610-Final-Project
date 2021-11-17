@@ -1,32 +1,29 @@
 import React, { Component } from "react";
 import Navigation from "./Navigation";
-import AccountSetting from "./AccountSetting";
-import NavBar from "../../components/NavBar/NavBar";
 import Layout from "../../components/Layout/Layout";
+import NotificationSettings from "./NotificationSettings";
 
-class Profile extends Component {
+class Notifications extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-
-        }
+        this.state = {}
     }
+
     renderLeftContent() {
         return(
-           <>
+            <>
                 <Navigation/>
-           </>
+            </>
         )
     }
 
     renderMainContent() {
         return(
             <>
-                <AccountSetting/>
+                <NotificationSettings/>
             </>
         )
     }
-
 
     renderRightContent() {
         return(
@@ -47,4 +44,5 @@ class Profile extends Component {
         )
     }
 }
-export default Profile;
+
+export default Notifications;

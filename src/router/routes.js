@@ -11,6 +11,7 @@ import Address from "../pages/Profile/Address";
 import Payment from "../pages/Profile/Payment";
 import Search from "../pages/Search/Search";
 import '../index.css';
+import Notifications from "../pages/Profile/Notifications";
 
 const createRoutes = () => (
     <Router>
@@ -25,6 +26,7 @@ const createRoutes = () => (
             <Route exact path={"/address"} component={Address}/>
             <Route exact path={"/payment"} component={Payment}/>
             <Route exact path={"/search"} component={Search}/>
+            <Route exact path={"/notifications"} component={Notifications}/>
         </div>
     </Router>
 );

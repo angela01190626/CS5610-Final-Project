@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import Navigation from "./Navigation";
 import NavBar from "../../components/NavBar/NavBar";
 import PaymentSetting from "./PaymentSetting";
+import AccountSetting from "./AccountSetting";
+import Layout from "../../components/Layout/Layout";
 
 class Payment extends Component {
     constructor(props) {
@@ -9,22 +11,38 @@ class Payment extends Component {
         this.state = {}
     }
 
-    render() {
-        return (
+    renderLeftContent() {
+        return(
             <>
-                <div className ="container-fluid m-2 row">
-                    <div>
-                        <NavBar/>
-                    </div>
-                    <div className="col-3">
-                        <Navigation/>
-                    </div>
-                    <div className="col-8">
-                        <h1>Payment Setting</h1>
-                        <PaymentSetting/>
-                    </div>
-                </div>
+                <Navigation/>
             </>
+        )
+    }
+
+    renderMainContent() {
+        return(
+            <>
+                <PaymentSetting/>
+            </>
+        )
+    }
+
+    renderRightContent() {
+        return(
+            <>
+            </>
+        )
+    }
+
+    render() {
+        return(
+            <div className="container-fluid">
+                <Layout
+                    left={this.renderLeftContent()}
+                    main={this.renderMainContent()}
+                    right={this.renderRightContent()}
+                />
+            </div>
         )
     }
 }

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import Navigation from "./Navigation";
-import NavBar from "../../components/NavBar/NavBar";
 import AddressSetting from "./AddressSetting";
+import Layout from "../../components/Layout/Layout";
 
 class Address extends Component {
     constructor(props) {
@@ -9,22 +9,39 @@ class Address extends Component {
         this.state = {}
     }
 
-    render() {
-        return (
+    renderLeftContent() {
+        return(
             <>
-                <div className ="container-fluid m-2 row">
-                    <div>
-                        <NavBar/>
-                    </div>
-                    <div className="col-3">
-                        <Navigation/>
-                    </div>
-                    <div className="col-8">
-                        <h1>Delivery Address</h1>
-                        <AddressSetting/>
-                    </div>
-                </div>
+                <Navigation/>
             </>
+        )
+    }
+
+    renderMainContent() {
+        return(
+            <>
+                <h2>My addresses</h2>
+                <AddressSetting/>
+            </>
+        )
+    }
+
+    renderRightContent() {
+        return(
+            <>
+            </>
+        )
+    }
+
+    render() {
+        return(
+            <div className="container-fluid">
+                <Layout
+                    left={this.renderLeftContent()}
+                    main={this.renderMainContent()}
+                    right={this.renderRightContent()}
+                />
+            </div>
         )
     }
 }

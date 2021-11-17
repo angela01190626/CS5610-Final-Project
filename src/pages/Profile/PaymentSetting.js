@@ -9,6 +9,7 @@ class PaymentSetting extends Component {
     render() {
         return (
             <>
+                <h2>Payment Setting</h2>
                 <div className="form-group row mb-3">
                     <input id="first-name" type="text" className="form-control me-2 mb-2" style={{width: "49%"}} placeholder="First name"/>
                     <input id="last-name" type="text" className="form-control mb-2 " style={{width: "49%"}} placeholder="Last name"/>
