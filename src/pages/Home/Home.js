@@ -85,6 +85,7 @@ class Home extends Component {
                         {
                             offer.map(item => (
                                 <Product
+                                    _id={item._id}
                                     itemName={item.itemName}
                                     cost={item.cost}
                                     originalPrice={item.originalPrice}

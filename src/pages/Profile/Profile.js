@@ -3,6 +3,7 @@ import Navigation from "./Navigation";
 import AccountSetting from "./AccountSetting";
 import NavBar from "../../components/NavBar/NavBar";
 import Layout from "../../components/Layout/Layout";
+import {Link} from "react-router-dom";
 
 class Profile extends Component {
     constructor(props) {
@@ -43,6 +44,7 @@ class Profile extends Component {
                     main={this.renderMainContent()}
                     right={this.renderRightContent()}
                 />
+                <Link to = "/detail">Detail</Link>
             </div>
         )
     }

@@ -68,7 +68,7 @@ function NavBar() {
                     onChange={onChangeSearch}
                     onKeyPress={onEnterClick}
                     value={item}
-                ></input>
+                    />
             </>
         )
     }
@@ -83,7 +83,7 @@ function NavBar() {
         <nav className="navbar navbar-light nav-bar-root">
             <div className="col-1 d-flex justify-content-start align-items-center ml-2" onClick={onLogoClick}>
                 <span className="trademark-text">Wallcart&nbsp;&nbsp;</span>
-                <i className="fas fa-shopping-basket trademark-icon"></i>
+                <i className="fas fa-shopping-basket trademark-icon"/>
             </div>
 
             <div className="col-1.5 d-flex justify-content-center align-items-center"
@@ -103,7 +103,7 @@ function NavBar() {
             <div className="col-7 d-flex justify-content-center align-items-center">
                 {searchBar()}
                 <div className="search-icon" onClick={onSearchClick}>
-                    <i class="fas fa-search"></i>
+                    <i class="fas fa-search"/>
                 </div>
             </div>
 

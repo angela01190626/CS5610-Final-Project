@@ -70,6 +70,7 @@ class Search extends Component {
                             productList.map(item => (
                                 <div className="product-container">
                                 <Product
+                                    _id={item._id}
                                     itemName={item.itemName}
                                     cost={item.cost}
                                     originalPrice={item.originalPrice}

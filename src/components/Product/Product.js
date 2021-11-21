@@ -1,6 +1,8 @@
 import { Rating } from "@mui/material";
-import React, { Component } from "react";
+import React, {Component, useState} from "react";
+import {withRouter, Route, Link} from "react-router-dom";
 import "./Product.css";
+import {useHistory} from "react-router";
 
 class Product extends Component {
     constructor(props) {
@@ -9,6 +11,7 @@ class Product extends Component {
             quantity: 0
         }
     }
+
     addItem() {
         this.setState({
             quantity: this.state.quantity+1
@@ -20,15 +23,29 @@ class Product extends Component {
             quantity: this.state.quantity-1
         });
     }
+
+    // onClickImage() {
+    //     const {history} = this.props;
+    //     // const {itemName} = this.props;
+    //     // console.log(this.props);
+    //     history.push({
+    //         pathname:  "/details",
+    //         search: `?id=${this.props._id}`
+    //     });
+    // }
+
     render() {
         const imgStyle = {
             backgroundImage: `url(${this.props.prodImg})`
         }
         return(
             <div className="product-root">
-            <div className="product-image">
-                <div style={imgStyle} className="prod-image"></div>
-            </div>
+            <Link to = {`/details/${this.props._id}`}>
+                <div className="product-image">
+
+                <div style={imgStyle} className="prod-image"/>
+                </div>
+            </Link>
             <div className="product-price">
                 ${this.props.cost} {this.props.cost !== this.props.originalPrice && (<span className="original-price">${this.props.originalPrice}</span>)}
             </div>
@@ -37,9 +54,9 @@ class Product extends Component {
                     <div className="add-button" onClick={() => this.addItem()}>Add</div>
                 ) : (
                     <div className="add-button">
-                        <i class="fas fa-minus-circle" onClick={() => this.removeItem()}></i>
+                        <i className="fas fa-minus-circle" onClick={() => this.removeItem()}/>
                             <div className="added-quantity">{this.state.quantity}</div>
-                        <i class="fas fa-plus-circle" onClick={() => this.addItem()}></i>
+                        <i className="fas fa-plus-circle" onClick={() => this.addItem()}/>
                     </div>
                 )
             }
@@ -49,4 +66,4 @@ class Product extends Component {
         )
     }
 }
-export default Product;
+export default withRouter(Product);
