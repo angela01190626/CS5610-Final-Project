@@ -10,6 +10,8 @@ import Label from '../../components/Label/Label';
 import ItemsCarousel from 'react-items-carousel';
 import Product from '../../components/Product/Product';
 import "./Home.css";
+import PopUp from "../../components/Popup/PopUp";
+
 
 class Home extends Component {
     constructor(props) {
@@ -27,6 +29,7 @@ class Home extends Component {
     renderMainContent() {
         return(
             <div>
+                <PopUp/>
                 <div className="home-corousel-container">
                 <Carousel
                     interval={4000}
@@ -85,7 +88,7 @@ class Home extends Component {
                         {
                             offer.map(item => (
                                 <Product
-                                    _id={item._id}
+                                    id={item.id}
                                     itemName={item.itemName}
                                     cost={item.cost}
                                     originalPrice={item.originalPrice}

@@ -34,7 +34,7 @@ class ProductDetail extends Component {
     }
 
     renderMainContent() {
-        const prod = offer.find(i => i._id === parseInt(this.props.match.params.productId));
+        const prod = offer.find(i => i.id === parseInt(this.props.match.params.productId));
         return (
             <>
                 {/*{JSON.stringify(prod)}*/}
