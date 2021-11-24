@@ -14,7 +14,7 @@ class Payment extends Component {
     renderLeftContent() {
         return(
             <>
-                <Navigation/>
+                <Navigation active="payment"/>
             </>
         )
     }

@@ -12,7 +12,7 @@ class Notifications extends Component {
     renderLeftContent() {
         return(
             <>
-                <Navigation/>
+                <Navigation active="notifications"/>
             </>
         )
     }

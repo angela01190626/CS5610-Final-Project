@@ -11,7 +11,7 @@ class Orders extends Component {
     renderLeftContent() {
         return(
             <>
-                <Navigation/>
+                <Navigation active="orders"/>
             </>
         )
     }

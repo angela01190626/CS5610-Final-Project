@@ -13,7 +13,7 @@ class Profile extends Component {
     renderLeftContent() {
         return(
            <>
-                <Navigation/>
+                <Navigation active="profile"/>
            </>
         )
     }

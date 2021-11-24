@@ -12,7 +12,7 @@ class Address extends Component {
     renderLeftContent() {
         return(
             <>
-                <Navigation/>
+                <Navigation active="address"/>
             </>
         )
     }
