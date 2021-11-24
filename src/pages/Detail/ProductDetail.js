@@ -41,7 +41,7 @@ class ProductDetail extends Component {
                 {/*{JSON.stringify(prod)}*/}
                 <div className="row">
                     <div className ="col-6 p-2 center-image">
-                        <img className="prod-image" src = {prod.prodImg}/>
+                        <img className="prod-image" src = {prod.prodImg} alt="product" />
                     </div>
                     <div className="detail-border col-6 p-2">
                         <b><span className="product-align-left p-1">{prod.itemName}</span></b>

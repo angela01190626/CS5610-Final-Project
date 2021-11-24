@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import { withRouter } from 'react-router';
 import { useHistory } from "react-router";
 import ReactTooltip from 'react-tooltip';
-import urls from '../../config/url';
+// import urls from '../../config/url';
 import { deserializeProductSearchResult } from '../../deserializer/search.js';
 import amazonMockdata from '../../config/amazonMockdata.json'
 import { useDispatch } from "react-redux";
@@ -97,14 +97,14 @@ function NavBar() {
 
 
     const fetchSearchResults = async () => {
-        let request = urls.productSearch;
-        request = {
-            ...request,
-            params: {
-                ...request.params,
-                keyword: item
-            }
-        }
+        // let request = urls.productSearch;
+        // request = {
+        //     ...request,
+        //     params: {
+        //         ...request.params,
+        //         keyword: item
+        //     }
+        // }
         // axios.request(request).then((response) => {
         //     console.log("Making request");
         //     const productList = deserializeProductSearchResult(response.data.docs);

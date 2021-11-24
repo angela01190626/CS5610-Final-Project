@@ -1,8 +1,10 @@
 import { Rating } from "@mui/material";
-import React, {Component, useState} from "react";
-import {withRouter, Route, Link} from "react-router-dom";
+import React, {Component} from "react";
+// import {useState} from "react";
+import {withRouter, Link} from "react-router-dom";
+// import {Route} from "react-router-dom";
 import "./Product.css";
-import {useHistory} from "react-router";
+// import {useHistory} from "react-router";
 
 class Product extends Component {
     constructor(props) {
