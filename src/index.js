@@ -1,15 +1,21 @@
-// import React from 'react';
+
 import ReactDOM from 'react-dom';
 import './index.css';
-// import reportWebVitals from './reportWebVitals';
 import createRoutes from './router/routes';
 import './vendors/bootstrap/css/bootstrap.min.css';
 import './vendors/fontawesome/css/all.css';
+import { Provider } from 'react-redux';
+import { createStore } from 'redux';
+import rootReducer from './reducers/rootReducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
 
+const store = createStore(rootReducer, composeWithDevTools());
 const routes = createRoutes();
 
 ReactDOM.render(
-    routes,
+    <Provider store={store}>
+        {routes}
+    </Provider>,
     document.getElementById('root')
 );
 

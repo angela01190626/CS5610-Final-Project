@@ -92,7 +92,6 @@ class LoginComponent extends Component {
                                       className="btn login-button login-create-button mt-4">
                                     Create account
                                 </Link>
-                                <Button text={"create Account"} onClick={e => this.demoOnClick(e)}/>
                             </div>
                         </form>
                     </div>

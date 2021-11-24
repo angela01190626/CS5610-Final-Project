@@ -10,6 +10,7 @@ import Orders from "../pages/Profile/Orders";
 import Address from "../pages/Profile/Address";
 import Payment from "../pages/Profile/Payment";
 import Search from "../pages/Search/Search";
+import Cart from '../pages/Cart/Cart';
 import '../index.css';
 import Notifications from "../pages/Profile/Notifications";
 import ProductDetail from "../pages/Detail/ProductDetail";
@@ -29,6 +30,7 @@ const createRoutes = () => (
             <Route exact path={"/search"} component={Search}/>
             <Route exact path={"/notifications"} component={Notifications}/>
             <Route exact path={"/details/:productId"} component={ProductDetail}/>
+            <Route exact path={"/cart"} component={Cart}/>
         </div>
     </Router>
 );

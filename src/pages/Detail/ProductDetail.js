@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Layout from "../../components/Layout/Layout";
-import offer from "../../config/offer.json";
-import "./detail.css";
 import {Rating} from "@mui/material";
+import "./detail.css";
+import { connect } from "react-redux";
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -34,7 +34,8 @@ class ProductDetail extends Component {
     }
 
     renderMainContent() {
-        const prod = offer.find(i => i.id === parseInt(this.props.match.params.productId));
+        const { searchResult } = this.props;
+        const prod = searchResult.find(i => i.id === this.props.match.params.productId);
         return (
             <>
                 {/*{JSON.stringify(prod)}*/}
@@ -47,7 +48,7 @@ class ProductDetail extends Component {
                         <div className="product-align-left p-1"><Rating className="pe-1" name="size-small" readOnly value={prod.rating} size="small"/>({prod.rating})<u className="ps-1">{prod.reviews} reviews</u></div>
                         <br/>
                         <div className="product-price p-1">
-                            ${prod.cost} {prod.cost !== prod.originalPrice && (<span className="original-price">${prod.originalPrice}</span>)}
+                            ${prod.cost} {prod.cost !== prod.originalPrice && (<span className="original-price">{prod.originalPrice}</span>)}
                         </div>
                         <br/>
                         <br/>
@@ -102,5 +103,9 @@ class ProductDetail extends Component {
         )
     }
 }
-
-export default ProductDetail;
+const mapStateToProps = state => ({
+    searchResult: state.search.searchResult
+});
+export default connect(
+    mapStateToProps,
+)(ProductDetail);

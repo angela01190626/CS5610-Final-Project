@@ -3,8 +3,9 @@
     justify-content: center;
 }
 .prod-image{
-    height: 300px;
-    width: 300px;
+    /* transform: scale(0.7); */
+    max-width: 400px;
+    max-height: 250px;
 }
 
 .detail-border{
