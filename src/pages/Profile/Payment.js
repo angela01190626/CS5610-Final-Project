@@ -1,8 +1,8 @@
 import React, { Component } from "react";
 import Navigation from "./Navigation";
-import NavBar from "../../components/NavBar/NavBar";
+// import NavBar from "../../components/NavBar/NavBar";
 import PaymentSetting from "./PaymentSetting";
-import AccountSetting from "./AccountSetting";
+// import AccountSetting from "./AccountSetting";
 import Layout from "../../components/Layout/Layout";
 
 class Payment extends Component {

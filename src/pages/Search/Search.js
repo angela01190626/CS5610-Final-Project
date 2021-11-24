@@ -1,19 +1,17 @@
 import React, { Component } from 'react';
-import axios from 'axios';
 import ReactPaginate from 'react-paginate';
-import urls from '../../config/url';
-import deserializeGetLiquorByNameData from '../../deserializer/search';
 import Layout from '../../components/Layout/Layout';
 import Product from '../../components/Product/Product';
-import searchedProduct from "../../config/searchProducts.json";
+import { connect } from "react-redux";
+import { addItemToCart, removeItemFromCart } from '../../actions/cartAction';
 import './Search.css';
 
 class Search extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            searchedProduct: "Electric scateboard",
-            productList: searchedProduct //remove initialization
+            searchedProduct: "",
+            productList: []
         }
     }
 
@@ -28,55 +26,50 @@ class Search extends Component {
     }
 
     static getDerivedStateFromProps(props, state) {
-        const { location } = props;
+        const { location, searchResult } = props;
         const { searchedProduct } = state;
         if(!!location && !!location.search) {
             const item = new URLSearchParams(location.search).get("item");
-            if(item !== searchedProduct) {
+            if(item !== searchedProduct || searchResult !== state.productList) {
                 return {
-                    searchedProduct: item
+                    searchedProduct: item,
+                    productList: searchResult
                 };
             }
         }
+        return null;
     }
 
-    getProductInfo() {
-        const { searchedProduct } = this.state;
-        let request = urls.getCockTailByName;
-        request = {
-            ...request,
-            params: {i: searchedProduct}
-        }
-        axios.request(request).then((response) => {
-            const productList = deserializeGetLiquorByNameData(response.data);
-            this.setState({
-                productList,
-            })
-        }).catch((error) => {
-            console.error(error);
-        });
-        // add this data to redux store
+    onProductAddClick(item, q) {
+        const { addItemToCart } = this.props;
+        addItemToCart({...item, quantity: q});
+    }
+
+    onProductRemove(item, q) {
+        const { removeItemFromCart } = this.props;
+        removeItemFromCart({...item, quantity: q})
     }
 
     renderMainContent() {
         const { searchedProduct, productList } = this.state;
-        this.getProductInfo();
         return(
             <div className="search-result-header">
                 Results for "{searchedProduct}"
                 <div className="product-grid">
                     {
                         productList && productList.length > 0 ? (
-                            productList.map(item => (
-                                <div className="product-container">
-                                <Product
-                                    id={item.id}
-                                    itemName={item.itemName}
-                                    cost={item.cost}
-                                    originalPrice={item.originalPrice}
-                                    rating={item.rating}
-                                    prodImg={item.prodImg}
-                                />
+                            productList.map((item, idx) => (
+                                <div className="product-container" key={idx}>
+                                    <Product
+                                        id={item.id}
+                                        itemName={item.itemName}
+                                        cost={item.cost}
+                                        originalPrice={item.originalPrice}
+                                        rating={item.rating}
+                                        prodImg={item.prodImg}
+                                        onProductAddClick = {(item, q) => this.onProductAddClick(item, q)}
+                                        onProductRemove = {(item, q) => this.onProductRemove(item, q)}
+                                    />
                                 </div>
                             ))
                         ) : (
@@ -120,4 +113,17 @@ class Search extends Component {
         );
     }
 }
-export default Search;
+
+const mapStateToProps = state => ({
+    products: state.cart,
+    searchResult: state.search.searchResult
+});
+const mapDispatchToProps = dispatch => ({
+    addItemToCart: item => dispatch(addItemToCart(item)),
+    removeItemFromCart: item => dispatch(removeItemFromCart(item)),
+});
+
+export default connect(
+    mapStateToProps,
+    mapDispatchToProps
+)(Search);

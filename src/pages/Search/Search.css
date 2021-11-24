@@ -9,6 +9,7 @@
     flex-wrap: wrap;
     grid-column-gap: 10px;
     grid-row-gap: 20px;
+    padding-top: 15px;
 }
 .no-res-found {
     padding-top: 40px;

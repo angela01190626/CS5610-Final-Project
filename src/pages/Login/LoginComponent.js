@@ -1,4 +1,3 @@
-import Button from "../../components/Button/Button";
 import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import { withRouter } from "react-router-dom";
@@ -92,7 +91,6 @@ class LoginComponent extends Component {
                                       className="btn login-button login-create-button mt-4">
                                     Create account
                                 </Link>
-                                <Button text={"create Account"} onClick={e => this.demoOnClick(e)}/>
                             </div>
                         </form>
                     </div>
