@@ -15,27 +15,39 @@ class Navigation extends Component {
                 <div className="list-group">
                     <Link to="/orders" className="list-group-item">
                         <i className="fas fa-box"/>
-                        Your orders
+                            <span className="left-padding d-none d-xl-inline-block">
+                                Your orders
+                            </span>
                     </Link>
                     <Link to="/profile" className="list-group-item">
                         <i className="fas fa-cog"/>
-                            Your account settings
+                            <span className="left-padding d-none d-xl-inline-block">
+                                Your account
+                            </span>
                     </Link>
                     <Link to="/address" className="list-group-item">
                         <i className="fa fa-address-book"/>
-                            Addresses
+                            <span className="left-padding d-none d-xl-inline-block">
+                                Addresses
+                            </span>
                     </Link>
                     <Link to="/payment" className="list-group-item">
                         <i className="far fa-credit-card"/>
-                            Payment methods
+                            <span className="left-padding d-none d-xl-inline-block">
+                                Payment
+                            </span>
                     </Link>
                     <Link to="/notifications" className="list-group-item">
                         <i className="fa fa-bell"/>
-                        Notifications
+                            <span className="left-padding d-none d-xl-inline-block">
+                                Notifications
+                            </span>
                     </Link>
                     <Link to="/" className="list-group-item">
                         <i className="fas fa-sign-out-alt"/>
-                            Log out
+                            <span className="left-padding d-none d-xl-inline-block">
+                                Log out
+                            </span>
                     </Link>
                 </div>
             </>

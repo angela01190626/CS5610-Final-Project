@@ -1,9 +1,11 @@
 .button-size{
-    width: 10%;
-    float: right;
-    padding-right: 50px;
+    margin-left: 20px;
 }
 
 .input-code{
     float: right;
+}
+
+.left-padding{
+    padding-left: 4px;
 }

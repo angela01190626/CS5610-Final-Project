@@ -1,4 +1,4 @@
-import React, {useState, useEffect, Component} from 'react';
+import React, {useState} from 'react';
 import {Modal} from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Privacypolicy from "../../pages/Privacy policy/Privacypolicy";
@@ -11,9 +11,13 @@ const PopUp = () => {
 
     return (
         <>
-            <Modal show={show} onHide={handleClose}>
+            <Modal show={show} onHide={handleClose} size={"lg"}>
                 <Modal.Header closeButton>
-                    <Modal.Title>Privacy policy</Modal.Title>
+                    <Modal.Title>
+                        <span className="ps-2">
+                            Privacy policy
+                        </span>
+                    </Modal.Title>
                 </Modal.Header>
                 <Modal.Body>
                     <Privacypolicy/>

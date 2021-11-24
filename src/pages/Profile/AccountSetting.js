@@ -11,13 +11,13 @@ class AccountSetting extends Component {
             <>
                 <h1>Account Information</h1>
                 <div className="form-group row mb-3">
-                    <label htmlFor="email-address" className="col-2">Email Address</label>
+                    <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>
                     <div className="col-10">
                         <input id="email-address" type="email" className="form-control"/>
                     </div>
                 </div>
                 <div className="form-group row mb-3">
-                    <label htmlFor="password" className="col-2">Password</label>
+                    <label htmlFor="password" className="col-md-12 col-xl-2">Password</label>
                     <div className="col-10">
                         <input id="password" type="password" className="form-control"/>
                     </div>
@@ -28,25 +28,25 @@ class AccountSetting extends Component {
                 <hr/>
                 <h1>Personal Information</h1>
                 <div className="form-group row mb-3">
-                    <label htmlFor="first-name" className="col-2">First name</label>
+                    <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
                     <div className="col-10">
                         <input id="first-name" type="text" className="form-control"/>
                     </div>
                 </div>
                 <div className="form-group row mb-3">
-                    <label htmlFor="last-name" className="col-2">Last name</label>
+                    <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
                     <div className="col-10">
                         <input id="last-name" type="text" className="form-control"/>
                     </div>
                 </div>
                 <div className="form-group row mb-3">
-                    <label htmlFor="dofb" className="col-2">Date of birth</label>
+                    <label htmlFor="dofb" className="col-md-12 col-xl-2">Date of birth</label>
                     <div className="col-10">
                         <input id="dofb" type="date" className="form-control"/>
                     </div>
                 </div>
                 <div className="form-group row mb-3">
-                    <label htmlFor="number" className="col-2">Phone number</label>
+                    <label htmlFor="number" className="col-md-12 col-xl-2">Phone number</label>
                     <div className="col-10">
                         <input id="number" type="number" className="form-control"/>
                     </div>
