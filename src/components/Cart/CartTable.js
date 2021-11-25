@@ -1,4 +1,3 @@
-
 import React, {Component} from 'react';
 
 class CartTable extends Component {
@@ -56,52 +55,19 @@ class CartTable extends Component {
 
     renderCartTable() {
         const {products} = this.props;
-        // const { cartCost, numItems } = this.state;
-        const totalCost = this.calculateCartTotal().toFixed(2);
-        const numItems = this.calculateNumItems();
+
         return (
-            <div className="non-empty-cart-container">
-                <div className="cart-header">
-                    Cart: ${totalCost} ({numItems} Items)
-                </div>
+            <>
                 {
                     (products && products.length > 0) && (
 
-                    products.map((item, index) => (
-                        this.renderItem(item, index)
-                    )))
+                        products.map((item, index) => (
+                            this.renderItem(item, index)
+                        )))
                 }
-            </div>
+            </>
         );
     }
-
-    calculateCartTotal() {
-        const  {products} = this.props;
-        if(products && products.length > 0) {
-            let totalValue = products.reduce((acc, curr) => {
-                const itemCost = parseInt(curr.cost.replace(/,/g, ''));
-                return acc + (itemCost * curr.quantity)
-            }, 0)
-            return totalValue;
-        }
-        return 0;
-    }
-
-    calculateNumItems() {
-        const {products} = this.props;
-        if(products && products.length > 0) {
-            let num = products.reduce((acc, curr) => {
-                return acc + curr.quantity
-            }, 0)
-            return num;
-        }
-        return 0;
-    }
-
-    calculateTax(cartValue) {
-        return cartValue * 0.05;
-    }
-
 
 
     render() {

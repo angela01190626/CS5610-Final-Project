@@ -1,15 +1,17 @@
 import React, {Component} from 'react';
-import {connect, useSelector} from "react-redux";
+import {connect} from "react-redux";
 
 import CheckoutComponent from "./CheckoutComponent";
 import "./Checkout.css";
-import Layout from "../../components/Layout/Layout";
-import cart from "../../assets/shopping_cart.png";
-import CheckoutSummary from "./CheckoutSummary";
+
+
 import {getUserData} from "../../actions/userAction";
 import {addItemToCart, removeItemFromCart} from "../../actions/cartAction";
-import CartTable from "../../components/Cart/CartTable";
+
+
 import CartSummary from "../../components/Cart/CartSummary";
+import NavBar from "../../components/NavBar/NavBar";
+import Footer from "../../components/Footer/Footer";
 
 class Checkout extends Component {
     constructor(props) {
@@ -55,10 +57,16 @@ class Checkout extends Component {
 
     render() {
         return (
-            <div>
-                <Layout
-                    main={this.renderMainContent()}
-                />
+            <div className="container-fluid">
+                <div className="row nav-bar">
+                    <NavBar />
+                </div>
+                <div className="row root-content">
+                    {this.renderMainContent()}
+                </div>
+                <div className="row">
+                    <Footer />
+                </div>
             </div>
         );
     }

@@ -1,0 +1,28 @@
+.checkout-container > h1{
+    text-align: center;
+    padding: 10px ;
+    font-weight: 400;
+    background-color: #3f80e2;
+    border-bottom: 1px solid lightgrey;
+    color: white;
+}
+
+.checkout-container > h1 a{
+    text-decoration: none;
+    color: white;
+}
+
+.checkout_section{
+    display: flex;
+    padding: 20px;
+    margin: 0 20px;
+    border-bottom: 1px solid lightgrey;
+}
+
+.checkout_title{
+    flex: 0.2;
+}
+
+.address_detail, .payment_details, .review_items_list{
+    flex:0.8;
+}

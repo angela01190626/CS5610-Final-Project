@@ -16,14 +16,23 @@ import Cart from '../pages/Cart/Cart';
 import '../index.css';
 import Notifications from "../pages/Profile/Notifications";
 import ProductDetail from "../pages/Detail/ProductDetail";
+import {loadStripe} from "@stripe/stripe-js"
+import {Elements} from "@stripe/react-stripe-js";
 
+const promise= loadStripe('pk_test_51JzaaoGZHW3thxot5OHX6RZlaHgw1f1V0R4Klu0fL6oyeJj4RDNkzEWp9jOEBsF9Ha2SGv64evhpzub3Y5wDWTSK00Jnaflgby');
 
 const createRoutes = () => (
 
         <Router>
             <div className="container-fluid border-padding">
                 <Route exact path={["/", "/home"]} component={Home}/>
-                <Route exact path={"/checkout"} component={Checkout}/>
+
+                <Route exact path={"/checkout"}>
+                    <Elements stripe={promise}>
+                        <Checkout/>
+                    </Elements>
+                </Route>
+
                 <Route exact path={"/login"} component={Login}/>
                 <Route exact path={"/signUp"} component={SignUp}/>
                 <Route exact path={"/privacypolicy"} component={Privacypolicy}/>

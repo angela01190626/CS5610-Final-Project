@@ -1,9 +1,9 @@
-import { Link } from 'react-router-dom';
-import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
+import React, {Component} from 'react';
 import Layout from '../../components/Layout/Layout';
 import cart from "../../assets/shopping_cart.png";
-import { connect } from 'react-redux';
-import { addItemToCart, removeItemFromCart } from '../../actions/cartAction'
+import {connect} from 'react-redux';
+import {addItemToCart, removeItemFromCart} from '../../actions/cartAction'
 import './Cart.css';
 import CartTable from "../../components/Cart/CartTable";
 import CartSummary from "../../components/Cart/CartSummary";
@@ -19,8 +19,8 @@ class Cart extends Component {
     }
 
     renderEmptyCart() {
-        return(
-            <div className="empty-cart-container"> 
+        return (
+            <div className="empty-cart-container">
                 <div className="heading-text">
                     Your cart is empty
                 </div>
@@ -39,46 +39,81 @@ class Cart extends Component {
     }
 
     removeItem(item) {
-        const { removeItemFromCart } = this.props;
+        const {removeItemFromCart} = this.props;
         removeItemFromCart({...item, quantity: item.quantity});
     }
 
     addItem(item) {
-        const { addItemToCart } = this.props;
+        const {addItemToCart} = this.props;
         addItemToCart({...item, quantity: item.quantity});
 
     }
 
-    onButtonClick(){
+    onButtonClick() {
         const {history} = this.props;
 
         history.push({
-            pathname:  "/checkout"
+            pathname: "/checkout"
         });
+    }
+
+    calculateCartTotal() {
+        const { cart: { products } } = this.props;
+        let totalValue = products.reduce((acc, curr) => {
+            const itemCost = parseInt(curr.cost.replace(/,/g, ''));
+            return acc + (itemCost * curr.quantity)
+        }, 0)
+        return totalValue;
+    }
+
+    calculateNumItems() {
+        const { cart: { products } } = this.props;
+        let num = products.reduce((acc, curr) => {
+            return acc + curr.quantity
+        }, 0)
+        return num;
+    }
+
+    renderCartTable() {
+        const { cart: { products } } = this.props;
+        // const { cartCost, numItems } = this.state;
+        const totalCost = this.calculateCartTotal().toFixed(2);
+        const numItems = this.calculateNumItems();
+        return(
+            <div className="non-empty-cart-container">
+                <div className="cart-header">
+                    Cart: ${totalCost} ({numItems} Items)
+                </div>
+                <CartTable products={products}
+                           onAddClick={(item) => this.addItem(item)}
+                           onRemoveClick={(item) => this.removeItem(item)}/>
+            </div>
+        );
     }
 
     renderMainContent() {
         const { cart: { products } } = this.props;
         return (
             products.length > 0 ? (
-            <div className="cart-main-root">
-            <div className="cart-item">
-                <CartTable products={products} onAddClick={(item) => this.addItem(item)} onRemoveClick={(item) => this.removeItem(item)}/>
-            </div>
-            <div className="cart-empty-space-in-between"></div>
-            <div className="cart-bill-summary">
-                <CartSummary products={products} buttonText={'Checkout'} onButtonClick={ () => this.onButtonClick()}/>
-            </div>
-            </div>
+                <div className="cart-main-root">
+                    <div className="cart-item">
+                        {this.renderCartTable()}
+                    </div>
+                    <div className="cart-empty-space-in-between"></div>
+                    <div className="cart-bill-summary">
+                        <CartSummary products={products} buttonText={'Checkout'}
+                                     onButtonClick={() => this.onButtonClick()}/>
+                    </div>
+                </div>
             ) : (
                 this.renderEmptyCart()
             )
-                
+
         )
     }
-    
+
     render() {
-        return(
+        return (
             <div>
                 <Layout
                     main={this.renderMainContent()}
