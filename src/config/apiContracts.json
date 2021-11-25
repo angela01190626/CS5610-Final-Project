@@ -1,0 +1,271 @@
+//Catherine
+[
+    {
+        "method": "GET",
+        "path": "/getUserProfile",
+        "successCode": "HTTP 200",
+        "failCode": "HTTP 500",
+        "response": {
+            "profile": {
+                "userName": "string",
+                "role": "CUSTOMER/ADMIN",
+                "isPaidMember": "boolean",
+                "email": "email",
+                "firstName": "string",
+                "lastName": "string",
+                "addressLine1": "string",
+                "addressLine2": "string",
+                "addressLine3": "string",
+                "addressLine4": "string",
+                "city": "string",
+                "state": "string",
+                "zipcode": "string",
+                "country": "string",
+                "phone": "string",
+                "dob": "date"
+            }
+        }
+    },
+    {
+        "method": "PUT",
+        "path": "/getUserProfile",
+        "body": {
+            "userName": "string",
+            "role": "CUSTOMER/ADMIN",
+            "isPaidMember": "boolean",
+            "email": "email",
+            "firstName": "string",
+            "lastName": "string",
+            "addressLine1": "string",
+            "addressLine2": "string",
+            "addressLine3": "string",
+            "addressLine4": "string",
+            "city": "string",
+            "state": "string",
+            "zipcode": "string",
+            "country": "string",
+            "phone": "string",
+            "dob": "date"
+        },
+        "successCode": "HTTP 200",
+        "failCode": "HTTP 500",
+        "response": {
+           "profile": {
+                "userName": "string",
+                "role": "CUSTOMER/ADMIN",
+                "isPaidMember": "boolean",
+                "email": "email",
+                "firstName": "string",
+                "lastName": "string",
+                "addressLine1": "string",
+                "addressLine2": "string",
+                "addressLine3": "string",
+                "addressLine4": "string",
+                "city": "string",
+                "state": "string",
+                "zipcode": "string",
+                "country": "string",
+                "phone": "string",
+                "dob": "date"
+           }
+        }
+    },
+    {
+        "method": "POST",
+        "path": "/reviews/:productId",
+        "successCode": "HTTP 204 (no content)",
+        "failCode": "HTTP 500"
+    },
+    {
+        "method": "GET",
+        "path": "/reviews/:productId",
+        "successCode": "HTTP 200",
+        "failCode": "HTTP 500",
+        "response": {
+            "reviews": [
+                {
+                    "userName": "string",
+                    "productId": "uuid",
+                    "productName": "string",
+                    "rating": "float",
+                    "comment": "string",
+                    "photos": [
+                        "base64...",
+                        "base64...",
+                        "base64..."
+                    ]
+                }
+            ]
+        }
+    },
+    {
+        "method": "GET",
+        "path": "/getAllOrders",
+        "successCode": "HTTP 200",
+        "failCode": "HTTP 500",
+        "response": {
+            "orders": [
+                {
+                    "_id": "uuid",
+                    "orderId": "guid",
+                    "userId": "username",
+                    "orderStatus": "ORDERED/ SHIPPED/ DELIVERED/ RETURNED/ CANCELLED",
+                    "orderdate": "date",
+                    "orderPrice": "double",
+                    "estimatedDeliveryDate": "date",
+                    "paymentType": "CARD/APP",
+                    "orderItems": [
+                        {
+                            "itemName": "string",
+                            "itemPrice": "double",
+                            "quantity": "int",
+                            "productId": "uuid"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+      
+],
+
+
+//Dhruv
+[
+    {
+        "method": "GET",
+        "path": "/getDepartments",
+        "successCode": "HTTP 200",
+        "failCode": "HTTP 500",
+        "response": {
+            "departments": [
+                {
+                    "name": "string",
+                    "code": "string"
+                }
+            ]
+        }
+    },
+    {
+        "method": "GET",
+        "path": "/getCartData",
+        "successCode": "HTTP 200",
+        "failCode": "HTTP 500",
+        "response": {
+            "cartItems": [
+                {
+                    "itemName": "string",
+                    "itemPrice": "double",
+                    "quantity": "int",
+                    "productId": "uuid"
+                }
+            ]
+        }
+    },
+    {
+        "method": "POST",
+        "path": "/follow/:userId",
+        "successCode": "HTTP 204",
+        "failCode": "HTTP 500",
+    },
+    {
+        "method": "POST",
+        "path": "/trendingItems",
+        "successCode": "HTTP 200",
+        "failCode": "HTTP 500",
+        "response": {
+            "trendingItems": [
+                {
+                    "itemName": "string",
+                    "itemPrice": "double",
+                    "originalPrice": "double",
+                    "quantity": "int",
+                    "productId": "uuid",
+                    "prodImg": "base64.."
+                }
+            ]
+        }
+    },
+    {
+        "method": "PUT",
+        "path": "/updateStatus/:orderId/:status",
+        "successCode": "HTTP 204",
+        "failCode": "HTTP 500",
+    },
+],
+
+//Manushi
+[
+    {
+        "method": "POST",
+        "path": "/login",
+        "body": {
+            "username": "string",
+            "password": "string"
+        },
+        "successCode": "HTTP 204",
+        "failCode": "HTTP 500",
+    },
+    {
+        "method": "POST",
+        "path": "/signup",
+        "body": {
+            "firstName": "string",
+            "lastName": "string",
+            "email": "string",
+            "password": "string"
+        },
+        "successCode": "HTTP 200",
+        "failCode": "HTTP 500",
+        "response": {
+            //some user data
+        }
+    },
+    {
+        "method": "POST",
+        "path": "/logout",
+        "successCode": "HTTP 204",
+        "failCode": "HTTP 500",
+    },
+    {
+        "method": "GET",
+        "path": "/isloggedIn",
+        "successCode": "HTTP 200",
+        "failCode": "HTTP 500",
+        "response": {
+            "loggedIn": "true/false"
+        }
+    },
+    {
+        "method": "POST",
+        "path": "/order",
+        "successCode": "HTTP 200",
+        "body": {
+                "orderPrice": "double",
+                "paymentType": "CARD/APP",
+                "orderItems": [
+                    {
+                        "itemName": "string",
+                        "itemPrice": "double",
+                        "quantity": "int",
+                        "productId": "uuid"
+                    }
+                ]
+        },
+        "failCode": "HTTP 500",
+        "response": {
+            "order": {
+                "orderPrice": "double",
+                "paymentType": "CARD/APP",
+                "orderItems": [
+                    {
+                        "itemName": "string",
+                        "itemPrice": "double",
+                        "quantity": "int",
+                        "productId": "uuid"
+                    }
+                ]
+            }
+        }
+    }
+]
