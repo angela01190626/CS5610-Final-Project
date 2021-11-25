@@ -1,0 +1,75 @@
+{
+    "Order": {
+        "_id": "uuid",
+        "orderId": "guid",
+        "userId": "username",
+        "orderStatus": "ORDERED/ SHIPPED/ DELIVERED/ RETURNED/ CANCELLED",
+        "orderdate": "date",
+        "orderPrice": "double",
+        "estimatedDeliveryDate": "date",
+        "paymentType": "CARD/APP",
+        "orderItems": [
+            {
+                "itemName": "string",
+                "itemPrice": "double",
+                "quantity": "int",
+                "productId": "uuid"
+            }
+        ]
+    },
+    
+    "Review": {
+        "userName": "string",
+        "productId": "uuid",
+        "productName": "string",
+        "rating": "float",
+        "comment": "string",
+        "photos": [
+            "base64...",
+            "base64...",
+            "base64..."
+        ]
+    },
+
+    "Profile": {
+        "userName": "string",
+        "role": "CUSTOMER/ADMIN",
+        "isPaidMember": "boolean",
+        "email": "email",
+        "firstName": "string",
+        "lastName": "string",
+        "addressLine1": "string",
+        "addressLine2": "string",
+        "addressLine3": "string",
+        "addressLine4": "string",
+        "city": "string",
+        "state": "string",
+        "zipcode": "string",
+        "country": "string",
+        "password": "hash",
+        "phone": "string",
+        "dob": "date",
+        "orderIds": [
+            "orderId1",
+            "orderId2"
+        ]
+    },
+
+    "departments": [
+        {
+            "name": "string",
+            "code": "string"
+        }
+    ],
+
+    "trendingItems": [
+        {
+            "itemName": "string",
+            "itemPrice": "double",
+            "originalPrice": "double",
+            "quantity": "int",
+            "productId": "uuid",
+            "prodImg": "base64.."
+        }
+    ]
+}

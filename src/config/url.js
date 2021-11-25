@@ -32,6 +32,16 @@ const urls = {
           'x-rapidapi-host': 'amazon24.p.rapidapi.com',
           'x-rapidapi-key': '63f2092120mshce23dfec5b77b2bp19dcc3jsnd0de260cad64'
         }
+      },
+      
+      productCategories: {
+        method: 'GET',
+        url: 'https://amazon24.p.rapidapi.com/api/category',
+        params: {country: 'US'},
+        headers: {
+          'x-rapidapi-host': 'amazon24.p.rapidapi.com',
+          'x-rapidapi-key': '63f2092120mshce23dfec5b77b2bp19dcc3jsnd0de260cad64'
+        }
       }
 }
 export default urls;
