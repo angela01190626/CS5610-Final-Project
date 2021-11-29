@@ -1,5 +1,10 @@
 const initialState = {
-    searchResult: []
+    searchResult: [],
+    searchQuery: {
+        name: '',
+        id: '',
+        pageNum: 1
+    }
 }
 const SearchReducer = (state = initialState, action) => {
     switch(action.type) {
@@ -7,6 +12,13 @@ const SearchReducer = (state = initialState, action) => {
             return {
                 ...state,
                 searchResult: action.result
+            }
+        case 'GET_SEARCHED_VALUE':
+            return {
+                ...state,
+                searchQuery: {
+                    ...action.searchQuery
+                }
             }
         default:
             return state;

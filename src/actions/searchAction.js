@@ -4,4 +4,11 @@ export function getSearchResults(result) {
         result
     }
 }
+
+export function getSearchedValue(searchQuery) {
+    return {
+        type: 'GET_SEARCHED_VALUE',
+        searchQuery
+    }
+}
 export default getSearchResults;

@@ -21,7 +21,7 @@ export const deserializeProductSearchResult = (raw) => {
             prodImg: item.product_main_image_url,
             originalPrice: item.original_price,
             cost: item.app_sale_price,
-            rating: (!!item.evaluate_rate) ? item.evaluate_rate.toString().substr(0, 3) : '3'
+            rating: (!!item.evaluate_rate) ? parseFloat(item.evaluate_rate.toString().substr(0, 3)) : 3
         };
         return product;
     })

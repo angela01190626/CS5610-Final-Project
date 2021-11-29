@@ -108,3 +108,34 @@
     border-left: solid 5px rgb(2 113 220);
     background-color: rgb(223, 208, 208);
 }
+.dropdown-menu {
+    overflow-y: scroll;
+    height: 500px;
+}
+.dropdown-item{
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
+    /* border: solid red !important; */
+}
+.dropdown-item:hover{
+    background-color:  #619df6 !important;
+    color: white !important;
+}
+.w-logo{
+    width: 30%;
+}
+.department-container{
+    width: 15%;
+    font-size: 20px;
+}
+.nav-bar-icon{
+    margin-left: 40px;
+    margin-right: 10px;
+    font-size: 20px;
+}
+.brand-container{
+    padding-left: 10px;
+    width: 100px;
+}

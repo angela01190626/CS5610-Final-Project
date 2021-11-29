@@ -12,7 +12,7 @@ class Layout extends Component {
     }
     render() {
         return(
-            <div className="container-fluid">
+            <div className="container-fluid border-padding">
                 <div className="row nav-bar">
                     <NavBar />
                 </div>

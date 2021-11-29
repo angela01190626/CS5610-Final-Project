@@ -4,8 +4,13 @@ import Layout from '../../components/Layout/Layout';
 import Product from '../../components/Product/Product';
 import { connect } from "react-redux";
 import { addItemToCart, removeItemFromCart } from '../../actions/cartAction';
+import isLoading from '../../actions/appAction';
 import './Search.css';
-
+import Spinner from '../../components/Spinner/Spinner';
+import urls from '../../config/url';
+import { deserializeProductSearchResult } from '../../deserializer/search';
+import getSearchResults, { getSearchedValue } from '../../actions/searchAction';
+import axios from 'axios';
 class Search extends Component {
     constructor(props) {
         super(props);
@@ -18,7 +23,8 @@ class Search extends Component {
     componentDidMount() {
         const { location } = this.props;
         if(!!location && !!location.search) {
-            const item = new URLSearchParams(location.search).get("item");
+            // const item = new URLSearchParams(location.search).get("item");
+            const item = decodeURI(new URLSearchParams(location.search).get("item"));
             this.setState({
                 searchedProduct: item
             });
@@ -29,7 +35,7 @@ class Search extends Component {
         const { location, searchResult } = props;
         const { searchedProduct } = state;
         if(!!location && !!location.search) {
-            const item = new URLSearchParams(location.search).get("item");
+            const item = decodeURI(new URLSearchParams(location.search).get("item"));
             if(item !== searchedProduct || searchResult !== state.productList) {
                 return {
                     searchedProduct: item,
@@ -50,8 +56,42 @@ class Search extends Component {
         removeItemFromCart({...item, quantity: q})
     }
 
+    handlePageClick(e) {
+        // console.log(e);
+        this.fetchNextPageItems(e.selected+1);
+    }
+
+    fetchNextPageItems(pageNum) {
+        const { searchQuery, isLoading, getSearchResults, getSearchedValue } = this.props;
+        let request = urls.productSearch;
+        request = {
+            ...request,
+            params: {
+                ...request.params,
+                page: pageNum,
+                keyword: searchQuery.name,
+                filter: `https://www.amazon.com/s?k=${searchQuery.id}&rh=p_n_condition-type%3ANew&dc&qid=1637861937&ref=sr_nr_p_n_condition-type_1`
+            }
+        }
+        isLoading(true);
+        axios.request(request).then((response) => {
+            const productList = deserializeProductSearchResult(response.data.docs);
+            getSearchResults(productList);
+            isLoading(false);
+            const updatedQuery = {
+                ...searchQuery,
+                pageNum,
+            }
+            getSearchedValue(updatedQuery)
+        }).catch((error) => {
+            console.error(error); //todo: handle exception
+            isLoading(false);
+        });
+    }
+
     renderMainContent() {
         const { searchedProduct, productList } = this.state;
+        const { searchQuery } = this.props;
         return(
             <div className="search-result-header">
                 Results for "{searchedProduct}"
@@ -83,14 +123,16 @@ class Search extends Component {
                     productList && productList.length > 0 && (
                         <div className="d-flex justify-content-center mt-4">
                             <ReactPaginate
+                                initialPage={searchQuery.pageNum-1}
+                                disableInitialCallback
                                 previousLabel={"<"}
                                 nextLabel={">"}
                                 breakLabel={"..."}
                                 breakClassName={"break-me"}
-                                pageCount={10}
+                                pageCount={5}
                                 marginPagesDisplayed={2}
                                 pageRangeDisplayed={5}
-                                // onPageChange={this.handlePageClick}
+                                onPageChange={e => this.handlePageClick(e)}
                                 containerClassName={"pagination"}
                                 subContainerClassName={"pages pagination"}
                                 activeClassName={"active"}
@@ -103,11 +145,20 @@ class Search extends Component {
     }
 
     render() {
+        const { loading } = this.props;
         return(
             <div>
-                <Layout
-                    main={this.renderMainContent()}
-                />
+                {
+                    loading ? (
+                        <div>
+                            <Spinner />
+                        </div>
+                    ) : (
+                        <Layout
+                            main={this.renderMainContent()}
+                        />
+                    )
+                }
                 {/* TODO: Implement Pagination */}
             </div>
         );
@@ -116,11 +167,16 @@ class Search extends Component {
 
 const mapStateToProps = state => ({
     products: state.cart,
-    searchResult: state.search.searchResult
+    searchResult: state.search.searchResult,
+    loading: state.app.isLoading,
+    searchQuery: state.search.searchQuery
 });
 const mapDispatchToProps = dispatch => ({
     addItemToCart: item => dispatch(addItemToCart(item)),
     removeItemFromCart: item => dispatch(removeItemFromCart(item)),
+    isLoading: loading => dispatch(isLoading(loading)),
+    getSearchResults: result => dispatch(getSearchResults(result)),
+    getSearchedValue: value => dispatch(getSearchedValue(value))
 });
 
 export default connect(
