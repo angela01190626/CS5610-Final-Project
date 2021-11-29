@@ -1,4 +1,4 @@
-const serviceUrl = "http://localhost:5000";
+const serviceUrl = "https://cs5610-final-node-server.herokuapp.com";
 const urls = {
     productSearch: {
         method: 'GET',
