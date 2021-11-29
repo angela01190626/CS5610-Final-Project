@@ -14,10 +14,6 @@ import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 
 class Checkout extends Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     removeItem(item) {
         const { removeItemFromCart } = this.props;
