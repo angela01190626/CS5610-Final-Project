@@ -54,22 +54,22 @@
             "orderId2"
         ]
     },
-
-    "departments": [
-        {
-            "name": "string",
-            "code": "string"
-        }
-    ],
-
-    "trendingItems": [
-        {
-            "itemName": "string",
-            "itemPrice": "double",
-            "originalPrice": "double",
-            "quantity": "int",
-            "productId": "uuid",
-            "prodImg": "base64.."
-        }
-    ]
+    "commonConfig": {
+        "trendingItems": [
+            {
+                "itemName": "string",
+                "itemPrice": "double",
+                "originalPrice": "double",
+                "quantity": "int",
+                "productId": "uuid",
+                "prodImg": "base64.."
+            }
+        ],
+        "departments": [
+            {
+                "name": "string",
+                "code": "string"
+            }
+        ]
+    }
 }

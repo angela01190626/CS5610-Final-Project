@@ -1,33 +1,39 @@
 import React, { useState } from 'react';
-// import axios from 'axios';
+import axios from 'axios';
+import urls from '../../config/url.js';
 import { withRouter } from 'react-router';
 import { useHistory } from "react-router";
-import ReactTooltip from 'react-tooltip';
-// import urls from '../../config/url';
 import { deserializeProductSearchResult } from '../../deserializer/search.js';
 import amazonMockdata from '../../config/amazonMockdata.json'
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import './NavBar.css';
 import getSearchResults from '../../actions/searchAction';
+import isLoading from '../../actions/appAction.js';
+import { getSearchedValue } from '../../actions/searchAction';
+import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
+import Badge from '@mui/material/Badge';
 
-const departmentList = ["Stationary", "Decor", "Kitchen", "Meat", "Deli"];
-
-
-const lisOfDepartment = () => {
-    return(
-        departmentList.map((department, index) => (
-            <div className="d-list-item" key={index}>
-                {department}
-            </div>
-        ))
-    );
-}
+const getNumCartitems = (state) => state.cart.products;
 
 function NavBar() {
     const dispatch = useDispatch();
-    const [item, setItem] = useState(localStorage.getItem("searchItem"));
+    const [item, setItem] = useState(localStorage.getItem("searchItem") || '');
+    const [departments, setDepartments] = useState([]);
     const loggedIn = false; //remove hardcoding, get from rexus store.
     const history = useHistory();
+    const numItems = useSelector(getNumCartitems);
+    const fetchProductCategories = async () => {
+        let departments = [];
+        let request = urls.productCategories;
+        axios.request(request).then((response) => {
+            departments = response.data;
+            setDepartments(departments);
+        }).catch((error) => {
+            console.error(error); //todo: handle exception
+        });
+    }
+
     const onSearchClick = () => {
         if(item && item.trim() && item.length !== 0 ) {
             localStorage.setItem("searchItem", item);
@@ -66,33 +72,51 @@ function NavBar() {
         });
     }
 
-    const getNavButton = (buttonText, faClass) => {
-        return (
-            <button className="btn btn-sm btn-outline-secondary department-btn-root"
-                type="button" onClick={() => onClickNavLink(buttonText)}>
-                {!!faClass ? <span><i className={faClass}></i>&nbsp;&nbsp;&nbsp;</span> : ""}
-                {buttonText}
-            </button>
-        )
+    const onCategoryClick = (department) => {
+        // const id = department.id;
+        // console.log("Clicked on department: " , id);
+        if(!!department) {
+            fetchCategoryProducts(department).then(() => {
+                history.push({
+                    pathname:  "/search",
+                    search: `?item=${department.name}`
+                });
+            });
+        }
     }
 
-    const searchBar = () => {
-        return (
-            <>
-                <input type="text" className="form-control search-bar"
-                    placeholder="Search For Anything!"
-                    onChange={onChangeSearch}
-                    onKeyPress={onEnterClick}
-                    value={item}
-                    />
-            </>
-        )
-    }
-
-    const onLogoClick = () => {
-        history.push({
-            pathname:  "/"
-        });
+    const fetchCategoryProducts = async (department) => {
+        let request = urls.productSearch;
+        request = {
+            ...request,
+            params: {
+                ...request.params,
+                keyword: department.name,
+                page: 1,
+                filter: `https://www.amazon.com/s?k=${department.id}&rh=p_n_condition-type%3ANew&dc&qid=1637861937&ref=sr_nr_p_n_condition-type_1`
+            }
+        }
+        const searchQuery = {
+            name: department.name,
+            id: department.id,
+            pageNum: 1
+        }
+        dispatch(isLoading(true));
+        dispatch(getSearchedValue(searchQuery));
+        axios.request(request).then((response) => {
+            console.log("Making request");
+            const productList = deserializeProductSearchResult(response.data.docs);
+            const action = getSearchResults(productList);
+            dispatch(action);
+            dispatch(isLoading(false));
+        }).catch((error) => {
+            console.error(error); //todo: handle exception
+            dispatch(isLoading(false));
+        }); //DO NOT UN-COMMENT, DO NOT REMOVE
+        
+        // const products = deserializeProductSearchResult(amazonMockdata.docs);
+        // const action = getSearchResults(products);
+        // dispatch(action);
     }
 
 
@@ -102,96 +126,80 @@ function NavBar() {
         //     ...request,
         //     params: {
         //         ...request.params,
-        //         keyword: item
+        //         keyword: item,
+        //         filter: `https://www.amazon.com/s?k=${item}&rh=p_n_condition-type%3ANew&dc&qid=1637861937&ref=sr_nr_p_n_condition-type_1`
         //     }
         // }
+        const searchQuery = {
+            name: item,
+            id: item,
+            pageNum: 1
+        };
+        // dispatch(isLoading(true));
+        // dispatch(getSearchedValue(searchQuery));
         // axios.request(request).then((response) => {
         //     console.log("Making request");
         //     const productList = deserializeProductSearchResult(response.data.docs);
         //     const action = getSearchResults(productList);
         //     dispatch(action);
+        // dispatch(isLoading(false));
         // }).catch((error) => {
+        // dispatch(isLoading(false));
         //     console.error(error); //todo: handle exception
         // }); //DO NOT UN-COMMENT, DO NOT REMOVE
         
         const products = deserializeProductSearchResult(amazonMockdata.docs);
         const action = getSearchResults(products);
         dispatch(action);
+        dispatch(getSearchedValue(searchQuery));
     }
 
+    
+    departments.length === 0 && (
+        fetchProductCategories()
+    )
+    
     return (
-        <nav className="navbar navbar-light nav-bar-root">
-            <div className="col-1 d-flex justify-content-start align-items-center ml-2" onClick={onLogoClick}>
-                <span className="trademark-text">Wallcart&nbsp;&nbsp;</span>
-                <i className="fas fa-shopping-basket trademark-icon"/>
-            </div>
-
-            <div className="col-1.5 d-flex justify-content-center align-items-center"
-                    data-tip data-for='department-tooltip'>
-                {getNavButton("Departments", "fas fa-th-large")}
-                <ReactTooltip
-                    place="bottom"
-                    effect="solid"
-                    id="department-tooltip"
-                    className="department-tt-class"
-                    delayHide={1000}
-                >
-                    {lisOfDepartment()}
-                </ReactTooltip>
-            </div>
-
-            <div className="col-7 d-flex justify-content-center align-items-center">
-                {searchBar()}
-                <div className="search-icon" onClick={onSearchClick}>
-                    <i className="fas fa-search"></i>
-                </div>
-            </div>
-
-            <div className="col-0.5 d-flex justify-content-end align-items-center user-location">
-                <span className="location" data-tip data-for='location-tooltip'>
-                    <i className="fas fa-map-marker-alt"></i>
-                </span>
-                <ReactTooltip
-                    place="bottom"
-                    effect="solid"
-                    id="location-tooltip"
-                    className="extraClass"
-                    delayHide={1000}
-                >
-                    {locationTooltipContent()}
-                </ReactTooltip>
-            </div>
-
-            <div className="col-1 d-flex justify-content-center align-items-center">
+        <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
+            <Navbar.Brand className="brand-container" onClick={() => onClickNavLink("home")}>Walmart</Navbar.Brand>
+            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Collapse id="responsive-navbar-nav">
+                <Nav className="me-auto department-container">
+                <NavDropdown title="Departments" id="collasible-nav-dropdown">
                 {
-                    loggedIn ? (
-                        getNavButton("Profile", "fas fa-user")
-                    ) : (
-                        getNavButton("Sign In", "fas fa-user")
-                    )
+                    departments.map((department, idx) => (
+                        <NavDropdown.Item key={idx} onClick={() => 
+                            onCategoryClick(department)}>{department.name}</NavDropdown.Item>
+                    ))
                 }
-            </div>
+                </NavDropdown>
+                </Nav>
+                    <FormControl
+                        type="search"
+                        placeholder="Search For Anything!"
+                        aria-label="Search"
+                        onChange={onChangeSearch}
+                        onKeyDown={onEnterClick}
+                        value={item}
+                    />
+                <Nav>
+                    <Nav.Link eventKey={2} className="nav-bar-icon" onClick={() => onClickNavLink("Order")}>
+                        <i className="fas fa-shopping-bag"></i>
+                    </Nav.Link>
+                    <Nav.Link eventKey={2} className="nav-bar-icon" onClick={() => onClickNavLink(loggedIn ? "Profile" : "Sign In")}>
+                        <i className="fas fa-user-alt"></i>
+                    </Nav.Link>
 
-            <div className="col-1 d-flex justify-content-center align-items-center">
-                {getNavButton("Cart", "fas fa-shopping-cart")}
-            </div>
-
-
-        </nav>
+                    <Nav.Link eventKey={2} className="nav-bar-icon" onClick={() => onClickNavLink("Cart")}>
+                        <Badge badgeContent={numItems.length} color="primary">
+                            <i className="fas fa-shopping-cart"></i>
+                        </Badge>
+                    </Nav.Link>
+                </Nav>
+            </Navbar.Collapse>
+        </Navbar>  
     )
 
-}
-
-const locationTooltipContent = () => {
-    return (
-        <span className="d-flex">
-            <input type="text" className="form-control search-bar" placeholder="Enter zipcode"></input>
-            &nbsp;
-            <button className="btn btn-sm btn-outline-secondary go-zip-btn" type="button">
-                Go
-            </button>
-        </span>
-    )
 }
 
 export default withRouter(NavBar);

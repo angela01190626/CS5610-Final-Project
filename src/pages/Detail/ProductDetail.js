@@ -3,13 +3,37 @@ import Layout from "../../components/Layout/Layout";
 import {Rating} from "@mui/material";
 import "./detail.css";
 import { connect } from "react-redux";
+import urls from "../../config/url";
+import axios from "axios";
 
 class ProductDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: 0
+            quantity: 0,
+            productDetail: {}
         }
+    }
+
+    componentDidMount() {
+        const { productDetail } = this.state;
+        if(Object.keys(productDetail).length === 0) {
+            this.fetchProductDetails();
+        }
+    }
+
+    fetchProductDetails = async () => {
+        const request = urls.productDetail;
+        const productId = this.props.match.params.productId;
+        request.url = `${request.url}${productId}`
+        axios.request(request).then((response) => {
+            console.log("Response: ", response.data);
+            this.setState({
+                productDetail: response.data || {}
+            })
+        }).catch((error) => {
+            console.error(error); //todo: handle exception
+        });
     }
 
     addItem() {
@@ -24,21 +48,20 @@ class ProductDetail extends Component {
         });
     }
 
-
-    renderLeftContent() {
-        return(
-            <>
-
-            </>
-        )
-    }
-
     renderMainContent() {
-        const { searchResult } = this.props;
-        const prod = searchResult.find(i => i.id === this.props.match.params.productId);
+        const { productDetail } = this.state;
+        console.log("API Response: ", productDetail);
+        const prod = {
+            itemName: "Valvoline 4-Stroke Motorcycle Full Synthetic SAE 10W-40 Motor Oil 1 QT",
+            itemPrice: "7.37",
+            productId: "B00HJ6VFAW",
+            prodImg: "https://m.media-amazon.com/images/I/816ScjmorDL._AC_UL320_.jpg",
+            rating: 4.7
+        };
+        
         return (
+            (prod && Object.keys(prod).length > 0) ? (
             <>
-                {/*{JSON.stringify(prod)}*/}
                 <div className="row">
                     <div className ="col-6 p-2 center-image">
                         <img className="prod-image" src = {prod.prodImg} alt="product" />
@@ -78,16 +101,10 @@ class ProductDetail extends Component {
                         </p>
                     </div>
                 </div>
-
-
             </>
-        )
-    }
-
-    renderRightContent() {
-        return(
-            <>
-            </>
+            ) : (
+                <></>
+            )
         )
     }
 
@@ -95,9 +112,7 @@ class ProductDetail extends Component {
         return(
             <div className="container-fluid">
                 <Layout
-                    left={this.renderLeftContent()}
                     main={this.renderMainContent()}
-                    right={this.renderRightContent()}
                 />
             </div>
         )
