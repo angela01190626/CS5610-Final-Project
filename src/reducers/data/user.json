@@ -1,0 +1,12 @@
+
+{
+  "firstName": "Jane",
+  "lastName": "Doe",
+  "emailAddress": "janeDoeTest123@gmail.com",
+  "deliveryAddress1": "Test Lane",
+  "deliverAddress2": "Apt 123",
+  "city": "Boston",
+  "state": "MA",
+  "zipcode": "12345"
+}
+

@@ -1,10 +1,12 @@
-import { Link } from 'react-router-dom';
-import React, { Component } from 'react';
+import {Link} from 'react-router-dom';
+import React, {Component} from 'react';
 import Layout from '../../components/Layout/Layout';
 import cart from "../../assets/shopping_cart.png";
-import { connect } from 'react-redux';
-import { addItemToCart, removeItemFromCart } from '../../actions/cartAction'
+import {connect} from 'react-redux';
+import {addItemToCart, removeItemFromCart} from '../../actions/cartAction'
 import './Cart.css';
+import CartTable from "../../components/Cart/CartTable";
+import CartSummary from "../../components/Cart/CartSummary";
 
 class Cart extends Component {
     constructor(props) {
@@ -17,8 +19,8 @@ class Cart extends Component {
     }
 
     renderEmptyCart() {
-        return(
-            <div className="empty-cart-container"> 
+        return (
+            <div className="empty-cart-container">
                 <div className="heading-text">
                     Your cart is empty
                 </div>
@@ -37,65 +39,22 @@ class Cart extends Component {
     }
 
     removeItem(item) {
-        const { removeItemFromCart } = this.props;
+        const {removeItemFromCart} = this.props;
         removeItemFromCart({...item, quantity: item.quantity});
     }
 
     addItem(item) {
-        const { addItemToCart } = this.props;
+        const {addItemToCart} = this.props;
         addItemToCart({...item, quantity: item.quantity});
-        
+
     }
 
-    renderItem(item, index) {
-        const itemCost = parseInt(item.cost.replace(/,/g, ''));
-        return(
-            <div className="cart-tem-section-root" key={index}>
-                <div className="cart-product-image-container">
-                    <img src={item.prodImg} className="cart-prod-image" alt="product"/>
-                </div>
-                <div className="product-description">
-                    <div className="product-description-brand">
-                        {item.brandName}
-                    </div>
-                    <div className="product-description-item">
-                        {item.name}
-                    </div>
-                </div>
-                <div className="product-quantity-price">
-                    <div className="prod-quantity">
-                        <div className="prod-quantity-component-container">
-                            <i className="fas fa-minus-circle" onClick={() => this.removeItem(item)}></i>
-                            <div className="added-quantity">{item.quantity}</div>
-                            <i className="fas fa-plus-circle" onClick={() => this.addItem(item)}></i>
-                        </div>
-                    </div>
-                    <div className="prod-price">$ {(itemCost*item.quantity).toFixed(2)}</div>
-                </div>
-                <div className="product-remove">
-                    <i className="far fa-trash-alt cart-item-remove-icon"></i>
-                </div>
-            </div>
-        )
-    }
+    onButtonClick() {
+        const {history} = this.props;
 
-    renderCartTable() {
-        const { cart: { products } } = this.props;
-        // const { cartCost, numItems } = this.state;
-        const totalCost = this.calculateCartTotal().toFixed(2);
-        const numItems = this.calculateNumItems();
-        return(
-            <div className="non-empty-cart-container"> 
-                <div className="cart-header">
-                    Cart: ${totalCost} ({numItems} Items)
-                </div>
-                {
-                        products.map((item, index) => (
-                            this.renderItem(item, index)
-                        ))
-                    }
-            </div>
-        );
+        history.push({
+            pathname: "/checkout"
+        });
     }
 
     calculateCartTotal() {
@@ -115,39 +74,19 @@ class Cart extends Component {
         return num;
     }
 
-    calculateTax(cartValue) {
-        return cartValue * 0.05;
-    }
-
-    renderCartSummary() {
+    renderCartTable() {
+        const { cart: { products } } = this.props;
+        // const { cartCost, numItems } = this.state;
         const totalCost = this.calculateCartTotal().toFixed(2);
-        const totalTax = this.calculateTax(totalCost).toFixed(2);
+        const numItems = this.calculateNumItems();
         return(
             <div className="non-empty-cart-container">
-                <div className="cart-summary-header">Summary</div>
-                <div className="cart-summary-list">
-                    <div className="cart-summary-list-items">
-                        <div className="cart-summary-list-item-name">Subtotal</div>
-                        <div className="cart-summary-list-item-value">${totalCost}</div>
-                    </div>
-                    <div className="cart-summary-list-items">
-                        <div className="cart-summary-list-item-name">Discount</div>
-                        <div className="cart-summary-list-item-value">$1</div>
-                    </div>
-                    <div className="cart-summary-list-items">
-                        <div className="cart-summary-list-item-name">Taxes</div>
-                        <div className="cart-summary-list-item-value">${totalTax}</div>
-                    </div>
-                    <div className="cart-summary-list-items">
-                        <div className="cart-summary-list-item-name">Total</div>
-                        <div className="cart-summary-list-item-value">${(parseFloat(totalCost) + parseFloat(totalTax)).toFixed(2)}</div>
-                    </div>
+                <div className="cart-header">
+                    Cart: ${totalCost} ({numItems} Items)
                 </div>
-                <Link to="/home">
-                    <div className="checkout-btn">
-                        Checkout
-                    </div>
-                </Link>
+                <CartTable products={products}
+                           onAddClick={(item) => this.addItem(item)}
+                           onRemoveClick={(item) => this.removeItem(item)}/>
             </div>
         );
     }
@@ -156,24 +95,25 @@ class Cart extends Component {
         const { cart: { products } } = this.props;
         return (
             products.length > 0 ? (
-            <div className="cart-main-root">
-            <div className="cart-item">
-                {this.renderCartTable()}
-            </div>
-            <div className="cart-empty-space-in-between"></div>
-            <div className="cart-bill-summary">
-                {this.renderCartSummary()}
-            </div>
-            </div>
+                <div className="cart-main-root">
+                    <div className="cart-item">
+                        {this.renderCartTable()}
+                    </div>
+                    <div className="cart-empty-space-in-between"></div>
+                    <div className="cart-bill-summary">
+                        <CartSummary products={products} buttonText={'Checkout'}
+                                     onButtonClick={() => this.onButtonClick()}/>
+                    </div>
+                </div>
             ) : (
                 this.renderEmptyCart()
             )
-                
+
         )
     }
-    
+
     render() {
-        return(
+        return (
             <div>
                 <Layout
                     main={this.renderMainContent()}
