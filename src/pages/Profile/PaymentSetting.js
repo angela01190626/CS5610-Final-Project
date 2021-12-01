@@ -1,9 +1,15 @@
-import React, {Component} from "react";
+import React, {Component, useState} from "react";
+import PhoneInput from 'react-phone-input-2';
+import 'react-phone-input-2/lib/style.css'
 
 class PaymentSetting extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+        this.setNewValue = this.setNewValue.bind(this);
+    }
+
+    setNewValue(newValue) {
     }
 
     render() {
@@ -31,12 +37,6 @@ class PaymentSetting extends Component {
                     </div>
 
                     <div className="form-group row mb-3">
-                        <label htmlFor="card-number" className="col-md-12 col-xl-2">Card number</label>
-                        <div className="col-10">
-                            <input id="card-number" type="number" className="form-control"/>
-                        </div>
-                    </div>
-                    <div className="form-group row mb-3">
                         <label htmlFor="month" className="col-md-12 col-xl-2">MM</label>
                         <div className="col-10">
                             <input id="month" type="number" className="form-control"/>
@@ -58,7 +58,9 @@ class PaymentSetting extends Component {
                     <div className="form-group row mb-3">
                         <label htmlFor="phone-number" className="col-md-12 col-xl-2">Phone number</label>
                         <div className="col-10">
-                            <input id="phone-number" type="number" className="form-control"/>
+                            <PhoneInput className="form-control"
+                                country={'us'}
+                                onChange={this.setNewValue}/>
                         </div>
                     </div>
                 </div>
