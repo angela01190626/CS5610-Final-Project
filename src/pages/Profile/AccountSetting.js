@@ -1,9 +1,14 @@
 import React, {Component} from "react";
+import PhoneInput from "react-phone-input-2";
 
 class AccountSetting extends Component {
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {};
+        this.setNewValue = this.setNewValue.bind(this);
+    }
+
+    setNewValue(newValue) {
     }
 
     render() {
@@ -48,7 +53,9 @@ class AccountSetting extends Component {
                 <div className="form-group row mb-3">
                     <label htmlFor="number" className="col-md-12 col-xl-2">Phone number</label>
                     <div className="col-10">
-                        <input id="number" type="number" className="form-control"/>
+                        <PhoneInput className="form-control"
+                                    country={'us'}
+                                    onChange={this.setNewValue}/>
                     </div>
                 </div>
                 <div className="btn-group" role="group" aria-label="Basic example">

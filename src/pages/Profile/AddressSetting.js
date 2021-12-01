@@ -1,10 +1,20 @@
 import React, {Component} from "react";
 import './profile.css';
+import Selectusstate from 'react-select-us-states';
+import PhoneInput from "react-phone-input-2";
 
 class AddressSetting extends Component {
     constructor(props) {
         super(props);
         this.state = {}
+        this.setStateValue = this.setStateValue.bind(this);
+        this.setPhoneValue = this.setPhoneValue.bind(this);
+    }
+
+    setStateValue(newValue) {
+    }
+
+    setPhoneValue(newValue) {
     }
 
     render() {
@@ -44,7 +54,16 @@ class AddressSetting extends Component {
                     <div className="form-group row mb-3">
                         <label htmlFor="state" className="col-md-12 col-xl-2">State</label>
                         <div className="col-10">
-                            <input id="state" type="text" className="form-control"/>
+                            <Selectusstate id="myId" className="myClassName form-control" onChange={this.setStateValue}/>
+                        </div>
+                    </div>
+                    <div className="form-group row mb-3">
+                        <label htmlFor="country" className="col-md-12 col-xl-2">Country</label>
+                        <div className="col-10">
+                            <select id ="country" className="form-control">
+                                <option value="US" selected>US</option>
+                                <option value="others" disabled>Other Countries</option>
+                            </select>
                         </div>
                     </div>
                     <div className="form-group row mb-3">
@@ -56,7 +75,9 @@ class AddressSetting extends Component {
                     <div className="form-group row mb-3">
                         <label htmlFor="phone-number" className="col-md-12 col-xl-2">Phone number</label>
                         <div className="col-10">
-                            <input id="phone-number" type="number" className="form-control"/>
+                            <PhoneInput className="form-control"
+                                        country={'us'}
+                                        onChange={this.setPhoneValue}/>
                         </div>
                     </div>
 

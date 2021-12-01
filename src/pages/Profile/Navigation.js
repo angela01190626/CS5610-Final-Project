@@ -8,7 +8,7 @@ const Navigation = (
 
         return(
             <>
-                <div className="list-group">
+                <div className="list-group pt-2">
                     <Link to="/orders" className={`list-group-item ${active === 'orders' ? 'active' : ''}`}>
                         <i className="fas fa-box"/>
                             <span className="left-padding d-none d-xl-inline-block">
