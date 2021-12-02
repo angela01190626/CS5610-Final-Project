@@ -14,9 +14,12 @@ import urls from '../../config/url';
 import axios from 'axios';
 import PopUp from "../../components/Popup/PopUp";
 import {connect} from "react-redux";
+import { withRouter } from "react-router";
 import Spinner from '../../components/Spinner/Spinner';
 import isLoading from '../../actions/appAction'; 
+import getSearchResults, { getSearchedValue } from '../../actions/searchAction';
 import addItemToCart, { removeItemFromCart } from '../../actions/cartAction';
+import { deserializeProductSearchResult } from '../../deserializer/search';
 
 let maxCards = 0;
 class Home extends Component {
@@ -26,7 +29,7 @@ class Home extends Component {
         this.state = {
             commonCategoryIndex: 0,
             offerItemsIndex: 0,
-            trendingItems: []
+            trendingItems: [],
         }
     }
 
@@ -79,6 +82,38 @@ class Home extends Component {
         removeItemFromCart({...item, quantity: q})
     }
 
+    onClickGroceryCat(category) {
+        const { history, isLoading, getSearchResults, getSearchedValue } = this.props;
+        let request = urls.productSearch;
+        request = {
+            ...request,
+            params: {
+                ...request.params,
+                keyword: category.name,
+                filter: `https://www.amazon.com/s?k=${category.categoryId}&rh=p_n_condition-type%3ANew&dc&qid=1637861937&ref=sr_nr_p_n_condition-type_1`
+            }
+        };
+        const searchQuery = {
+            name: category.name,
+            id: category.categoryId,
+            pageNum: 1
+        };
+        isLoading(true);
+        getSearchedValue(searchQuery);
+        axios.request(request).then((response) => {
+            const productList = deserializeProductSearchResult(response.data.docs);
+            getSearchResults(productList);
+            isLoading(false);
+            history.push({
+                pathname:  "/search",
+                search: `?item=${category.name}`
+            });
+        }).catch((error) => {
+            isLoading(false);
+            console.error(error); //todo: handle exception
+        });
+    }
+
     renderMainContent() {
         const { trendingItems } = this.state;
         return(
@@ -105,9 +140,8 @@ class Home extends Component {
                 </Carousel>
                 </div>
                 <br/>
-                <Label text={"Your Favourite Categories"} customClass="grey-medium-bold-label" />
+                <Label text={"Shop Daily Groceries"} customClass="grey-medium-bold-label" />
                 <div>
-                    {/* TODO: Add responsiveness */}
                     <ItemsCarousel
                             gutter={10}
                             chevronWidth={60}
@@ -121,13 +155,79 @@ class Home extends Component {
                     >
                         {
                             CommonCategory.map((category, idx) => (
-                                <Category CategoryLabel={category.name} key={idx} bgImage={category.bgImage}/>  
+                                <div onClick={() => this.onClickGroceryCat(category)}>
+                                    <Category CategoryLabel={category.name}
+                                        key={idx}
+                                        bgImage={category.bgImage}/>  
+                                </div>
                             ))
                         }
                         </ItemsCarousel>
                 </div>
                 <br/>
                 <Label text={"Dont miss these offers"} customClass="grey-medium-bold-label" />
+                <ItemsCarousel
+                            gutter={10}
+                            chevronWidth={60}
+                            numberOfCards={maxCards || 4}
+                            slidesToScroll={2}   
+                            outsideChevron={true}
+                            activeItemIndex={this.state.offerItemsIndex}
+                            requestToChangeActive={value => this.setState({ offerItemsIndex: value })}
+                            rightChevron={'>'}
+                            leftChevron={'<'}
+                    >
+                        {
+                            trendingItems.map((item, idx) => (
+                                <Product
+                                    key={idx}
+                                    id={item.productId}
+                                    itemName={item.itemName}
+                                    cost={item.itemPrice}
+                                    originalPrice={item.originalPrice}
+                                    rating={(!!item.rating) ? parseFloat(item.rating.toString().substr(0, 3)) : 3}
+                                    prodImg={item.prodImg}
+                                    onProductAddClick = {(item, q) => this.onProductAddClick(item, q)}
+                                    onProductRemove = {(item, q) => this.onProductRemove(item, q)}
+                                />
+                            ))
+                        }
+                </ItemsCarousel>
+
+                <br/>
+                <br/>
+                <Label text={"Popular in sports & outdoors"} customClass="grey-medium-bold-label" />
+                <ItemsCarousel
+                            gutter={10}
+                            chevronWidth={60}
+                            numberOfCards={maxCards || 4}
+                            slidesToScroll={2}   
+                            outsideChevron={true}
+                            activeItemIndex={this.state.offerItemsIndex}
+                            requestToChangeActive={value => this.setState({ offerItemsIndex: value })}
+                            rightChevron={'>'}
+                            leftChevron={'<'}
+                    >
+                        {
+                            trendingItems.map((item, idx) => (
+                                <Product
+                                    key={idx}
+                                    id={item.productId}
+                                    itemName={item.itemName}
+                                    cost={item.itemPrice}
+                                    originalPrice={item.originalPrice}
+                                    rating={(!!item.rating) ? parseFloat(item.rating.toString().substr(0, 3)) : 3}
+                                    prodImg={item.prodImg}
+                                    onProductAddClick = {(item, q) => this.onProductAddClick(item, q)}
+                                    onProductRemove = {(item, q) => this.onProductRemove(item, q)}
+                                />
+                            ))
+                        }
+                </ItemsCarousel>
+
+                <br/>
+                <br/>
+                <Label text={"Save on Computers and peripheral"} customClass="grey-medium-bold-label" />
                 <ItemsCarousel
                             gutter={10}
                             chevronWidth={60}
@@ -209,13 +309,12 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     addItemToCart: item => dispatch(addItemToCart(item)),
     removeItemFromCart: item => dispatch(removeItemFromCart(item)),
-    isLoading: loading => dispatch(isLoading(loading))
+    isLoading: loading => dispatch(isLoading(loading)),
+    getSearchedValue: value => dispatch(getSearchedValue(value)),
+    getSearchResults: result => dispatch(getSearchResults(result)),
 });
-export default connect(mapStateToProps, mapDispatchToProps)(Home);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
 
                     
 //TODO: add data retention to product component
-//TODO: favourite category
 //TODO: add more sections to home screen
-//TODO: add more trending items
-//TODO: api to fetch carousel items

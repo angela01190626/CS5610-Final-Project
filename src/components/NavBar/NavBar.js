@@ -121,37 +121,36 @@ function NavBar() {
 
 
     const fetchSearchResults = async () => {
-        // let request = urls.productSearch;
-        // request = {
-        //     ...request,
-        //     params: {
-        //         ...request.params,
-        //         keyword: item,
-        //         filter: `https://www.amazon.com/s?k=${item}&rh=p_n_condition-type%3ANew&dc&qid=1637861937&ref=sr_nr_p_n_condition-type_1`
-        //     }
-        // }
+        let request = urls.productSearch;
+        request = {
+            ...request,
+            params: {
+                ...request.params,
+                keyword: item,
+                filter: `https://www.amazon.com/s?k=${item}&rh=p_n_condition-type%3ANew&dc&qid=1637861937&ref=sr_nr_p_n_condition-type_1`
+            }
+        }
         const searchQuery = {
             name: item,
             id: item,
             pageNum: 1
         };
-        // dispatch(isLoading(true));
-        // dispatch(getSearchedValue(searchQuery));
-        // axios.request(request).then((response) => {
-        //     console.log("Making request");
-        //     const productList = deserializeProductSearchResult(response.data.docs);
-        //     const action = getSearchResults(productList);
-        //     dispatch(action);
-        // dispatch(isLoading(false));
-        // }).catch((error) => {
-        // dispatch(isLoading(false));
-        //     console.error(error); //todo: handle exception
-        // }); //DO NOT UN-COMMENT, DO NOT REMOVE
-        
-        const products = deserializeProductSearchResult(amazonMockdata.docs);
-        const action = getSearchResults(products);
-        dispatch(action);
+        dispatch(isLoading(true));
         dispatch(getSearchedValue(searchQuery));
+        axios.request(request).then((response) => {
+            const productList = deserializeProductSearchResult(response.data.docs);
+            const action = getSearchResults(productList);
+            dispatch(action);
+        dispatch(isLoading(false));
+        }).catch((error) => {
+        dispatch(isLoading(false));
+            console.error(error); //todo: handle exception
+        }); //DO NOT UN-COMMENT, DO NOT REMOVE
+        
+        // const products = deserializeProductSearchResult(amazonMockdata.docs);
+        // const action = getSearchResults(products);
+        // dispatch(action);
+        // dispatch(getSearchedValue(searchQuery));
     }
 
     

@@ -2,7 +2,7 @@ import React from 'react';
 import Label from '../Label/Label';
 import "./Category.css";
 
-const Category = ({CategoryLabel, bgImage}) => {
+const Category = ({CategoryLabel, bgImage, onCategoryClick}) => {
     //TODO: to add background image to div.
     const imgStyle = {
         backgroundImage: `url(${bgImage})`
