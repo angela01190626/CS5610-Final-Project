@@ -3,10 +3,6 @@ import {withRouter} from "react-router";
 
 
 class CartSummary extends Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     calculateCartTotal() {
         const { products } = this.props;

@@ -15,10 +15,6 @@ import Footer from "../../components/Footer/Footer";
 import {withRouter} from "react-router-dom";
 
 class Checkout extends Component {
-    constructor(props) {
-        super(props);
-
-    }
 
     removeItem(item) {
         const { removeItemFromCart } = this.props;

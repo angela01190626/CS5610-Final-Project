@@ -2,13 +2,10 @@ import React, {Component} from 'react';
 import {Link} from "react-router-dom";
 import {withRouter} from "react-router-dom";
 import CartTable from "../../components/Cart/CartTable";
-import {CardElement, useStripe, useElements} from "@stripe/react-stripe-js";
+import {CardElement} from "@stripe/react-stripe-js";
 
 class CheckoutComponent extends Component {
-    constructor(props) {
-        super(props);
-    }
-
+    
     removeItem(item) {
         const {removeItemFromCart} = this.props;
         removeItemFromCart({...item, quantity: item.quantity});

@@ -1,30 +1,37 @@
 [
     {
         "name": "Fruits",
-        "bgImage": ""
+        "bgImage": "",
+        "categoryId": "wholefoods"
     },
     {
         "name": "Vegetables",
-        "bgImage": ""
+        "bgImage": "",
+        "categoryId": "wholefoods"
     },
     {
         "name": "Meat",
-        "bgImage": ""
+        "bgImage": "",
+        "categoryId": "wholefoods"
     },
     {
         "name": "Sea Food",
-        "bgImage": ""
+        "bgImage": "",
+        "categoryId": "wholefoods"
     },
     {
         "name": "Bathroom & Kitchen",
-        "bgImage": ""
+        "bgImage": "",
+        "categoryId": "wholefoods"
     },
     {
         "name": "Personal Care",
-        "bgImage": ""
+        "bgImage": "",
+        "categoryId": "wholefoods"
     },
     {
         "name": "Dairy, Eggs & Cheese",
-        "bgImage": ""
+        "bgImage": "",
+        "categoryId": "wholefoods"
     }
 ]
