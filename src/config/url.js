@@ -1,4 +1,9 @@
-const serviceUrl = "https://cs5610-final-node-server.herokuapp.com";
+let serviceUrl = "https://cs5610-final-node-server.herokuapp.com";
+
+if (process.env.NODE_ENV !== 'production') {
+  serviceUrl = 'http://localhost:5000'
+}
+
 const urls = {
     productSearch: {
         method: 'GET',

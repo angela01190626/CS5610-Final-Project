@@ -12,6 +12,7 @@ import {addItemToCart, removeItemFromCart} from "../../actions/cartAction";
 import CartSummary from "../../components/Cart/CartSummary";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
+import {withRouter} from "react-router-dom";
 
 class Checkout extends Component {
     constructor(props) {
@@ -45,7 +46,7 @@ class Checkout extends Component {
 
             <div className="row mt-2">
                 <div className="col-8">
-                    <CheckoutComponent user={user} products={products} onAddClick={(item) => this.addItem(item)} onRemoveClick={(item) => this.removeItem(item)}/>
+                    <CheckoutComponent user={user} products={products} addItemToCart={(item) => this.addItem(item)} removeItemFromCart={(item) => this.removeItem(item)}/>
                 </div>
                 <div className="col-4">
                     <CartSummary products={products} buttonText={'Order Now'} onButtonClick={ () => this.onButtonClick()}/>
@@ -83,4 +84,4 @@ const mapDispatchToProps = dispatch => ({
     getUserData: item => dispatch(getUserData(item))
 });
 
-export default connect(mapStateToProps, mapDispatchToProps)(Checkout);
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Checkout));
