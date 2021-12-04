@@ -49,18 +49,23 @@ class ProductDetail extends Component {
 
     renderMainContent() {
         const { productDetail } = this.state;
-        console.log("API Response: ", productDetail);
+        console.log("API Response: ", productDetail["product_id"]);
+        console.log("API Response: ", productDetail["product_title"]);
+        console.log("API Response: ", productDetail["app_sale_price"]);
         const prod = {
-            itemName: "Valvoline 4-Stroke Motorcycle Full Synthetic SAE 10W-40 Motor Oil 1 QT",
-            itemPrice: "7.37",
-            productId: "B00HJ6VFAW",
-            prodImg: "https://m.media-amazon.com/images/I/816ScjmorDL._AC_UL320_.jpg",
-            rating: 4.7
+            itemName: productDetail["product_title"],
+            itemPrice: productDetail["app_sale_price"],
+            productId: productDetail["product_id"],
+            prodImg: productDetail["product_main_image_url"],
+            rating: 4.7,
+            detail: productDetail["feature_bullets"],
+            available_quantity: productDetail["available_quantity"]
         };
         
         return (
             (prod && Object.keys(prod).length > 0) ? (
             <>
+                {/*{JSON.stringify(productDetail)}*/}
                 <div className="row">
                     <div className ="col-6 p-2 center-image">
                         <img className="prod-image" src = {prod.prodImg} alt="product" />
@@ -70,12 +75,12 @@ class ProductDetail extends Component {
                         <div className="product-align-left p-1"><Rating className="pe-1" name="size-small" readOnly value={prod.rating} size="small"/>({prod.rating})<u className="ps-1">{prod.reviews} reviews</u></div>
                         <br/>
                         <div className="product-price p-1">
-                            ${prod.cost} {prod.cost !== prod.originalPrice && (<span className="original-price">{prod.originalPrice}</span>)}
+                            ${prod.itemPrice} {prod.itemPrice !== prod.originalPrice && (<span className="original-price">{prod.originalPrice}</span>)}
                         </div>
                         <br/>
                         <br/>
                         {
-                            this.state.quantity === 0 ? (
+                            (this.state.quantity === 0) ? (
                                 <div className="add-button" onClick={() => this.addItem()}>Add to cart</div>
                             ) : (
                                 <div className="add-button">
@@ -96,8 +101,25 @@ class ProductDetail extends Component {
                         Product details
 
                         <p className="detail-para">
-                            <b>{prod.detail}</b>
+                            <b>
+                                {/*format should be modified*/}
+                                {prod.detail}
+                                {/*{JSON.stringify(prod.detail)}*/}
+
+                            </b>
                         </p>
+                        {/*<ul className="list-group">*/}
+                        {/*    {*/}
+                        {/*        prod.detail.map(function (d,index) {*/}
+                        {/*            return (*/}
+                        {/*                <li key={index} className="list-group-item">*/}
+                        {/*                    <span>{JSON.parse(d[index])}</span>*/}
+                        {/*                </li>*/}
+                        {/*            );*/}
+                        {/*        })*/}
+                        {/*    }*/}
+                        {/*</ul>*/}
+
                     </div>
                 </div>
             </>
