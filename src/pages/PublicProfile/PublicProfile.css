@@ -1,0 +1,71 @@
+.left-pane-container {
+    /* border: solid red; */
+    height: 100%;
+    background-image: url("https://previews.123rf.com/images/9comeback/9comeback1307/9comeback130700004/20723947-red-yellow-bokeh-abstract-light-background.jpg");
+}
+.profile-pic-container {
+    display: flex;
+    justify-content: center;
+}
+.profile-pic {
+    margin-top: 50px;
+    border: solid 1px black;
+    border-radius: 100%;
+    height: 80%;
+    width: 80%;
+}
+
+.main-container {
+    margin-top: 50px;
+}
+.user-name{
+    font-size: 50px;
+    font-weight: 500;
+    color: rgb(94, 94, 94);
+}
+
+.prime-status{
+    font-size: 20px;
+    color: rgb(66, 142, 255);
+    font-weight: 600;
+}
+.follow-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    margin-top: 50px;
+}
+.review-container {
+    margin-top: 20px;
+    border: solid 1px rgb(135, 135, 135);
+    height: calc(100vh - 40vh);
+    /* padding-left: 10px; */
+    display: flex;
+    flex-direction: column;
+}
+.rc-header {
+    padding-left: 10px;
+    width: 100%;
+    font-size: 30px;
+    background-color: rgb(86, 193, 250);
+}
+.rc-table{
+    height: calc(100% - 40px);
+    /* border: solid green; */
+    overflow-y: auto;
+}
+.rc-review {
+    /* border: solid steelblue; */
+}
+.review-heading-container {
+    display: flex;
+    flex-direction: column;
+}
+.review-heading-1 {
+    font-weight: 800;
+    color: rgb(53, 52, 52);
+}
+.review-heading-2 {
+    font-weight: 600;
+    color: rgb(92, 92, 92);
+}

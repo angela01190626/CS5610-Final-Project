@@ -24,8 +24,7 @@ class ProductDetail extends Component {
 
     fetchProductDetails = async () => {
         const request = urls.productDetail;
-        const productId = this.props.match.params.productId;
-        request.url = `${request.url}${productId}`
+        request.url = `${request.url}${'B00PFI0ATS'}`
         axios.request(request).then((response) => {
             console.log("Response: ", response.data);
             this.setState({

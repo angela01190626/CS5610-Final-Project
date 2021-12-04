@@ -27,4 +27,13 @@ export const deserializeProductSearchResult = (raw) => {
     })
     return productList;
 }
+
+export const getItemQuantity = (cart, id) => {
+    const product = cart.find(prod => prod.id === id);
+    if(!!product) {
+        return product.quantity;
+    } 
+    return 0;
+}
+
 export default deserializeGetLiquorByNameData;

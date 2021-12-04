@@ -10,7 +10,7 @@ class Product extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            quantity: 0,
+            quantity: this.props.quantity ? this.props.quantity : 0,
             productInfo: {
                 id: this.props.id,
                 name: this.props.itemName,
@@ -46,16 +46,6 @@ class Product extends Component {
             search: `?id=${this.props.itemName}`
         });
     }
-
-    // onClickImage() {
-    //     const {history} = this.props;
-    //     // const {itemName} = this.props;
-    //     // console.log(this.props);
-    //     history.push({
-    //         pathname:  "/details",
-    //         search: `?id=${this.props._id}`
-    //     });
-    // }
 
     render() {
         const imgStyle = {
