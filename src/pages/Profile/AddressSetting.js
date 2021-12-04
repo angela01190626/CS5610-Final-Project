@@ -1,6 +1,6 @@
 import React, {Component} from "react";
 import './profile.css';
-import Selectusstate from 'react-select-us-states';
+import SelectUSState from 'react-select-us-states';
 import PhoneInput from "react-phone-input-2";
 
 class AddressSetting extends Component {
@@ -54,7 +54,7 @@ class AddressSetting extends Component {
                     <div className="form-group row mb-3">
                         <label htmlFor="state" className="col-md-12 col-xl-2">State</label>
                         <div className="col-10">
-                            <Selectusstate id="myId" className="myClassName form-control" onChange={this.setStateValue}/>
+                            <SelectUSState id="myId" className="myClassName form-control" onChange={this.setStateValue}/>
                         </div>
                     </div>
                     <div className="form-group row mb-3">
@@ -75,7 +75,7 @@ class AddressSetting extends Component {
                     <div className="form-group row mb-3">
                         <label htmlFor="phone-number" className="col-md-12 col-xl-2">Phone number</label>
                         <div className="col-10">
-                            <PhoneInput className="form-control"
+                            <PhoneInput className="form-control" style={{width: "100%"}}
                                         country={'us'}
                                         onChange={this.setPhoneValue}/>
                         </div>

@@ -15,7 +15,7 @@ const urls = {
         },
         headers: {
           'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-          'x-rapidapi-key': '63f2092120mshce23dfec5b77b2bp19dcc3jsnd0de260cad64'
+          'x-rapidapi-key': 'b66d70dd24msh3923fbc8c0d09dap1dca70jsn2d8b5647d281'
         }
       },
 
@@ -25,7 +25,7 @@ const urls = {
         params: {country: 'US'},
         headers: {
           'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-          'x-rapidapi-key': '63f2092120mshce23dfec5b77b2bp19dcc3jsnd0de260cad64'
+          'x-rapidapi-key': 'b66d70dd24msh3923fbc8c0d09dap1dca70jsn2d8b5647d281'
         }
       },
 
@@ -35,7 +35,7 @@ const urls = {
         params: {country: 'US', page: '1'},
         headers: {
           'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-          'x-rapidapi-key': '63f2092120mshce23dfec5b77b2bp19dcc3jsnd0de260cad64'
+          'x-rapidapi-key': 'b66d70dd24msh3923fbc8c0d09dap1dca70jsn2d8b5647d281'
         }
       },
       
