@@ -16,6 +16,7 @@ import Cart from '../pages/Cart/Cart';
 import '../index.css';
 import Notifications from "../pages/Profile/Notifications";
 import ProductDetail from "../pages/Detail/ProductDetail";
+import PublicProfile from '../pages/PublicProfile/PublicProfile';
 import {loadStripe} from "@stripe/stripe-js"
 import {Elements} from "@stripe/react-stripe-js";
 
@@ -37,6 +38,7 @@ const createRoutes = () => (
                 <Route exact path={"/signUp"} component={SignUp}/>
                 <Route exact path={"/privacypolicy"} component={Privacypolicy}/>
                 <Route exact path={"/profile"} component={Profile}/>
+                <Route exact path={"/profile/:profileId"} component={PublicProfile}/>
                 <Route exact path={"/orders"} component={Orders}/>
                 <Route exact path={"/address"} component={Address}/>
                 <Route exact path={"/payment"} component={Payment}/>

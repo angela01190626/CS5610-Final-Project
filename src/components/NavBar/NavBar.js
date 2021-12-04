@@ -4,7 +4,6 @@ import urls from '../../config/url.js';
 import { withRouter } from 'react-router';
 import { useHistory } from "react-router";
 import { deserializeProductSearchResult } from '../../deserializer/search.js';
-import amazonMockdata from '../../config/amazonMockdata.json'
 import { useDispatch, useSelector } from "react-redux";
 import './NavBar.css';
 import getSearchResults from '../../actions/searchAction';

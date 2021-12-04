@@ -10,7 +10,9 @@ import Spinner from '../../components/Spinner/Spinner';
 import urls from '../../config/url';
 import { deserializeProductSearchResult } from '../../deserializer/search';
 import getSearchResults, { getSearchedValue } from '../../actions/searchAction';
+import { getItemQuantity } from '../../deserializer/search';
 import axios from 'axios';
+
 class Search extends Component {
     constructor(props) {
         super(props);
@@ -57,7 +59,6 @@ class Search extends Component {
     }
 
     handlePageClick(e) {
-        // console.log(e);
         this.fetchNextPageItems(e.selected+1);
     }
 
@@ -91,7 +92,7 @@ class Search extends Component {
 
     renderMainContent() {
         const { searchedProduct, productList } = this.state;
-        const { searchQuery } = this.props;
+        const { searchQuery, cart } = this.props;
         return(
             <div className="search-result-header">
                 Results for "{searchedProduct}"
@@ -101,6 +102,7 @@ class Search extends Component {
                             productList.map((item, idx) => (
                                 <div className="product-container" key={idx}>
                                     <Product
+                                        quantity={getItemQuantity(cart.products, item.id)}
                                         id={item.id}
                                         itemName={item.itemName}
                                         cost={item.cost}
@@ -166,7 +168,7 @@ class Search extends Component {
 }
 
 const mapStateToProps = state => ({
-    products: state.cart,
+    cart: state.cart,
     searchResult: state.search.searchResult,
     loading: state.app.isLoading,
     searchQuery: state.search.searchQuery

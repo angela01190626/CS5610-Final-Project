@@ -1,7 +1,7 @@
 let serviceUrl = "https://cs5610-final-node-server.herokuapp.com";
 
 if (process.env.NODE_ENV !== 'production') {
-  serviceUrl = 'http://localhost:5000'
+  serviceUrl = 'http://localhost:4000'
 }
 
 const urls = {
@@ -15,7 +15,7 @@ const urls = {
         },
         headers: {
           'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-          'x-rapidapi-key': 'b66d70dd24msh3923fbc8c0d09dap1dca70jsn2d8b5647d281'
+          'x-rapidapi-key': '8d8aac75fcmshe804b50a63163a1p1e144ajsn820ef7f4ca55'
         }
       },
 
@@ -47,6 +47,16 @@ const urls = {
       getTrendingItems: {
         method: 'GET',
         url: `${serviceUrl}/api/trendingItems`
+      },
+
+      getSportsItems: {
+        method: 'GET',
+        url: `${serviceUrl}/api/sportsItems`
+      },
+
+      getComputerItems: {
+        method: 'GET',
+        url: `${serviceUrl}/api/computerPeripherals`
       }
 
 }
