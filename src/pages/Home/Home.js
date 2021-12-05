@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import Layout from '../../components/Layout/Layout';
 import Category from '../../components/Category/Category';
 import CommonCategory from "../../config/CommonCategories.json"
-// import offer from "../../config/offer.json";
 import { Carousel } from 'react-responsive-carousel';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 import HomeCarouselImages from '../../config/HomeCarouselImages.json';
@@ -20,6 +19,7 @@ import isLoading from '../../actions/appAction';
 import getSearchResults, { getSearchedValue } from '../../actions/searchAction';
 import addItemToCart, { removeItemFromCart } from '../../actions/cartAction';
 import { deserializeProductSearchResult } from '../../deserializer/search';
+import { getItemQuantity } from '../../deserializer/search';
 
 let maxCards = 0;
 class Home extends Component {
@@ -28,14 +28,20 @@ class Home extends Component {
         super(props);
         this.state = {
             commonCategoryIndex: 0,
+            sportsAndOutdoor: 0,
+            itAndPeripherals: 0,
             offerItemsIndex: 0,
             trendingItems: [],
+            sportsItems: [],
+            computerItems: []
         }
     }
 
     componentDidMount() {
         localStorage.removeItem("searchItem");
         this.fetchTrendingItems();
+        this.fetchSportsItems();
+        this.fetchComputerItems();
         this.getMaxCards();
         window.addEventListener('resize', this.getMaxCards);
     }
@@ -55,6 +61,36 @@ class Home extends Component {
         });
     }
 
+    fetchSportsItems = async () => {
+        const { isLoading } = this.props;
+        let request = urls.getSportsItems;
+        isLoading(true);
+        axios.request(request).then((response) => {
+            this.setState({
+                sportsItems: (response && response.data) || []
+            });
+            isLoading(false);
+        }).catch((error) => {
+            isLoading(false);
+            console.error(error); //todo: handle exception
+        });
+    }
+
+    fetchComputerItems = async () => {
+        const { isLoading } = this.props;
+        let request = urls.getComputerItems;
+        isLoading(true);
+        axios.request(request).then((response) => {
+            this.setState({
+                computerItems: (response && response.data) || []
+            });
+            isLoading(false);
+        }).catch((error) => {
+            isLoading(false);
+            console.error(error); //todo: handle exception
+        });
+    }
+
     getMaxCards() {
         const width = window.screen.width;
         console.log("AAAA : ", width);
@@ -62,7 +98,7 @@ class Home extends Component {
         if(width < 1120) {
             numCards = 2;
         } else if(width < 1500) {
-            numCards = 3;
+            numCards = 4;
         } else if(width < 1900) {
             numCards = 4;
         } else {
@@ -115,7 +151,8 @@ class Home extends Component {
     }
 
     renderMainContent() {
-        const { trendingItems } = this.state;
+        const { trendingItems, sportsItems, computerItems } = this.state;
+        const { cartItems } = this.props;
         return(
             <div>
                 <PopUp/>
@@ -140,6 +177,31 @@ class Home extends Component {
                 </Carousel>
                 </div>
                 <br/>
+
+                
+                {/* <div>
+                    <Carousel
+                        interval={4000}
+                        autoPlay
+                        infiniteLoop
+                        showArrows={true}
+                        onChange={()=>{}}
+                        onClickItem={()=>{}}
+                        onClickThumb={()=>{}}
+                        showThumbs={false}>
+                        {
+                            CommonCategory.map((category, idx) => (
+                                <div onClick={() => this.onClickGroceryCat(category)}>
+                                    <Category CategoryLabel={category.name}
+                                        key={idx}
+                                        bgImage={category.bgImage}/>  
+                                </div>
+                            ))
+                        }
+                        
+                    </Carousel>
+                </div> */}
+
                 <Label text={"Shop Daily Groceries"} customClass="grey-medium-bold-label" />
                 <div>
                     <ItemsCarousel
@@ -180,6 +242,7 @@ class Home extends Component {
                         {
                             trendingItems.map((item, idx) => (
                                 <Product
+                                    quantity={getItemQuantity(cartItems, item.productId)}
                                     key={idx}
                                     id={item.productId}
                                     itemName={item.itemName}
@@ -203,14 +266,15 @@ class Home extends Component {
                             numberOfCards={maxCards || 4}
                             slidesToScroll={2}   
                             outsideChevron={true}
-                            activeItemIndex={this.state.offerItemsIndex}
-                            requestToChangeActive={value => this.setState({ offerItemsIndex: value })}
+                            activeItemIndex={this.state.sportsAndOutdoor}
+                            requestToChangeActive={value => this.setState({ sportsAndOutdoor: value })}
                             rightChevron={'>'}
                             leftChevron={'<'}
                     >
                         {
-                            trendingItems.map((item, idx) => (
+                            sportsItems.map((item, idx) => (
                                 <Product
+                                    quantity={getItemQuantity(cartItems, item.productId)}
                                     key={idx}
                                     id={item.productId}
                                     itemName={item.itemName}
@@ -234,14 +298,15 @@ class Home extends Component {
                             numberOfCards={maxCards || 4}
                             slidesToScroll={2}   
                             outsideChevron={true}
-                            activeItemIndex={this.state.offerItemsIndex}
-                            requestToChangeActive={value => this.setState({ offerItemsIndex: value })}
+                            activeItemIndex={this.state.itAndPeripherals}
+                            requestToChangeActive={value => this.setState({ itAndPeripherals: value })}
                             rightChevron={'>'}
                             leftChevron={'<'}
                     >
                         {
-                            trendingItems.map((item, idx) => (
+                            computerItems.map((item, idx) => (
                                 <Product
+                                    quantity={getItemQuantity(cartItems, item.productId)}
                                     key={idx}
                                     id={item.productId}
                                     itemName={item.itemName}
@@ -304,7 +369,8 @@ class Home extends Component {
 }
 
 const mapStateToProps = state => ({
-    loading: state.app.isLoading
+    loading: state.app.isLoading,
+    cartItems: state.cart.products
 });
 const mapDispatchToProps = dispatch => ({
     addItemToCart: item => dispatch(addItemToCart(item)),
@@ -316,5 +382,4 @@ const mapDispatchToProps = dispatch => ({
 export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Home));
 
                     
-//TODO: add data retention to product component
-//TODO: add more sections to home screen
+//TODO: create follow page

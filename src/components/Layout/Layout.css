@@ -5,7 +5,7 @@
     min-height: calc(100vh - 170px);
 }
 .side-bar{
-    /* border: solid red; */
+    padding: 0 !important;
 }
 .main-content {
 }
