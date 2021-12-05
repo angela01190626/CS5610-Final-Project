@@ -47,6 +47,11 @@ const urls = {
       getTrendingItems: {
         method: 'GET',
         url: `${serviceUrl}/api/trendingItems`
+      },
+
+      getProfile: {
+        method: 'GET',
+        url: `${serviceUrl}/api/user/`
       }
 
 }

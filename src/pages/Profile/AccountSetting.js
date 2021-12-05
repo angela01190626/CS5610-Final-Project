@@ -4,27 +4,30 @@ import PhoneInput from "react-phone-input-2";
 class AccountSetting extends Component {
     constructor(props) {
         super(props);
-        this.state = {};
+        // this.state = {};
         this.setNewValue = this.setNewValue.bind(this);
     }
 
     setNewValue(newValue) {
     }
 
+
     render() {
+        const {profile} = this.props.profile;
         return (
             <>
+                {JSON.stringify(profile)}
                 <h1>Account Information</h1>
                 <div className="form-group row mb-3">
                     <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>
                     <div className="col-10">
-                        <input id="email-address" type="email" className="form-control"/>
+                        <input id="email-address" type="email" className="form-control" value={profile.emailAddress}/>
                     </div>
                 </div>
                 <div className="form-group row mb-3">
                     <label htmlFor="password" className="col-md-12 col-xl-2">Password</label>
                     <div className="col-10">
-                        <input id="password" type="password" className="form-control"/>
+                        <input id="password" type="password" className="form-control" value={profile.password}/>
                     </div>
                 </div>
                 <div className="btn-group" role="group" aria-label="Basic example">
@@ -35,19 +38,19 @@ class AccountSetting extends Component {
                 <div className="form-group row mb-3">
                     <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
                     <div className="col-10">
-                        <input id="first-name" type="text" className="form-control"/>
+                        <input id="first-name" type="text" className="form-control" value={profile.firstName}/>
                     </div>
                 </div>
                 <div className="form-group row mb-3">
                     <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
                     <div className="col-10">
-                        <input id="last-name" type="text" className="form-control"/>
+                        <input id="last-name" type="text" className="form-control" value={profile.lastName}/>
                     </div>
                 </div>
                 <div className="form-group row mb-3">
                     <label htmlFor="dofb" className="col-md-12 col-xl-2">Date of birth</label>
                     <div className="col-10">
-                        <input id="dofb" type="date" className="form-control"/>
+                        <input id="dofb" type="date" className="form-control" value={profile.dateOfBirth}/>
                     </div>
                 </div>
                 <div className="form-group row mb-3">
@@ -55,7 +58,9 @@ class AccountSetting extends Component {
                     <div className="col-10">
                         <PhoneInput className="form-control"
                                     country={'us'}
-                                    onChange={this.setNewValue}/>
+                                    onChange={this.setNewValue}
+                                    // value={profile.phone}
+                        />
                     </div>
                 </div>
                 <div className="btn-group" role="group" aria-label="Basic example">

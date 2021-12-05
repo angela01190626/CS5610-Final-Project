@@ -13,6 +13,7 @@ class PaymentSetting extends Component {
     }
 
     render() {
+        const {profile} = this.props.profile;
         return (
             <>
                 <h2>Payment Setting</h2>
@@ -20,38 +21,38 @@ class PaymentSetting extends Component {
                     <div className="form-group row mb-3">
                         <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
                         <div className="col-10">
-                            <input id="first-name" type="text" className="form-control"/>
+                            <input id="first-name" type="text" className="form-control" value={profile.firstName}/>
                         </div>
                     </div>
                     <div className="form-group row mb-3">
                         <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
                         <div className="col-10">
-                            <input id="last-name" type="text" className="form-control"/>
+                            <input id="last-name" type="text" className="form-control" value={profile.lastName}/>
                         </div>
                     </div>
                     <div className="form-group row mb-3">
                         <label htmlFor="card-number" className="col-md-12 col-xl-2">Card number</label>
                         <div className="col-10">
-                            <input id="card-number" type="number" className="form-control"/>
+                            <input id="card-number" type="number" className="form-control" value={profile.cardNumber}/>
                         </div>
                     </div>
 
                     <div className="form-group row mb-3">
                         <label htmlFor="month" className="col-md-12 col-xl-2">MM</label>
                         <div className="col-10">
-                            <input id="month" type="number" className="form-control"/>
+                            <input id="month" type="number" className="form-control" value={profile.mm}/>
                         </div>
                     </div>
                     <div className="form-group row mb-3">
                         <label htmlFor="year" className="col-md-12 col-xl-2">YYYY</label>
                         <div className="col-10">
-                            <input id="year" type="number" className="form-control"/>
+                            <input id="year" type="number" className="form-control" value={profile.yyyy}/>
                         </div>
                     </div>
                     <div className="form-group row mb-3">
                         <label htmlFor="cvv" className="col-md-12 col-xl-2">CVV</label>
                         <div className="col-10">
-                            <input id="cvv" type="number" className="form-control"/>
+                            <input id="cvv" type="password" className="form-control" value={profile.cvv}/>
                         </div>
                     </div>
 
