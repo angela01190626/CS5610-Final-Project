@@ -59,9 +59,12 @@ class PaymentSetting extends Component {
                     <div className="form-group row mb-3">
                         <label htmlFor="phone-number" className="col-md-12 col-xl-2">Phone number</label>
                         <div className="col-10">
-                            <PhoneInput className="form-control"
-                                country={'us'}
-                                onChange={this.setNewValue}/>
+                            <PhoneInput
+                                        className = "form-control"
+                                        onlyCountries={['us']}
+                                        value = {"1" + String(profile.phone)}
+                                        onChange={this.setNewValue}/>
+
                         </div>
                     </div>
                 </div>

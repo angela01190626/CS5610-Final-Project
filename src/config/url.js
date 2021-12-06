@@ -1,7 +1,7 @@
 let serviceUrl = "https://cs5610-final-node-server.herokuapp.com";
 
 if (process.env.NODE_ENV !== 'production') {
-  serviceUrl = 'http://localhost:4000'
+  serviceUrl = 'http://localhost:5000'
 }
 
 const urls = {

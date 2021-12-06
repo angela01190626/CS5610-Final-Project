@@ -56,11 +56,11 @@ class AccountSetting extends Component {
                 <div className="form-group row mb-3">
                     <label htmlFor="number" className="col-md-12 col-xl-2">Phone number</label>
                     <div className="col-10">
-                        <PhoneInput className="form-control"
-                                    country={'us'}
-                                    onChange={this.setNewValue}
-                                    // value={profile.phone}
-                        />
+                        <PhoneInput
+                            className = "form-control"
+                            onlyCountries={['us']}
+                            value = {"1" + String(profile.phone)}
+                            onChange={this.setNewValue}/>
                     </div>
                 </div>
                 <div className="btn-group" role="group" aria-label="Basic example">

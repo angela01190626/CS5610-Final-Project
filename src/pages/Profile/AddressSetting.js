@@ -12,6 +12,7 @@ class AddressSetting extends Component {
     }
 
     setStateValue(newValue) {
+        console.log('this is the State code:' + newValue);
     }
 
     setPhoneValue(newValue) {
@@ -55,9 +56,10 @@ class AddressSetting extends Component {
                     <div className="form-group row mb-3">
                         <label htmlFor="state" className="col-md-12 col-xl-2">State</label>
                         <div className="col-10">
-                            <SelectUSState id="myId" className="myClassName form-control"
+                            <SelectUSState id = "state" className="form-control"
                                            onChange={this.setStateValue}
                                            value={profile.state}/>
+                            {/*to be fixed, cannot select the pass-in value*/}
                         </div>
                     </div>
                     <div className="form-group row mb-3">
@@ -78,9 +80,11 @@ class AddressSetting extends Component {
                     <div className="form-group row mb-3">
                         <label htmlFor="phone-number" className="col-md-12 col-xl-2">Phone number</label>
                         <div className="col-10">
-                            <PhoneInput className="form-control" style={{width: "100%"}}
-                                        country={'us'}
-                                        onChange={this.setPhoneValue}/>
+                            <PhoneInput
+                                className = "form-control"
+                                onlyCountries={['us']}
+                                value = {"1" + String(profile.phone)}
+                                onChange={this.setPhoneValue}/>
                         </div>
                     </div>
 

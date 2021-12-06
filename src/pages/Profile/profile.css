@@ -9,3 +9,7 @@
 .left-padding{
     padding-left: 4px;
 }
+
+.react-tel-input .form-control {
+    width: 100%;
+}
