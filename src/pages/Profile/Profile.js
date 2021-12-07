@@ -49,7 +49,8 @@ class Profile extends Component {
         // const { profile } = this.state;
         return(
             <>
-                {/*{JSON.stringify(profile)}*/}
+                {/*{JSON.stringify(this.state)}*/}
+
                 <AccountSetting profile={this.state}/>
             </>
         )

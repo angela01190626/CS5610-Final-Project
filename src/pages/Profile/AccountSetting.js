@@ -1,74 +1,102 @@
-import React, {Component} from "react";
+import React, {useState, useEffect} from "react";
+import {useDispatch} from "react-redux";
 import PhoneInput from "react-phone-input-2";
+import urls from "../../config/url";
+import axios from "axios";
 
-class AccountSetting extends Component {
-    constructor(props) {
-        super(props);
-        // this.state = {};
-        this.setNewValue = this.setNewValue.bind(this);
+const AccountSetting =({profile}) => {
+
+    const [newProfile, setNewProfile] = useState([]);
+    let request = urls.getProfile;
+
+    const getProfile =() =>{
+        axios.get(`${request.url}${profile.emailAddress}`)
+            .then((response) =>{
+                const myProfile = response.data;
+                setNewProfile(myProfile);
+            })
+    }
+    useEffect(() =>getProfile(),[]);
+
+    const saveClickHandler = () => {
+        fetch(`${request.url}${profile.emailAddress}`, {
+            method: 'PUT',
+            body: JSON.stringify(newProfile),
+            headers: {
+                'content-type': 'application/json'
+            }
+        })
+            .then(response => response.json())
+            .then(profile => setNewProfile(profile));
+    };
+
+    const handleChangeValue = (key,value)=> {
+        setNewProfile({
+            ...newProfile,
+            [key]: value
+        })
     }
 
-    setNewValue(newValue) {
-    }
-
-
-    render() {
-        const {profile} = this.props.profile;
-        return (
-            <>
-                {JSON.stringify(profile)}
-                <h1>Account Information</h1>
-                <div className="form-group row mb-3">
-                    <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>
-                    <div className="col-10">
-                        <input id="email-address" type="email" className="form-control" value={profile.emailAddress}/>
-                    </div>
+    return (
+        <>
+            {/*{JSON.stringify(newProfile)}*/}
+            <h1>Account Information</h1>
+            <div className="form-group row mb-3">
+                <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>
+                <div className="col-10">
+                    <input id="email-address" type="email" className="form-control"
+                           value={newProfile.emailAddress}
+                           onChange={(event) => handleChangeValue('emailAddress',event.target.value)}
+                           />
                 </div>
-                <div className="form-group row mb-3">
-                    <label htmlFor="password" className="col-md-12 col-xl-2">Password</label>
-                    <div className="col-10">
-                        <input id="password" type="password" className="form-control" value={profile.password}/>
-                    </div>
+            </div>
+            <div className="form-group row mb-3">
+                <label htmlFor="password" className="col-md-12 col-xl-2">Password</label>
+                <div className="col-10">
+                    <input id="password" type="password" className="form-control"
+                           value={newProfile.password}
+                           onChange={(event) => handleChangeValue('password',event.target.value)}
+                           />
                 </div>
-                <div className="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" className="btn btn-primary">Save</button>
+            </div>
+            <div className="btn-group" role="group" aria-label="Basic example">
+                <button type="button" className="btn btn-primary" onClick={saveClickHandler}>Save</button>
+            </div>
+            <hr/>
+            <h1>Personal Information</h1>
+            <div className="form-group row mb-3">
+                <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
+                <div className="col-10">
+                    <input id="first-name" type="text" className="form-control" value={newProfile.firstName}/>
                 </div>
-                <hr/>
-                <h1>Personal Information</h1>
-                <div className="form-group row mb-3">
-                    <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
-                    <div className="col-10">
-                        <input id="first-name" type="text" className="form-control" value={profile.firstName}/>
-                    </div>
+            </div>
+            <div className="form-group row mb-3">
+                <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
+                <div className="col-10">
+                    <input id="last-name" type="text" className="form-control" value={newProfile.lastName}/>
                 </div>
-                <div className="form-group row mb-3">
-                    <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
-                    <div className="col-10">
-                        <input id="last-name" type="text" className="form-control" value={profile.lastName}/>
-                    </div>
+            </div>
+            <div className="form-group row mb-3">
+                <label htmlFor="dofb" className="col-md-12 col-xl-2">Date of birth</label>
+                <div className="col-10">
+                    <input id="dofb" type="date" className="form-control" value={newProfile.dateOfBirth}/>
                 </div>
-                <div className="form-group row mb-3">
-                    <label htmlFor="dofb" className="col-md-12 col-xl-2">Date of birth</label>
-                    <div className="col-10">
-                        <input id="dofb" type="date" className="form-control" value={profile.dateOfBirth}/>
-                    </div>
+            </div>
+            <div className="form-group row mb-3">
+                <label htmlFor="number" className="col-md-12 col-xl-2">Phone number</label>
+                <div className="col-10">
+                    <PhoneInput
+                        className = "form-control"
+                        onlyCountries={['us']}
+                        value = {"1" + String(newProfile.phone)}
+                        onChange={(event) => handleChangeValue('phone',event.target.value)}/>
                 </div>
-                <div className="form-group row mb-3">
-                    <label htmlFor="number" className="col-md-12 col-xl-2">Phone number</label>
-                    <div className="col-10">
-                        <PhoneInput
-                            className = "form-control"
-                            onlyCountries={['us']}
-                            value = {"1" + String(profile.phone)}
-                            onChange={this.setNewValue}/>
-                    </div>
-                </div>
-                <div className="btn-group" role="group" aria-label="Basic example">
-                    <button type="button" className="btn btn-primary">Save</button>
-                </div>
-            </>
-        )
-    }
+            </div>
+            <div className="btn-group" role="group" aria-label="Basic example">
+                <button type="button" className="btn btn-primary" onClick={saveClickHandler}>Save</button>
+            </div>
+        </>
+    )
 }
 
 export default AccountSetting;

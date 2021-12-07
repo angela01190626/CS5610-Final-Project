@@ -1,6 +1,8 @@
 import { Avatar, ImageList, ImageListItem, List, ListItem, ListItemAvatar, ListItemText, Rating, Typography } from '@mui/material';
 import React from 'react';
+
 const Review = ({
+    productId,
     userImg,
     rating,
     productName,

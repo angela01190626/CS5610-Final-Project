@@ -5,6 +5,7 @@ import "./detail.css";
 import { connect } from "react-redux";
 import urls from "../../config/url";
 import axios from "axios";
+import Review from "../../components/Review/Review";
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -50,8 +51,8 @@ class ProductDetail extends Component {
     renderMainContent() {
         const { productDetail } = this.state;
         console.log("API Response: ", productDetail["product_id"]);
-        console.log("API Response: ", productDetail["product_title"]);
-        console.log("API Response: ", productDetail["app_sale_price"]);
+        // console.log("API Response: ", productDetail["product_title"]);
+        // console.log("API Response: ", productDetail["app_sale_price"]);
         const prod = {
             itemName: productDetail["product_title"],
             itemPrice: productDetail["app_sale_price"],
@@ -122,10 +123,13 @@ class ProductDetail extends Component {
 
                     </div>
                 </div>
+                <Review/>
             </>
             ) : (
                 <></>
             )
+
+
         )
     }
 
