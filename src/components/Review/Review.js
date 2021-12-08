@@ -21,7 +21,7 @@ const Review = () => {
             reviews.map(review => {
                 return(
                     <List sx={{ width: '100%', bgcolor: 'background.paper' }}>
-                        {JSON.stringify(review)}
+                        {/*{JSON.stringify(review)}*/}
                         <ListItem alignItems="flex-start">
                             <ListItemAvatar>
                                 <Avatar alt={review.emailAddress} src={review.photos} />

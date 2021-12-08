@@ -109,11 +109,12 @@ class ProductDetail extends Component {
 
                             </b>
                         </p>
-
+                        Reviews
+                        <Review productId ={prod.productId}/>
                     </div>
                 </div>
                 {/*{JSON.stringify(prod.productId)}*/}
-                <Review productId ={prod.productId}/>
+
             </>
             ) : (
                 <></>
