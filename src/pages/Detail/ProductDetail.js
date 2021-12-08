@@ -25,7 +25,7 @@ class ProductDetail extends Component {
 
     fetchProductDetails = async () => {
         const request = urls.productDetail;
-        request.url = `${request.url}${'B00PFI0ATS'}`
+        request.url = `${request.url}${'B00F34ONPQ'}`
         axios.request(request).then((response) => {
             console.log("Response: ", response.data);
             this.setState({
@@ -112,7 +112,8 @@ class ProductDetail extends Component {
 
                     </div>
                 </div>
-                <Review/>
+                {/*{JSON.stringify(prod.productId)}*/}
+                <Review productId ={prod.productId}/>
             </>
             ) : (
                 <></>

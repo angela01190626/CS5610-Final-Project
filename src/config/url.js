@@ -1,8 +1,8 @@
 let serviceUrl = "https://cs5610-final-node-server.herokuapp.com";
 
-if (process.env.NODE_ENV !== 'production') {
-  serviceUrl = 'http://localhost:5000'
-}
+// if (process.env.NODE_ENV !== 'production') {
+//   serviceUrl = 'http://localhost:5000'
+// }
 
 const urls = {
   productSearch: {
@@ -66,6 +66,11 @@ const urls = {
   updateProfile: {
     method: 'PUT',
     url: `${serviceUrl}/api/user/`
+  },
+
+  getReviews: {
+    method: 'GET',
+    url: `${serviceUrl}/api/reviews/`
   }
 
 }
