@@ -62,6 +62,10 @@ const urls = {
   getProfile: {
     method: 'GET',
     url: `${serviceUrl}/api/user/`
+  },
+  updateProfile: {
+    method: 'PUT',
+    url: `${serviceUrl}/api/user/`
   }
 
 }

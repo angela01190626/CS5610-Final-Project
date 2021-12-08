@@ -109,17 +109,6 @@ class ProductDetail extends Component {
 
                             </b>
                         </p>
-                        {/*<ul className="list-group">*/}
-                        {/*    {*/}
-                        {/*        prod.detail.map(function (d,index) {*/}
-                        {/*            return (*/}
-                        {/*                <li key={index} className="list-group-item">*/}
-                        {/*                    <span>{JSON.parse(d[index])}</span>*/}
-                        {/*                </li>*/}
-                        {/*            );*/}
-                        {/*        })*/}
-                        {/*    }*/}
-                        {/*</ul>*/}
 
                     </div>
                 </div>

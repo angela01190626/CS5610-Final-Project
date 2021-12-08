@@ -7,19 +7,18 @@ import axios from "axios";
 const AccountSetting =({profile}) => {
 
     const [newProfile, setNewProfile] = useState([]);
-    let request = urls.getProfile;
+    let request1 = urls.getProfile;
+    let request2 = urls.updateProfile;
 
-    const getProfile =() =>{
-        axios.get(`${request.url}${profile.emailAddress}`)
-            .then((response) =>{
-                const myProfile = response.data;
-                setNewProfile(myProfile);
-            })
-    }
-    useEffect(() =>getProfile(),[]);
+    useEffect(() => {
+        fetch(`${request1.url}${profile.emailAddress}`)
+            .then(response => response.json())
+            .then(profile => {setNewProfile(profile);
+            },)
+    },[]);
 
     const saveClickHandler = () => {
-        fetch(`${request.url}${profile.emailAddress}`, {
+        fetch(`${request2.url}${profile.emailAddress}`, {
             method: 'PUT',
             body: JSON.stringify(newProfile),
             headers: {
@@ -39,14 +38,14 @@ const AccountSetting =({profile}) => {
 
     return (
         <>
-            {/*{JSON.stringify(newProfile)}*/}
+            {JSON.stringify(newProfile)}
             <h1>Account Information</h1>
             <div className="form-group row mb-3">
                 <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>
                 <div className="col-10">
                     <input id="email-address" type="email" className="form-control"
                            value={newProfile.emailAddress}
-                           onChange={(event) => handleChangeValue('emailAddress',event.target.value)}
+                           disabled="disabled"
                            />
                 </div>
             </div>
@@ -67,19 +66,25 @@ const AccountSetting =({profile}) => {
             <div className="form-group row mb-3">
                 <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
                 <div className="col-10">
-                    <input id="first-name" type="text" className="form-control" value={newProfile.firstName}/>
+                    <input id="first-name" type="text" className="form-control"
+                           value={newProfile.firstName}
+                           onChange={(event) => handleChangeValue('firstName',event.target.value)}/>
                 </div>
             </div>
             <div className="form-group row mb-3">
                 <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
                 <div className="col-10">
-                    <input id="last-name" type="text" className="form-control" value={newProfile.lastName}/>
+                    <input id="last-name" type="text" className="form-control"
+                           value={newProfile.lastName}
+                           onChange={(event) => handleChangeValue('lastName',event.target.value)}/>
                 </div>
             </div>
             <div className="form-group row mb-3">
                 <label htmlFor="dofb" className="col-md-12 col-xl-2">Date of birth</label>
                 <div className="col-10">
-                    <input id="dofb" type="date" className="form-control" value={newProfile.dateOfBirth}/>
+                    <input id="dofb" type="date" className="form-control"
+                           value={newProfile.dateOfBirth}
+                           onChange={(event) => handleChangeValue('dateOfBirth',event.target.value)}/>
                 </div>
             </div>
             <div className="form-group row mb-3">
