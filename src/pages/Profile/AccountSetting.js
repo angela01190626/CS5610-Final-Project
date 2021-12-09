@@ -4,21 +4,21 @@ import PhoneInput from "react-phone-input-2";
 import urls from "../../config/url";
 import axios from "axios";
 
-const AccountSetting =({profile}) => {
+const AccountSetting =() => {
 
-    const [newProfile, setNewProfile] = useState([]);
+    const [newProfile, setNewProfile] = useState({});
     let request1 = urls.getProfile;
     let request2 = urls.updateProfile;
 
     useEffect(() => {
-        fetch(`${request1.url}${profile.emailAddress}`)
+        fetch(`${request1.url}`)
             .then(response => response.json())
             .then(profile => {setNewProfile(profile);
             },)
     },[]);
 
     const saveClickHandler = () => {
-        fetch(`${request2.url}${profile.emailAddress}`, {
+        fetch(`${request2.url}${newProfile.emailAddress}`, {
             method: 'PUT',
             body: JSON.stringify(newProfile),
             headers: {
@@ -26,7 +26,10 @@ const AccountSetting =({profile}) => {
             }
         })
             .then(response => response.json())
-            .then(profile => setNewProfile(profile));
+            .then((profile) => {
+                // setNewProfile(profile)
+                console.log(profile)
+            });
     };
 
     const handleChangeValue = (key,value)=> {
@@ -38,7 +41,7 @@ const AccountSetting =({profile}) => {
 
     return (
         <>
-            {JSON.stringify(newProfile)}
+            {/*{JSON.stringify(newProfile)}*/}
             <h1>Account Information</h1>
             <div className="form-group row mb-3">
                 <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>
@@ -93,8 +96,8 @@ const AccountSetting =({profile}) => {
                     <PhoneInput
                         className = "form-control"
                         onlyCountries={['us']}
-                        value = {"1" + String(newProfile.phone)}
-                        onChange={(event) => handleChangeValue('phone',event.target.value)}/>
+                        value = {String(newProfile.phone)}
+                        onChange={(value) => handleChangeValue('phone',value)}/>
                 </div>
             </div>
             <div className="btn-group" role="group" aria-label="Basic example">

@@ -51,7 +51,7 @@ class Profile extends Component {
             <>
                 {/*{JSON.stringify(this.state)}*/}
 
-                <AccountSetting profile={this.state}/>
+                <AccountSetting />
             </>
         )
     }
