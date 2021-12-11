@@ -4,7 +4,7 @@ import Navigation from "./Navigation";
 import PaymentSetting from "./PaymentSetting";
 // import AccountSetting from "./AccountSetting";
 import Layout from "../../components/Layout/Layout";
-import urls from "../../config/url";
+import urls, {PROFILE_API} from "../../config/url";
 import axios from "axios";
 
 class Payment extends Component {
@@ -24,11 +24,8 @@ class Payment extends Component {
 
     fetchProfile = async () => {
         const { isLoading } = this.props;
-        let request = urls.getProfile;
-        // After log in/signup working, we will use the current user's profile
-        let profileId = 'janeDoeTest123@gmail.com';
-        request.url = `${request.url}${profileId}`;
-        axios.request(request).then((response) => {
+        let profileId = 'alice@gmail.com';
+        axios.request(`${PROFILE_API}${profileId}`).then((response) => {
             console.log("Response: ", response.data);
             this.setState({
                 profile: response.data || {}
@@ -49,7 +46,8 @@ class Payment extends Component {
     renderMainContent() {
         return(
             <>
-                <PaymentSetting profile={this.state}/>
+                {JSON.stringify(this.state.profile.emailAddress)}
+                <PaymentSetting profile={this.state.profile.emailAddress}/>
             </>
         )
     }

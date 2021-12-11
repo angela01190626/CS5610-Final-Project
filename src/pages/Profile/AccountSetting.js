@@ -1,24 +1,21 @@
 import React, {useState, useEffect} from "react";
 import {useDispatch} from "react-redux";
 import PhoneInput from "react-phone-input-2";
-import urls from "../../config/url";
-import axios from "axios";
+import urls, {PROFILE_API} from "../../config/url";
 
 const AccountSetting =() => {
 
     const [newProfile, setNewProfile] = useState({});
-    let request1 = urls.getProfile;
-    let request2 = urls.updateProfile;
 
-    useEffect(() => {
-        fetch(`${request1.url}`)
+    useEffect(() =>
+        fetch(`${PROFILE_API}${'alice@gmail.com'}`)
             .then(response => response.json())
-            .then(profile => {setNewProfile(profile);
-            },)
-    },[]);
+            .then(newProfile => {
+                setNewProfile(newProfile);
+            },),[]);
 
     const saveClickHandler = () => {
-        fetch(`${request2.url}${newProfile.emailAddress}`, {
+        fetch(`${PROFILE_API}${newProfile.emailAddress}`, {
             method: 'PUT',
             body: JSON.stringify(newProfile),
             headers: {
@@ -41,7 +38,7 @@ const AccountSetting =() => {
 
     return (
         <>
-            {/*{JSON.stringify(newProfile)}*/}
+            {JSON.stringify(newProfile)}
             <h1>Account Information</h1>
             <div className="form-group row mb-3">
                 <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>

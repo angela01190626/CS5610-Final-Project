@@ -24,7 +24,7 @@ class Profile extends Component {
         const { isLoading } = this.props;
         let request = urls.getProfile;
         // After log in/signup working, we will use the current user's profile
-        let profileId = 'janeDoeTest123@gmail.com';
+        let profileId = 'alice@gmail.com';
         request.url = `${request.url}${profileId}`;
         axios.request(request).then((response) => {
             console.log("Response: ", response.data);
@@ -46,11 +46,9 @@ class Profile extends Component {
     }
 
     renderMainContent() {
-        // const { profile } = this.state;
         return(
             <>
                 {/*{JSON.stringify(this.state)}*/}
-
                 <AccountSetting />
             </>
         )

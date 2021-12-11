@@ -1,23 +1,21 @@
 import React, {Component, useEffect, useState} from "react";
 import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'
-import urls from "../../config/url";
+import urls, {PROFILE_API} from "../../config/url";
 
 const PaymentSetting =() => {
 
     const [newProfile, setNewProfile] = useState({});
-    let request1 = urls.getProfile;
-    let request2 = urls.updateProfile;
 
-    useEffect(() => {
-        fetch(`${request1.url}`)
+    useEffect(() =>
+        fetch(`${PROFILE_API}${'alice@gmail.com'}`)
             .then(response => response.json())
-            .then(profile => {setNewProfile(profile);
-            },)
-    },[]);
+            .then(newProfile => {
+                setNewProfile(newProfile);
+            },),[]);
 
     const saveClickHandler = () => {
-        fetch(`${request2.url}${newProfile.emailAddress}`, {
+        fetch(`${PROFILE_API}${newProfile.emailAddress}`, {
             method: 'PUT',
             body: JSON.stringify(newProfile),
             headers: {
@@ -40,7 +38,8 @@ const PaymentSetting =() => {
     }
         return (
             <>
-                {/*{JSON.stringify(newProfile)}*/}
+                {/*{JSON.stringify(profile)}*/}
+                {JSON.stringify(newProfile)}
                 <h2>Payment Setting</h2>
                 <div className="form-group row mb-3">
                     <div className="form-group row mb-3">

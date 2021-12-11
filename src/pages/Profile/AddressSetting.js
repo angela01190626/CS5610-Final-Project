@@ -1,24 +1,20 @@
 import React, {Component, useEffect, useState} from "react";
 import './profile.css';
-import SelectUSState from 'react-select-us-states';
 import PhoneInput from "react-phone-input-2";
-import urls from "../../config/url";
-import Select from 'react-select';
+import urls, {PROFILE_API} from "../../config/url";
 
 const AddressSetting =() => {
 
     const [newProfile, setNewProfile] = useState({});
-    let request1 = urls.getProfile;
-    let request2 = urls.updateProfile;
 
-    useEffect(() => {
-        fetch(`${request1.url}`)
+    useEffect(() =>
+        fetch(`${PROFILE_API}${'alice@gmail.com'}`)
             .then(response => response.json())
-            .then(profile => setNewProfile(profile))
-    },[]);
-
+            .then(newProfile => {
+                setNewProfile(newProfile);
+            },),[]);
     const saveClickHandler = () => {
-        fetch(`${request2.url}${newProfile.emailAddress}`, {
+        fetch(`${PROFILE_API}${newProfile.emailAddress}`, {
             method: 'PUT',
             body: JSON.stringify(newProfile),
             headers: {
@@ -31,9 +27,6 @@ const AddressSetting =() => {
                 console.log(profile)
             });
     };
-    // const cancelClickHandler = () => {
-    //     setNewProfile({...newProfile})
-    // };
 
     const handleChangeValue = (key,value)=> {
         setNewProfile({
@@ -123,7 +116,8 @@ const AddressSetting =() => {
                     <div className="form-group row mb-3">
                         <label htmlFor="zip-code" className="col-md-12 col-xl-2">Zip code</label>
                         <div className="col-10">
-                            <input id="zip-code" type="number" className="form-control"
+                            <input id="zip-code" type="text" className="form-control"
+                                   pattern="[0-9]{5}"
                                    value={newProfile.zipcode}
                                    onChange={(event) => handleChangeValue('zipcode',event.target.value)}/>
                         </div>

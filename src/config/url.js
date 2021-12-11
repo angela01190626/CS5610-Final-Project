@@ -3,7 +3,7 @@ let serviceUrl = "https://cs5610-final-node-server.herokuapp.com";
 // if (process.env.NODE_ENV !== 'production') {
 //   serviceUrl = 'http://localhost:5000'
 // }
-
+export const PROFILE_API = `${serviceUrl}/api/user/`;
 const urls = {
   productSearch: {
     method: 'GET',
@@ -60,11 +60,9 @@ const urls = {
   },
 
   getProfile: {
-    method: 'GET',
     url: `${serviceUrl}/api/user/`
   },
   updateProfile: {
-    method: 'PUT',
     url: `${serviceUrl}/api/user/`
   },
 
@@ -72,7 +70,6 @@ const urls = {
     method: 'GET',
     url: `${serviceUrl}/api/reviews/`
   }
-
 }
 export default urls;
 
