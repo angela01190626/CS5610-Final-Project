@@ -6,7 +6,7 @@ import {login} from "../../services/profileService";
 import {useDispatch} from "react-redux";
 
 
-const LoginComponent = () => {
+const LoginValidation = () => {
     const history = useHistory();
 
     const dispatch = useDispatch();
@@ -28,7 +28,6 @@ const LoginComponent = () => {
                     }
                     else
                     {
-
                         setResult('Invalid username/password');
 
                     }
@@ -116,4 +115,4 @@ const LoginComponent = () => {
     );
 };
 
-export default LoginComponent;
+export default LoginValidation;

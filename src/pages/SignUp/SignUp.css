@@ -76,3 +76,9 @@
     border: 1px solid #000;
     padding-top: 5px;
 }
+
+.signUp-sign-in-widget .signUp-form-field .signup-error {
+    color: red;
+    text-align: left;
+}
+

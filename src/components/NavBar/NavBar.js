@@ -159,7 +159,7 @@ function NavBar() {
     
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand className="brand-container" onClick={() => onClickNavLink("home")}>Walmart</Navbar.Brand>
+            <Navbar.Brand className="brand-container" onClick={() => onClickNavLink("home")}>ShopEazy</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav" />
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto department-container">
