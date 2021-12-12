@@ -28,6 +28,17 @@ export const deserializeProductSearchResult = (raw) => {
     return productList;
 }
 
+export const deserializeProductDetailResult = (raw) => {
+        const product = {
+            id: raw.product_id,
+            itemName: raw.product_title,
+            prodImg: raw.product_main_image_url,
+            cost: raw.app_sale_price,
+            rating: (!!raw.evaluate_rate) ? parseFloat(raw.evaluate_rate.toString().substr(0, 3)) : 3
+        };
+    return product;
+}
+
 export const getItemQuantity = (cart, id) => {
     const product = cart.find(prod => prod.id === id);
     if(!!product) {

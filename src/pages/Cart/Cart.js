@@ -60,7 +60,13 @@ class Cart extends Component {
     calculateCartTotal() {
         const { cart: { products } } = this.props;
         let totalValue = products.reduce((acc, curr) => {
-            const itemCost = parseInt(curr.cost.replace(/,/g, ''));
+            let itemCost;
+            if(typeof curr.cost === "string") {
+                itemCost = parseInt(curr.cost.replace(/,/g, ''));
+            } else {
+
+                itemCost = parseInt(curr.cost);
+            }
             return acc + (itemCost * curr.quantity)
         }, 0)
         return totalValue;

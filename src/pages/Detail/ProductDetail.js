@@ -6,6 +6,8 @@ import { connect } from "react-redux";
 import urls from "../../config/url";
 import axios from "axios";
 import Review from "../../components/Review/Review";
+import addItemToCart, { removeItemFromCart } from '../../actions/cartAction';
+import {deserializeProductDetailResult, deserializeProductSearchResult} from "../../deserializer/search";
 
 class ProductDetail extends Component {
     constructor(props) {
@@ -22,10 +24,11 @@ class ProductDetail extends Component {
             this.fetchProductDetails();
         }
     }
-
     fetchProductDetails = async () => {
         const request = urls.productDetail;
-        request.url = `${request.url}${'B00F34ONPQ'}`
+        const pathParam = window.location.pathname.split('/');
+        console.log("PPPP", pathParam);
+        request.url = request.url.replace("{product-id}", pathParam[2]);
         axios.request(request).then((response) => {
             console.log("Response: ", response.data);
             this.setState({
@@ -39,12 +42,22 @@ class ProductDetail extends Component {
     addItem() {
         this.setState({
             quantity: this.state.quantity+1
+        }, () => {
+            const {addItemToCart} = this.props;
+            const {productDetail} = this.state;
+            const deserialized = deserializeProductDetailResult(productDetail)
+            addItemToCart(deserialized, this.state.quantity);
+            // console.log(this.state.quantity)
+            // console.log(this.state.productDetail)
         });
     }
 
     removeItem() {
         this.setState({
             quantity: this.state.quantity-1
+        }, () => {
+            const {removeItemFromCart} = this.props;
+            removeItemFromCart(this.state.productDetail, this.state.quantity);
         });
     }
 
@@ -62,11 +75,29 @@ class ProductDetail extends Component {
             detail: productDetail["feature_bullets"],
             available_quantity: productDetail["available_quantity"]
         };
+
+        // const addItem =() => {
+        //     this.setState({
+        //         quantity: this.state.quantity+1
+        //     }, () => {
+        //         addItemToCart(prod, this.state.quantity);
+        //     });
+        // }
+        //
+        // const removeItem = () => {
+        //     this.setState({
+        //         quantity: this.state.quantity-1
+        //     }, () => {
+        //         removeItemFromCart(prod, this.state.quantity);
+        //         console.log(this.state.quantity)
+        //         console.log(prod)
+        //     });
+        // }
         
         return (
             (prod && Object.keys(prod).length > 0) ? (
             <>
-                {/*{JSON.stringify(productDetail)}*/}
+                {/*{JSON.stringify(this.state.productDetail)}*/}
                 <div className="row">
                     <div className ="col-6 p-2 center-image">
                         <img className="prod-image" src = {prod.prodImg} alt="product" />
@@ -89,6 +120,7 @@ class ProductDetail extends Component {
                                     <div className="added-quantity">{this.state.quantity}</div>
                                     <i className="fas fa-plus-circle" onClick={() => this.addItem()}/>
                                 </div>
+
                             )
                         }
                         </div>
@@ -109,8 +141,11 @@ class ProductDetail extends Component {
 
                             </b>
                         </p>
+
                         Reviews
+                        {/*<productReview/>*/}
                         <Review productId ={prod.productId}/>
+
                     </div>
                 </div>
                 {/*{JSON.stringify(prod.productId)}*/}
@@ -137,6 +172,11 @@ class ProductDetail extends Component {
 const mapStateToProps = state => ({
     searchResult: state.search.searchResult
 });
+
+const mapDispatchToProps = dispatch => ({
+    addItemToCart: item => dispatch(addItemToCart(item)),
+    removeItemFromCart: item => dispatch(removeItemFromCart(item))
+});
 export default connect(
-    mapStateToProps,
+    mapStateToProps, mapDispatchToProps
 )(ProductDetail);

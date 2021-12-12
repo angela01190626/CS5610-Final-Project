@@ -1,9 +1,11 @@
 let serviceUrl = "https://cs5610-final-node-server.herokuapp.com";
 
-// if (process.env.NODE_ENV !== 'production') {
-//   serviceUrl = 'http://localhost:5000'
-// }
+if (process.env.NODE_ENV !== 'production') {
+  serviceUrl = 'http://localhost:5000'
+}
 export const PROFILE_API = `${serviceUrl}/api/user/`;
+export const REVIEW_API = `${serviceUrl}/api/reviews/`;
+
 const urls = {
   productSearch: {
     method: 'GET',
@@ -15,17 +17,17 @@ const urls = {
     },
     headers: {
       'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-      'x-rapidapi-key': '8d8aac75fcmshe804b50a63163a1p1e144ajsn820ef7f4ca55'
+      'x-rapidapi-key': '19226f026bmshe70ec2435dd1896p1f35dfjsn6e6de2033561'
     }
   },
 
   productDetail: {
     method: 'GET',
-    url: `https://amazon24.p.rapidapi.com/api/product/`,
+    url: `https://amazon24.p.rapidapi.com/api/product/{product-id}`,
     params: {country: 'US'},
     headers: {
       'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-      'x-rapidapi-key': 'b66d70dd24msh3923fbc8c0d09dap1dca70jsn2d8b5647d281'
+      'x-rapidapi-key': '19226f026bmshe70ec2435dd1896p1f35dfjsn6e6de2033561'
     }
   },
 
@@ -35,7 +37,7 @@ const urls = {
     params: {country: 'US', page: '1'},
     headers: {
       'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-      'x-rapidapi-key': 'b66d70dd24msh3923fbc8c0d09dap1dca70jsn2d8b5647d281'
+      'x-rapidapi-key': '19226f026bmshe70ec2435dd1896p1f35dfjsn6e6de2033561'
     }
   },
 
