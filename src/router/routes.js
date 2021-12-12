@@ -14,7 +14,7 @@ import Payment from "../pages/Profile/Payment";
 import Search from "../pages/Search/Search";
 import Cart from '../pages/Cart/Cart';
 import '../index.css';
-import Notifications from "../pages/Profile/Notifications";
+import Subscriptions from "../pages/Profile/Subscriptions";
 import ProductDetail from "../pages/Detail/ProductDetail";
 import PublicProfile from '../pages/PublicProfile/PublicProfile';
 import {loadStripe} from "@stripe/stripe-js"
@@ -43,7 +43,7 @@ const createRoutes = () => (
                 <Route exact path={"/address"} component={Address}/>
                 <Route exact path={"/payment"} component={Payment}/>
                 <Route exact path={"/search"} component={Search}/>
-                <Route exact path={"/notifications"} component={Notifications}/>
+                <Route exact path={"/subscriptions"} component={Subscriptions}/>
                 <Route exact path={"/details/:productId"} component={ProductDetail}/>
                 <Route exact path={"/cart"} component={Cart}/>
             </div>

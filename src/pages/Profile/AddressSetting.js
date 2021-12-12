@@ -52,7 +52,6 @@ const AddressSetting =() => {
 
         return (
             <>
-                {/*{JSON.stringify(newProfile)}*/}
                 <div className="form-group row mb-3">
                     <div className="form-group row mb-3">
                         <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
@@ -117,7 +116,7 @@ const AddressSetting =() => {
                         <label htmlFor="zip-code" className="col-md-12 col-xl-2">Zip code</label>
                         <div className="col-10">
                             <input id="zip-code" type="text" className="form-control"
-                                   pattern="[0-9]{5}"
+                                   minLength="5" maxLength="5"
                                    value={newProfile.zipcode}
                                    onChange={(event) => handleChangeValue('zipcode',event.target.value)}/>
                         </div>

@@ -38,7 +38,6 @@ const AccountSetting =() => {
 
     return (
         <>
-            {JSON.stringify(newProfile)}
             <h1>Account Information</h1>
             <div className="form-group row mb-3">
                 <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>

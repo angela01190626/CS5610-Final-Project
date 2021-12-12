@@ -33,7 +33,7 @@ const Navigation = (
                                 Payment
                             </span>
                     </Link>
-                    <Link to="/notifications" className={`list-group-item ${active === 'notifications' ? 'active' : ''}`}>
+                    <Link to="/subscriptions" className={`list-group-item ${active === 'notifications' ? 'active' : ''}`}>
                         <i className="fa fa-bell"/>
                             <span className="left-padding d-none d-xl-inline-block">
                                 Notifications

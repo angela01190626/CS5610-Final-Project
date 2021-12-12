@@ -1,9 +1,9 @@
 import React, { Component } from "react";
 import Navigation from "./Navigation";
 import Layout from "../../components/Layout/Layout";
-import NotificationSettings from "./NotificationSettings";
+import SubscriptionSettings from "./SubscriptionSettings";
 
-class Notifications extends Component {
+class Subscriptions extends Component {
     constructor(props) {
         super(props);
         this.state = {}
@@ -20,7 +20,7 @@ class Notifications extends Component {
     renderMainContent() {
         return(
             <>
-                <NotificationSettings/>
+                <SubscriptionSettings/>
             </>
         )
     }
@@ -45,4 +45,4 @@ class Notifications extends Component {
     }
 }
 
-export default Notifications;
+export default Subscriptions;

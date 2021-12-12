@@ -46,7 +46,6 @@ class Payment extends Component {
     renderMainContent() {
         return(
             <>
-                {JSON.stringify(this.state.profile.emailAddress)}
                 <PaymentSetting profile={this.state.profile.emailAddress}/>
             </>
         )
