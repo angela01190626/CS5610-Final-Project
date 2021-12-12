@@ -36,7 +36,7 @@ const Navigation = (
                     <Link to="/subscriptions" className={`list-group-item ${active === 'notifications' ? 'active' : ''}`}>
                         <i className="fa fa-bell"/>
                             <span className="left-padding d-none d-xl-inline-block">
-                                Notifications
+                                Subscriptions
                             </span>
                     </Link>
                     <Link to="/" className="list-group-item">
