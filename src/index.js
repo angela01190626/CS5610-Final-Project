@@ -4,6 +4,7 @@ import './index.css';
 import createRoutes from './router/routes';
 import './vendors/bootstrap/css/bootstrap.min.css';
 import './vendors/fontawesome/css/all.css';
+import "bootstrap/dist/js/bootstrap.js";
 import { Provider } from 'react-redux';
 import { createStore } from 'redux';
 import rootReducer from './reducers/rootReducer';

@@ -102,9 +102,9 @@ class ProductDetail extends Component {
                     <div className ="col-6 p-2 center-image">
                         <img className="prod-image" src = {prod.prodImg} alt="product" />
                     </div>
-                    <div className="detail-border col-6 p-2">
+                    <div className="col-6 p-2">
                         <b><span className="product-align-left p-1">{prod.itemName}</span></b>
-                        <div className="product-align-left p-1"><Rating className="pe-1" name="size-small" readOnly value={prod.rating} size="small"/>({prod.rating})<u className="ps-1">{prod.reviews} reviews</u></div>
+                        <div className="product-align-left p-1"><Rating className="pe-1" name="size-small" readOnly value={prod.rating} size="small"/>({prod.rating})</div>
                         <br/>
                         <div className="product-price p-1">
                             ${prod.itemPrice} {prod.itemPrice !== prod.originalPrice && (<span className="original-price">{prod.originalPrice}</span>)}
@@ -141,15 +141,14 @@ class ProductDetail extends Component {
 
                             </b>
                         </p>
-
-                        Reviews
+                    </div>
+                    <hr/>
+                    <div className="p-1">
+                        <b>Reviews</b>
                         {/*<productReview/>*/}
                         <Review productId ={prod.productId}/>
-
                     </div>
                 </div>
-                {/*{JSON.stringify(prod.productId)}*/}
-
             </>
             ) : (
                 <></>

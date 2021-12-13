@@ -1,14 +1,17 @@
-import React, {useState} from "react";
-import urls, {REVIEW_API} from "../../config/url";
+import React, {useEffect, useState} from "react";
+import {Avatar} from '@mui/material';
+import { Rating } from 'react-simple-star-rating'
+import urls from "../../config/url";
+
 
 const ProductReview = () => {
-    const [review, setReview] = useState({});
 
     let request = urls.getReviews;
-
+    const pathParam = window.location.pathname.split('/');
+    const [review, setReview] = useState({productId: pathParam[2], rating:0, photos:'', avatar:''});
     const writeReview = () => {
-        console.log(request.url);
-        fetch(`${request.url}${'B08Y727NMK'}`, {
+        // console.log(request.url);
+        fetch(`${request.url}${pathParam[2]}`, {
             method: 'POST',
             body: JSON.stringify(review),
             headers: {
@@ -18,6 +21,7 @@ const ProductReview = () => {
             .then(response => response.json())
             .then(review => setReview(review));
     }
+    // console.log(review);
 
     const handleChangeValue = (key,value)=> {
         setReview({
@@ -28,33 +32,34 @@ const ProductReview = () => {
 
     return(
         <>
-            <table style={{marginBottom: '16px'}}>
-                <tr>
-                    <td style={{verticalAlign: 'top'}}>
-                        <img src={''}
-                             style={{margin: '16px'}} alt=""/>
-                    </td>
-                    <td style={{width: "100%"}}>
-                        <textarea
-                                  onChange={(event) => handleChangeValue('comment',event.target.value)}
-                                  className="form-control"
-                                  style={{
-                                      width: "100%", color: "black",
-                                      padding: "0px",
-                                      paddingTop: "15px",
-                                      paddingBottom: "15px",
-                                      backgroundColor: "white"
-                                  }}
-                                  placeholder="Write comments ..."/>
-                        {/*<span>*/}
-                        {/*    <button type={submit}><i className="far fa-image me-3"/></button>*/}
-                        {/*</span>*/}
-                        <button onClick={writeReview} className="btn btn-primary fa-pull-right rounded-pill">
-                            Submit
-                        </button>
-                    </td>
-                </tr>
-            </table>
+            <div className="row mt-2">
+                <div className="col-lg-1 col-md-12">
+                    <Avatar alt={review.productId} src={review.avatar}/>
+                </div>
+                <div className="col-11">
+                    <textarea
+                              onChange={(event) => handleChangeValue('comment',event.target.value)}
+                              className="form-control"
+                              style={{
+                                  width: "100%", color: "black",
+                                  padding: "10px",
+                                  backgroundColor: "white"
+                              }}
+                              placeholder="Write comments ..."/>
+                </div>
+            </div>
+            <div className="mt-2">
+                Your rating:
+                <span className="review-heading-1">
+                    <Rating name="size-small" ratingValue={review.rating} size="20px" max="5"
+                    onClick={(value) => handleChangeValue('rating', value/20)}/>
+                </span>
+            </div>
+            <div className="mt-2">
+               <button onClick={writeReview} className="btn btn-primary rounded-pill">
+                   Submit
+               </button>
+            </div>
         </>
     );
 }
