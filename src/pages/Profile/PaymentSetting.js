@@ -22,12 +22,24 @@ const PaymentSetting =() => {
                 'content-type': 'application/json'
             }
         })
-            .then(response => response.json())
+            .then((response) => {
+                if(!response.ok) throw new Error(response.status);
+                else {
+                    alert("Saved successfully")
+                    return response.json();
+                }
+            })
             .then((profile) => {
                 // setNewProfile(profile)
                 console.log(profile)
+            })
+            .catch(function(error) {
+                alert('Please save it again!')
+                console.log('Save failed', error.message);
             });
+
     };
+
     const handleChangeValue = (key,value)=> {
 
         console.log(value)
