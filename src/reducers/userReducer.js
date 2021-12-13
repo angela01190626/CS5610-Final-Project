@@ -4,9 +4,9 @@ const initialState = {}
 const user = (state = initialState, action) => {
     switch (action.type) {
         case 'FETCH-USER':
-            return (action.profile);
+            return (action.user);
         case 'SAVE-USER': {
-            return (action.profile);
+            return action.user;
         }
         default:
             return(state);

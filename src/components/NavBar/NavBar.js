@@ -1,27 +1,40 @@
-import React, { useState } from 'react';
+import React, {useEffect, useState} from 'react';
 import axios from 'axios';
 import urls from '../../config/url.js';
-import { withRouter } from 'react-router';
-import { useHistory } from "react-router";
-import { deserializeProductSearchResult } from '../../deserializer/search.js';
-import { useDispatch, useSelector } from "react-redux";
+import {withRouter} from 'react-router';
+import {useHistory} from "react-router";
+import {deserializeProductSearchResult} from '../../deserializer/search.js';
+import {useDispatch, useSelector} from "react-redux";
 import './NavBar.css';
 import getSearchResults from '../../actions/searchAction';
 import isLoading from '../../actions/appAction.js';
-import { getSearchedValue } from '../../actions/searchAction';
-import { Navbar, Nav, NavDropdown } from 'react-bootstrap';
-import { FormControl } from 'react-bootstrap';
+import {getSearchedValue} from '../../actions/searchAction';
+import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
+import {FormControl} from 'react-bootstrap';
 import Badge from '@mui/material/Badge';
+import {getUserData, setUserData} from "../../actions/userAction";
+import {profile} from "../../services/profileService";
 
 const getNumCartitems = (state) => state.cart.products;
+const getProfileData = (state) => state.user;
 
 function NavBar() {
     const dispatch = useDispatch();
     const [item, setItem] = useState(localStorage.getItem("searchItem") || '');
     const [departments, setDepartments] = useState([]);
-    const loggedIn = false; //remove hardcoding, get from rexus store.
+
+
+    // const getProfileData = getUserData()
     const history = useHistory();
     const numItems = useSelector(getNumCartitems);
+    const profileData = useSelector(getProfileData);
+
+
+    useEffect(() => {
+        profile().then(res =>
+            res.json()).then(user => dispatch(setUserData(user)));
+    }, [])
+    const loggedIn = Object.keys(profileData) && Object.keys(profileData).length > 0;
     const fetchProductCategories = async () => {
         let departments = [];
         let request = urls.productCategories;
@@ -34,11 +47,11 @@ function NavBar() {
     }
 
     const onSearchClick = () => {
-        if(item && item.trim() && item.length !== 0 ) {
+        if (item && item.trim() && item.length !== 0) {
             localStorage.setItem("searchItem", item);
             fetchSearchResults().then(() => {
                 history.push({
-                    pathname:  "/search",
+                    pathname: "/search",
                     search: `?item=${item}`
                 });
             });
@@ -48,9 +61,9 @@ function NavBar() {
 
     const onChangeSearch = (e) => {
         setItem(e.target.value);
-        
+
     }
-    
+
     const onEnterClick = (e) => {
         if (e.key === 'Enter') {
             onSearchClick();
@@ -59,25 +72,25 @@ function NavBar() {
 
     const onClickNavLink = (buttonText) => {
         let redirectionUrl = '/home';
-        if(buttonText === "Profile") {
+        if (buttonText === "Profile") {
             redirectionUrl = "/profile";
-        } else if(buttonText === "Sign In") {
+        } else if (buttonText === "Sign In") {
             redirectionUrl = "/login";
-        } else if(buttonText === "Cart") {
+        } else if (buttonText === "Cart") {
             redirectionUrl = "/cart";
         }
         history.push({
-            pathname:  redirectionUrl
+            pathname: redirectionUrl
         });
     }
 
     const onCategoryClick = (department) => {
         // const id = department.id;
         // console.log("Clicked on department: " , id);
-        if(!!department) {
+        if (!!department) {
             fetchCategoryProducts(department).then(() => {
                 history.push({
-                    pathname:  "/search",
+                    pathname: "/search",
                     search: `?item=${department.name}`
                 });
             });
@@ -112,7 +125,7 @@ function NavBar() {
             console.error(error); //todo: handle exception
             dispatch(isLoading(false));
         }); //DO NOT UN-COMMENT, DO NOT REMOVE
-        
+
         // const products = deserializeProductSearchResult(amazonMockdata.docs);
         // const action = getSearchResults(products);
         // dispatch(action);
@@ -140,51 +153,52 @@ function NavBar() {
             const productList = deserializeProductSearchResult(response.data.docs);
             const action = getSearchResults(productList);
             dispatch(action);
-        dispatch(isLoading(false));
+            dispatch(isLoading(false));
         }).catch((error) => {
-        dispatch(isLoading(false));
+            dispatch(isLoading(false));
             console.error(error); //todo: handle exception
         }); //DO NOT UN-COMMENT, DO NOT REMOVE
-        
+
         // const products = deserializeProductSearchResult(amazonMockdata.docs);
         // const action = getSearchResults(products);
         // dispatch(action);
         // dispatch(getSearchedValue(searchQuery));
     }
 
-    
+
     departments.length === 0 && (
         fetchProductCategories()
     )
-    
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Brand className="brand-container" onClick={() => onClickNavLink("home")}>ShopEazy</Navbar.Brand>
-            <Navbar.Toggle aria-controls="responsive-navbar-nav" />
+            <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto department-container">
-                <NavDropdown title="Departments" id="collasible-nav-dropdown">
-                {
-                    departments.map((department, idx) => (
-                        <NavDropdown.Item key={idx} onClick={() => 
-                            onCategoryClick(department)}>{department.name}</NavDropdown.Item>
-                    ))
-                }
-                </NavDropdown>
+                    <NavDropdown title="Departments" id="collasible-nav-dropdown">
+                        {
+                            departments.map((department, idx) => (
+                                <NavDropdown.Item key={idx} onClick={() =>
+                                    onCategoryClick(department)}>{department.name}</NavDropdown.Item>
+                            ))
+                        }
+                    </NavDropdown>
                 </Nav>
-                    <FormControl
-                        type="search"
-                        placeholder="Search For Anything!"
-                        aria-label="Search"
-                        onChange={onChangeSearch}
-                        onKeyDown={onEnterClick}
-                        value={item}
-                    />
+                <FormControl
+                    type="search"
+                    placeholder="Search For Anything!"
+                    aria-label="Search"
+                    onChange={onChangeSearch}
+                    onKeyDown={onEnterClick}
+                    value={item}
+                />
                 <Nav>
                     <Nav.Link eventKey={2} className="nav-bar-icon" onClick={() => onClickNavLink("Order")}>
                         <i className="fas fa-shopping-bag"></i>
                     </Nav.Link>
-                    <Nav.Link eventKey={2} className="nav-bar-icon" onClick={() => onClickNavLink(loggedIn ? "Profile" : "Sign In")}>
+                    <Nav.Link eventKey={2} className="nav-bar-icon"
+                              onClick={() => onClickNavLink(loggedIn ? "Profile" : "Sign In")}>
                         <i className="fas fa-user-alt"></i>
                     </Nav.Link>
 
@@ -195,7 +209,7 @@ function NavBar() {
                     </Nav.Link>
                 </Nav>
             </Navbar.Collapse>
-        </Navbar>  
+        </Navbar>
     )
 
 }
