@@ -4,4 +4,11 @@ export function getUserData(user) {
         user
     }
 }
-export default getUserData;
+
+export function setUserData(user){
+    return{
+        type: 'SAVE-USER',
+        user
+    }
+}
+export default {getUserData};

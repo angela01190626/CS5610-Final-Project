@@ -1,9 +1,13 @@
-import userData from './data/user.json';
 
-const user = (state = userData, action) => {
+const initialState = {}
+
+const user = (state = initialState, action) => {
     switch (action.type) {
         case 'FETCH-USER':
             return (action.profile);
+        case 'SAVE-USER': {
+            return (action.profile);
+        }
         default:
             return(state);
     }

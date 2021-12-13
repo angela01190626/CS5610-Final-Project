@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState} from 'react';
 import {useFormik} from 'formik';
 import * as Yup from 'yup';
 import {Link, useHistory} from "react-router-dom";
@@ -7,7 +7,11 @@ import {useDispatch} from "react-redux";
 
 const SignUpComponent = () => {
     const history = useHistory();
+
     const dispatch = useDispatch();
+
+    const [result, setResult] = useState('' );
+
     const formik = useFormik({
         initialValues: {
             firstName: '',
@@ -30,6 +34,9 @@ const SignUpComponent = () => {
                 if(status.status == 200)
                 {
                     history.push('/')
+                }else if(status.status == 404)
+                {
+                    setResult('EmailAddress already present.');
                 }
             });
         },
@@ -50,6 +57,9 @@ const SignUpComponent = () => {
                     <form className="signUp-form-box" onSubmit={formik.handleSubmit}>
                         <div>
                             <div>
+                                {result.toString() ? (
+                                    <div className="signup-error">{result.toString()}</div>
+                                ) : null}
                                 <div className="signUp-form-field mt-4">
                                     <input
                                         id="firstName"

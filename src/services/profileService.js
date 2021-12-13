@@ -1,3 +1,5 @@
+import {useEffect} from "react";
+import {PROFILE_API} from "../config/url";
 
 let URL = 'https://cs5610-final-node-server.herokuapp.com/api'
 
@@ -9,6 +11,7 @@ export const login = (dispatch, user) =>
     fetch(`${URL}/login`, {
         method: 'POST',
         body: JSON.stringify(user),
+        credentials: 'include',
         headers: {
             'content-type': 'application/json'
         }
@@ -18,25 +21,20 @@ export const register = (dispatch, user) =>
     fetch(`${URL}/register`, {
         method: 'POST',
         body: JSON.stringify(user),
+        credentials: 'include',
         headers: {
             'content-type': 'application/json'
         }
     })
 
-export const profile = (dispatch, session) =>
+export const profile = () =>
     fetch(`${URL}/profile`, {
         method: 'POST',
-        body: JSON.stringify(session),
-        headers: {
-            'content-type': 'application/json'
-        }
+        credentials: 'include'
     })
 
-export const logout = (dispatch, session) =>
+export const logout = () =>
     fetch(`${URL}/logout`, {
         method: 'POST',
-        body: JSON.stringify(session),
-        headers: {
-            'content-type': 'application/json'
-        }
+        credentials: 'include'
     })

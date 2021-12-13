@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {connect} from "react-redux";
+import {connect, useDispatch} from "react-redux";
 
 import CheckoutComponent from "./CheckoutComponent";
 import "./Checkout.css";
@@ -14,6 +14,7 @@ import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import {withRouter} from "react-router-dom";
 
+
 class Checkout extends Component {
 
     removeItem(item) {
@@ -27,8 +28,18 @@ class Checkout extends Component {
 
     }
 
+
     onButtonClick(){
         const {history} = this.props;
+        const {cart: {products}, user} = this.props;
+
+        const order = {
+            emailAddress: user.emailAddress,
+            orderQty: products.length
+        };
+
+        console.log(order);
+
 
         history.push({
             pathname:  "/home"
