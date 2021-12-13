@@ -3,9 +3,9 @@ import {PROFILE_API} from "../config/url";
 
 let URL = 'https://cs5610-final-node-server.herokuapp.com/api'
 
-// if (process.env.NODE_ENV !== 'production') {
-//     URL = 'http://localhost:5000/api'
-// }
+if (process.env.NODE_ENV !== 'production') {
+    URL = 'http://localhost:5000/api'
+}
 
 export const login = (dispatch, user) =>
     fetch(`${URL}/login`, {
