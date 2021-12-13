@@ -12,7 +12,8 @@ import {addItemToCart, removeItemFromCart} from "../../actions/cartAction";
 import CartSummary from "../../components/Cart/CartSummary";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
-import {withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
+import cart from "../../assets/shopping_cart.png";
 
 
 class Checkout extends Component {
@@ -40,11 +41,13 @@ class Checkout extends Component {
 
         console.log(order);
 
+//On successful posting oreder
 
         history.push({
-            pathname:  "/home"
+            pathname:  "/orderSubmitted"
         });
     }
+
 
     renderMainContent() {
         const {cart: {products}, user} = this.props;
