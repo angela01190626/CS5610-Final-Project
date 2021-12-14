@@ -4,7 +4,8 @@ import {logout, profile} from "../../services/profileService";
 
 const Navigation = (
     {
-        active = 'profile'
+        active = 'profile',
+        isAdmin
     }) => {
     const history = useHistory();
     const logoutUser = e => {
@@ -19,8 +20,8 @@ const Navigation = (
                 <Link to="/orders" className={`list-group-item ${active === 'orders' ? 'active' : ''}`}>
                     <i className="fas fa-box"/>
                     <span className="left-padding d-none d-xl-inline-block">
-                                Your orders
-                            </span>
+                        {isAdmin ? `Manage Orders` : 'Your Orders'}
+                    </span>
                 </Link>
                 <Link to="/profile" className={`list-group-item ${active === 'profile' ? 'active' : ''}`}>
                     <i className="fas fa-cog"/>

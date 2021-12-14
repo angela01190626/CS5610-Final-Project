@@ -5,59 +5,153 @@ import Spinner from '../../components/Spinner/Spinner';
 import Button from '@mui/material/Button';
 import './PublicProfile.css';
 import Review from '../../components/Review/Review';
+import urls from '../../config/url';
+import axios from 'axios';
+import isLoading from '../../actions/appAction';
 
 class PublicProfile extends Component {
     constructor(props) {
         super(props);
         this.state = {
-
+            following: false,
+            userProfile: {},
+            userReviews: []
         }
     }
 
+    componentDidMount() {
+        this.fetchUserProfile();
+        this.fetchUserReviews();
+        this.idUserFollowing();
+    }
+
+    idUserFollowing = async () => {
+        const { isLoading, user } = this.props;
+        const followee = window.location.pathname.split("/").at(2);
+        const follower = user.emailAddress;
+        let request = urls.isUserFollowing;
+        const url = `${request.url}/${follower}/${followee}`
+        axios.request(url).then((response) => {
+            this.setState({
+                following: response.data.following
+            })
+            isLoading(false);
+        }).catch((error) => {
+            isLoading(false);
+            console.error(error); //todo: handle exception
+        });
+    }
+
+    fetchUserProfile = async () => {
+        const { isLoading } = this.props;
+        const user = window.location.pathname.split("/").at(2);
+        let request = JSON.parse(JSON.stringify(urls.getProfile));
+        request.url = `${request.url}${user}`;
+        isLoading(true);
+        axios.request(request).then((response) => {
+            this.setState({
+                userProfile: response.data
+            });
+            isLoading(false);
+        }).catch((error) => {
+            isLoading(false);
+            console.error(error); //todo: handle exception
+        });
+    }
+
+    fetchUserReviews = async () => {
+        const { isLoading } = this.props;
+        let request = JSON.parse(JSON.stringify(urls.getUserReviews));
+        request.url = `${request.url}janeDoeTest123@gmail.com`;
+        isLoading(true);
+        axios.request(request).then((response) => {
+            this.setState({
+                userReviews: response.data
+            });
+            isLoading(false);
+        }).catch((error) => {
+            isLoading(false);
+            console.error(error); //todo: handle exception
+        });
+    }
+
     renderMainContent() {
+        const { userProfile, userReviews } = this.state;
         return (
-            <div className="main-container">
-                <div className="user-name">
-                    Dhruv Dhar
-                </div>
+            userProfile ? (
+                <div className="main-container">
+                    <div className="user-name">
+                        {`${userProfile.firstName} ${userProfile.lastName}`}
+                    </div>
+                    {
+                        userProfile.isPaidMember && (
+                            <div className="prime-status">
+                                <i className="fas fa-award"></i>
+                                &nbsp;&nbsp;Prime member
+                            </div>
+                        )
+                    }
 
-                <div className="prime-status">
-                    <i class="fas fa-award"></i>
-                    &nbsp;&nbsp;Prime member
-                </div>
-
-                <div className="review-container">
-                    <div className="rc-header">User Reviews</div>
-                    <div className="rc-table">
-                        <div className="rc-review">
-                            <Review 
-                                productName={"Amazon Firestick"}
-                                userName = {"Dhruv Dhar"} 
-                                profilePic = {"https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg"}
-                                heading={"2nd take it worked"}
-                                reviewText={"Tried repeatedly to get to work, spent several hours on phone trying to chat with over burdened “customer support” to no avail. Would work for a short time and then screen would go blank and when it was working, no sound. Customer Support was one of the most frustrating chat support services I have ever encountered."}
-                                rating={3.6}
-                                userImg={[
-                                    "https://images.unsplash.com/photo-1551963831-b3b1ca40c98e",
-                                    "https://images.unsplash.com/photo-1551782450-a2132b4ba21d"
-                                ]}
-                            />
-                            <Review 
-                                productName={"Electric Skateboard"}
-                                userName = {"Max V"} 
-                                profilePic = {""}
-                                heading={"2nd take it worked"}
-                                reviewText={"Tried repeatedly to get to work, spent several hours on phone trying to chat with over burdened “customer support” to no avail. Would work for a short time and then screen would go blank and when it was working, no sound. Customer Support was one of the most frustrating chat support services I have ever encountered."}
-                                rating={4.2}
-                            />
-                        </div>  
+                    <div className="review-container">
+                        <div className="rc-header">User Reviews</div>
+                        <div className="rc-table">
+                            <div className="rc-review">
+                                {
+                                    userReviews && (userReviews.map(review => (
+                                        <Review
+                                            productName={review.productName}
+                                            userName = {`${userProfile.firstName} ${userProfile.lastName}`}
+                                            profilePic = {"https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg"}
+                                            heading={review.heading}
+                                            reviewText={review.comment}
+                                            rating={review.rating}
+                                            userImg={review.photos}
+                                        />
+                                    )))
+                                }
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
+            ) : (
+                <div className="main-container">
+                    <div className="user-name">
+                        User Does Not exist!
+                    </div>
+                </div>
+            )
         )
     }
 
+    followUser() {
+        const { isLoading, user } = this.props;
+        const followee = window.location.pathname.split("/").at(2);
+        const follower = user.emailAddress;
+        let request = urls.followUser;
+        const url = `${request.url}${followee}`
+        isLoading(true);
+        axios.request(url, {
+            method: "POST",
+            data: {
+                follower
+            }
+        }).then((response) => {
+            this.setState({
+                following: true
+            });
+            isLoading(false);
+        }).catch((error) => {
+            isLoading(false);
+            console.error(error); //todo: handle exception
+        });
+    }
+
+    unfollowUser() {
+        //unfollow logic
+    }
+
     renderLeftContent() {
+        const { following } = this.state;
         return(
             <div className="left-pane-container">
                 <div className="profile-pic-container">
@@ -66,7 +160,15 @@ class PublicProfile extends Component {
                         src="https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg" />
                 </div>
                 <div className="follow-container">
-                    <Button variant="contained">+ Follow</Button>
+                    {/* TODO: check if user already follows thie person */}
+                    {
+                        !following ? (
+                            <Button variant="contained" onClick={() => this.followUser()}>+ Follow</Button>
+                        ) : (
+                            <Button variant="contained" onClick={() => this.unfollowUser()}>Unfollow</Button>
+                        )
+                    }
+                    
                 </div>
             </div>
         )
@@ -74,7 +176,6 @@ class PublicProfile extends Component {
 
     render() {
         const {loading} = this.props;
-        console.log("LLL : ", loading);
         return(
             loading ? (
                 <Spinner />
@@ -92,6 +193,10 @@ class PublicProfile extends Component {
     }
 }
 const mapStateToProps = state => ({
-    loading: state.app.isLoading
+    loading: state.app.isLoading,
+    user: state.user
 });
-export default connect(mapStateToProps, null) (PublicProfile);
+const mapDispatchToProps = dispatch => ({
+    isLoading: loading => dispatch(isLoading(loading))
+});
+export default connect(mapStateToProps, mapDispatchToProps) (PublicProfile);

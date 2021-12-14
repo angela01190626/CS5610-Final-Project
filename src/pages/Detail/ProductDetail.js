@@ -7,12 +7,14 @@ import urls from "../../config/url";
 import axios from "axios";
 import Review from "../../components/Review/Review";
 import addItemToCart, { removeItemFromCart } from '../../actions/cartAction';
-import {deserializeProductDetailResult, deserializeProductSearchResult} from "../../deserializer/search";
+import {deserializeProductDetailResult} from "../../deserializer/search";
+import ProductReview from "../../components/Review/ProductReview";
 
 class ProductDetail extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            prodId: '',
             quantity: 0,
             productDetail: {}
         }
@@ -20,22 +22,30 @@ class ProductDetail extends Component {
 
     componentDidMount() {
         const { productDetail } = this.state;
-        if(Object.keys(productDetail).length === 0) {
-            this.fetchProductDetails();
-        }
+        const { cartItems } = this.props;
+        const pathParam = window.location.pathname.split('/');
+        const filteredItem = cartItems.find(item => item.id === pathParam[2])
+        const quantity = !!filteredItem ? filteredItem.quantity : 0;
+        this.setState({
+            prodId: pathParam[2],
+            quantity,
+        }, () => {
+            if(Object.keys(productDetail).length === 0) {
+                this.fetchProductDetails();
+            }
+        });
     }
     fetchProductDetails = async () => {
-        const request = urls.productDetail;
-        const pathParam = window.location.pathname.split('/');
-        console.log("PPPP", pathParam);
-        request.url = request.url.replace("{product-id}", pathParam[2]);
+        const { prodId } = this.state;
+        const request = JSON.parse(JSON.stringify(urls.productDetail));
+        request.url = request.url.replace("{product-id}", prodId);
         axios.request(request).then((response) => {
             console.log("Response: ", response.data);
             this.setState({
                 productDetail: response.data || {}
             })
         }).catch((error) => {
-            console.error(error); //todo: handle exception
+            console.error(error);
         });
     }
 
@@ -44,11 +54,9 @@ class ProductDetail extends Component {
             quantity: this.state.quantity+1
         }, () => {
             const {addItemToCart} = this.props;
-            const {productDetail} = this.state;
+            const {productDetail, quantity} = this.state;
             const deserialized = deserializeProductDetailResult(productDetail)
-            addItemToCart(deserialized, this.state.quantity);
-            // console.log(this.state.quantity)
-            // console.log(this.state.productDetail)
+            addItemToCart({...deserialized, quantity});
         });
     }
 
@@ -61,8 +69,15 @@ class ProductDetail extends Component {
         });
     }
 
+    triggerChange() {
+        this.setState({
+            dummy: ''
+                      });
+    }
+
     renderMainContent() {
         const { productDetail } = this.state;
+        const {user} = this.props;
         console.log("API Response: ", productDetail["product_id"]);
         // console.log("API Response: ", productDetail["product_title"]);
         // console.log("API Response: ", productDetail["app_sale_price"]);
@@ -75,24 +90,6 @@ class ProductDetail extends Component {
             detail: productDetail["feature_bullets"],
             available_quantity: productDetail["available_quantity"]
         };
-
-        // const addItem =() => {
-        //     this.setState({
-        //         quantity: this.state.quantity+1
-        //     }, () => {
-        //         addItemToCart(prod, this.state.quantity);
-        //     });
-        // }
-        //
-        // const removeItem = () => {
-        //     this.setState({
-        //         quantity: this.state.quantity-1
-        //     }, () => {
-        //         removeItemFromCart(prod, this.state.quantity);
-        //         console.log(this.state.quantity)
-        //         console.log(prod)
-        //     });
-        // }
         
         return (
             (prod && Object.keys(prod).length > 0) ? (
@@ -145,8 +142,8 @@ class ProductDetail extends Component {
                     <hr/>
                     <div className="p-1">
                         <b>Reviews</b>
-                        {/*<productReview/>*/}
-                        <Review productId ={prod.productId}/>
+                        <ProductReview product={prod}  email={user.emailAddress}/>
+                        <Review productId={prod.productId}/>
                     </div>
                 </div>
             </>
@@ -169,7 +166,9 @@ class ProductDetail extends Component {
     }
 }
 const mapStateToProps = state => ({
-    searchResult: state.search.searchResult
+    searchResult: state.search.searchResult,
+    cartItems: state.cart.products,
+    user: state.user
 });
 
 const mapDispatchToProps = dispatch => ({

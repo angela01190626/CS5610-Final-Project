@@ -4,6 +4,7 @@ import AccountSetting from "./AccountSetting";
 import Layout from "../../components/Layout/Layout";
 import urls from "../../config/url";
 import axios from "axios";
+import {profile} from "../../services/profileService";
 
 class Profile extends Component {
     constructor(props) {
@@ -38,9 +39,10 @@ class Profile extends Component {
 
 
     renderLeftContent() {
+        const isAdmin = true; //TODO
         return(
            <>
-                <Navigation active="profile"/>
+                <Navigation active="profile" isAdmin={isAdmin}/>
            </>
         )
     }
