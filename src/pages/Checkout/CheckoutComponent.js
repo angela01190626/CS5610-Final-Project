@@ -41,7 +41,6 @@ class CheckoutComponent extends Component {
                                 <h3>Delivery Address</h3>
                             </div>
                             <div className='address_detail'>
-                                <p>{user.emailAddress}</p>
                                 <p>{user.deliveryAddress1} , {user.deliverAddress2}</p>
                                 <p>{user.city}, {user.state} - {user.zipcode}</p>
                             </div>
