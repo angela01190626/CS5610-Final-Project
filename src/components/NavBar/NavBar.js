@@ -12,10 +12,12 @@ import {getSearchedValue} from '../../actions/searchAction';
 import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import {FormControl} from 'react-bootstrap';
 import Badge from '@mui/material/Badge';
-import {getUserData, setUserData} from "../../actions/userAction";
+import {clearUser, getUserData, setUserData} from "../../actions/userAction";
 import {profile} from "../../services/profileService";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
+import {Button, Snackbar} from "@mui/material";
+import {logout} from "../../services/profileService";
 
 const getNumCartitems = (state) => state.cart.products;
 const getProfileData = (state) => state.user;
@@ -23,18 +25,15 @@ const getProfileData = (state) => state.user;
 function NavBar() {
     const dispatch = useDispatch();
     const [item, setItem] = useState(localStorage.getItem("searchItem") || '');
+    const [logoutClicked, setLogoutClicked] = useState(false);
     const [departments, setDepartments] = useState([]);
-
-
-    // const getProfileData = getUserData()
     const history = useHistory();
     const numItems = useSelector(getNumCartitems);
     const profileData = useSelector(getProfileData);
 
-
     useEffect(() => {
         profile().then(res =>
-            res.json()).then(user => dispatch(setUserData(user)));
+                           res.json()).then(user => dispatch(setUserData(user)));
     }, [])
     const loggedIn = Object.keys(profileData) && Object.keys(profileData).length > 0;
     const fetchProductCategories = async () => {
@@ -53,9 +52,9 @@ function NavBar() {
             localStorage.setItem("searchItem", item);
             fetchSearchResults().then(() => {
                 history.push({
-                    pathname: "/search",
-                    search: `?item=${item}`
-                });
+                                 pathname: "/search",
+                                 search: `?item=${item}`
+                             });
             });
         }
 
@@ -80,23 +79,21 @@ function NavBar() {
             redirectionUrl = "/login";
         } else if (buttonText === "Cart") {
             redirectionUrl = "/cart";
-        } else if(buttonText === "Order") {
+        } else if (buttonText === "Order") {
             redirectionUrl = "/orders";
         }
         history.push({
-            pathname: redirectionUrl
-        });
+                         pathname: redirectionUrl
+                     });
     }
 
     const onCategoryClick = (department) => {
-        // const id = department.id;
-        // console.log("Clicked on department: " , id);
         if (!!department) {
             fetchCategoryProducts(department).then(() => {
                 history.push({
-                    pathname: "/search",
-                    search: `?item=${department.name}`
-                });
+                                 pathname: "/search",
+                                 search: `?item=${department.name}`
+                             });
             });
         }
     }
@@ -135,7 +132,6 @@ function NavBar() {
         // dispatch(action);
     }
 
-
     const fetchSearchResults = async () => {
         let request = urls.productSearch;
         request = {
@@ -162,30 +158,37 @@ function NavBar() {
             dispatch(isLoading(false));
             console.error(error); //todo: handle exception
         }); //DO NOT UN-COMMENT, DO NOT REMOVE
-
-        // const products = deserializeProductSearchResult(amazonMockdata.docs);
-        // const action = getSearchResults(products);
-        // dispatch(action);
-        // dispatch(getSearchedValue(searchQuery));
     }
-
 
     departments.length === 0 && (
         fetchProductCategories()
     )
 
+    const onLogoutClick = function (e) {
+        logout().then(() => {
+            dispatch(clearUser())
+            history.push('/');
+        })
+        setLogoutClicked(true);
+        e.stopPropagation();
+        setTimeout(() => {
+            setLogoutClicked(false);
+        }, 5000)
+    }
+
     const getUserOptionDD = () => {
         return (
             <div className="user-hover-dropdown-container">
-                <li>Profile</li>
-                <li>Logout</li>
+                <span className={"nav-welcome-msg"}>Hello {profileData.firstName}!</span>
+                <Button variant="contained" onClick={(e) => onLogoutClick(e)}>Logout</Button>
             </div>
         )
     }
 
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
-            <Navbar.Brand className="brand-container" onClick={() => onClickNavLink("home")}>ShopEazy</Navbar.Brand>
+            <Navbar.Brand className="brand-container"
+                          onClick={() => onClickNavLink("home")}>ShopEazy</Navbar.Brand>
             <Navbar.Toggle aria-controls="responsive-navbar-nav"/>
             <Navbar.Collapse id="responsive-navbar-nav">
                 <Nav className="me-auto department-container">
@@ -193,7 +196,8 @@ function NavBar() {
                         {
                             departments.map((department, idx) => (
                                 <NavDropdown.Item key={idx} onClick={() =>
-                                    onCategoryClick(department)}>{department.name}</NavDropdown.Item>
+                                    onCategoryClick(
+                                        department)}>{department.name}</NavDropdown.Item>
                             ))
                         }
                     </NavDropdown>
@@ -207,31 +211,44 @@ function NavBar() {
                     value={item}
                 />
                 <Nav>
-                    <Nav.Link eventKey={2} className="nav-bar-icon" onClick={() => onClickNavLink("Order")}>
+                    <Nav.Link eventKey={2} className="nav-bar-icon"
+                              onClick={() => onClickNavLink(profileData
+                              && (Object.keys(profileData).length > 0) ? "Order" : "Sign In")}>
                         <i className="fas fa-shopping-bag"></i>
                     </Nav.Link>
                     <Nav.Link eventKey={2} className="nav-bar-icon"
                               onClick={() => onClickNavLink(loggedIn ? "Profile" : "Sign In")}>
 
-                        <Tooltip title={
+                        <Tooltip title={(profileData && Object.keys(profileData).length > 0) ? (
                             <React.Fragment>
                                 {getUserOptionDD()}
                             </React.Fragment>
+                        ) : ""
                         }>
                             <IconButton>
-                                    <i className="fas fa-user-alt nav-bar-icon-color"></i>
+                                <i className="fas fa-user-alt nav-bar-icon-color"></i>
                             </IconButton>
                         </Tooltip>
 
                     </Nav.Link>
 
-                    <Nav.Link eventKey={2} className="nav-bar-icon" onClick={() => onClickNavLink("Cart")}>
+                    <Nav.Link eventKey={2} className="nav-bar-icon"
+                              onClick={() => onClickNavLink("Cart")}>
                         <Badge badgeContent={numItems.length} color="primary">
                             <i className="fas fa-shopping-cart"></i>
                         </Badge>
                     </Nav.Link>
                 </Nav>
             </Navbar.Collapse>
+            <Snackbar
+                open={logoutClicked}
+                autoHideDuration={6000}
+                onClose={() => {
+                }}
+                message="Logout Successful!"
+                action={() => {
+                }}
+            />
         </Navbar>
     )
 

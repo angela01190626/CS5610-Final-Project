@@ -107,10 +107,24 @@ class Home extends Component {
         maxCards = numCards;
     }
 
+    saveItemInCart(product, email) {
+        if (email) {
+            const request = JSON.parse(JSON.stringify(urls.updateUserCart));
+            request.url = request.url.replace("{email}", email)
+            axios.put(request.url, {
+                ...product
+            }).catch(err => {
+                console.error("Error!")
+            })
+        }
+    }
+
 
     onProductAddClick(item, q) {
-        const { addItemToCart } = this.props;
+        const { addItemToCart, user } = this.props;
+        const emailAddress = user && user.emailAddress ? user.emailAddress : null
         addItemToCart({...item, quantity: q});
+        this.saveItemInCart({...item, quantity: q}, emailAddress);
     }
 
     onProductRemove(item, q) {
@@ -370,7 +384,8 @@ class Home extends Component {
 
 const mapStateToProps = state => ({
     loading: state.app.isLoading,
-    cartItems: state.cart.products
+    cartItems: state.cart.products,
+    user: state.user
 });
 const mapDispatchToProps = dispatch => ({
     addItemToCart: item => dispatch(addItemToCart(item)),

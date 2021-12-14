@@ -11,4 +11,9 @@ export function setUserData(user){
         user
     }
 }
+export function clearUser(){
+    return{
+        type: 'CLEAR-USER'
+    }
+}
 export default {getUserData};

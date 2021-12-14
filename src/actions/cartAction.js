@@ -1,4 +1,7 @@
-export function addItemToCart(product) {
+import axios from "axios";
+import urls from "../config/url";
+
+export const addItemToCart = (product) => {
     return {
         type: 'ADD_PRODUCT',
         product

@@ -1,6 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import {Link, useHistory} from "react-router-dom";
 import {logout, profile} from "../../services/profileService";
+import {clearUser} from "../../actions/userAction";
+import {useDispatch} from "react-redux";
 
 const Navigation = (
     {
@@ -8,9 +10,11 @@ const Navigation = (
         isAdmin
     }) => {
     const history = useHistory();
+    const dispatch = useDispatch();
     const logoutUser = e => {
         e.preventDefault();
         logout().then(res => {
+            dispatch(clearUser())
             history.push('/');
         });
     }
