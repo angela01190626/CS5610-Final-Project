@@ -92,7 +92,7 @@ class ProductDetail extends Component {
             itemPrice: productDetail["app_sale_price"],
             productId: productDetail["product_id"],
             prodImg: productDetail["product_main_image_url"],
-            rating: 4.7,
+            rating: 0,
             detail: productDetail["feature_bullets"],
             available_quantity: productDetail["available_quantity"]
         };
@@ -102,10 +102,10 @@ class ProductDetail extends Component {
                 <>
                     {/*{JSON.stringify(this.state.productDetail)}*/}
                     <div className="row">
-                        <div className ="col-6 p-2 center-image">
+                        <div className ="col-sm-12 col-md-6 p-2 center-image">
                             <img className="prod-image" src = {prod.prodImg} alt="product" />
                         </div>
-                        <div className="col-6 p-2">
+                        <div className="col-sm-12 col-md-6 p-2">
                             <b><span className="product-align-left p-1">{prod.itemName}</span></b>
                             <div className="product-align-left p-1"><Rating className="pe-1" name="size-small" readOnly value={prod.rating} size="small"/>({prod.rating})</div>
                             <br/>

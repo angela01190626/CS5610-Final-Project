@@ -1,7 +1,6 @@
 import { Avatar, ImageList, ImageListItem, List, ListItem, ListItemAvatar, ListItemText, Rating, Typography } from '@mui/material';
 import React, {useEffect, useState} from 'react';
 import urls from "../../config/url";
-import ProductReview from "./ProductReview";
 
 
 const Review = () => {

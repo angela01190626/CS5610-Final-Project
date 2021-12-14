@@ -38,7 +38,7 @@ const ProductReview = ({product, email}) => {
     return(
         <>
             <div className="row mt-2">
-                <div className="col-lg-1 col-md-12">
+                <div className="d-none d-lg-block col-lg-1">
                     <Avatar alt={review.productId} src={review.avatar}/>
                 </div>
                 <div className="col-11">
@@ -54,8 +54,10 @@ const ProductReview = ({product, email}) => {
                 </div>
             </div>
             <div className="mt-2">
-                Your rating:
-                <span className="review-heading-1">
+                <span className="pt-1">
+                    Your rating:
+                </span>
+                <span className="review-heading-1 ps-1">
                     <Rating name="size-small" ratingValue={review.rating} size="20px" max="5"
                             onClick={(value) => handleChangeValue('rating', value/20)}/>
                 </span>
