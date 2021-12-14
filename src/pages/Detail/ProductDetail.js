@@ -162,7 +162,6 @@ class ProductDetail extends Component {
 
     render() {
         const {loading} = this.props;
-        console.log("LLL : ", loading);
         return(
             loading ? (
                     <Spinner />
