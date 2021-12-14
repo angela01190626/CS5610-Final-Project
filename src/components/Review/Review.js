@@ -37,7 +37,7 @@ const Review = () => {
                                         primary={
                                             <div className="review-heading-container">
                                             <span className="review-heading-1">
-                                                {`Username: ${review.emailAddress.split('@')[0]}`}
+                                                {`Username: ${review && review.emailAddress !== '' ? review.emailAddress.split('@')[0] : ''}`}
                                             </span>
                                                 <span className="review-heading-1">
                                                 <Rating name="size-small" readOnly value={review.rating} size="small" />
