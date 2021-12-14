@@ -64,7 +64,6 @@ class Cart extends Component {
             if(typeof curr.cost === "string") {
                 itemCost = parseInt(curr.cost.replace(/,/g, ''));
             } else {
-
                 itemCost = parseInt(curr.cost);
             }
             return acc + (itemCost * curr.quantity)

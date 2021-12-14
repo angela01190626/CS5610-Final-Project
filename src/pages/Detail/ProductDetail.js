@@ -141,7 +141,6 @@ class ProductDetail extends Component {
                                     {/*format should be modified*/}
                                     {prod.detail}
                                     {/*{JSON.stringify(prod.detail)}*/}
-
                                 </b>
                             </p>
                         </div>
