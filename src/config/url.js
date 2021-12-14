@@ -1,11 +1,11 @@
 let serviceUrl = "https://cs5610-final-node-server.herokuapp.com";
 
 if (process.env.NODE_ENV !== 'production') {
-    serviceUrl = 'http://localhost:5000'
+    serviceUrl = 'http://localhost:4000'
 }
 export const PROFILE_API = `${serviceUrl}/api/user/`;
 export const REVIEW_API = `${serviceUrl}/api/reviews/`;
-
+const API_KEY = "fffb52e2c6msh7bf751858ca8521p16a129jsnb2cb8f33e3b9";
 const urls = {
     productSearch: {
         method: 'GET',
@@ -17,7 +17,7 @@ const urls = {
         },
         headers: {
             'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-            'x-rapidapi-key': '653ca6892amsh81d253aa7796580p1940bcjsnd347780a1858'
+            'x-rapidapi-key': API_KEY
         }
     },
 
@@ -27,17 +27,7 @@ const urls = {
         params: {country: 'US'},
         headers: {
             'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-            'x-rapidapi-key': '653ca6892amsh81d253aa7796580p1940bcjsnd347780a1858'
-        }
-    },
-
-    productReview: {
-        method: 'GET',
-        url: `https://amazon24.p.rapidapi.com/api/review/:productId`,
-        params: {country: 'US', page: '1'},
-        headers: {
-            'x-rapidapi-host': 'amazon24.p.rapidapi.com',
-            'x-rapidapi-key': '653ca6892amsh81d253aa7796580p1940bcjsnd347780a1858'
+            'x-rapidapi-key': API_KEY
         }
     },
 
@@ -84,10 +74,17 @@ const urls = {
         method: 'GET',
         url: `${serviceUrl}/api/isFollowing`
     },
-
     getAllOrders: {
         method: 'GET',
-        url: `${serviceUrl}/api/getAllOrders`
+        url: `${serviceUrl}/api/orders`
+    },
+    updateOrderStatus: {
+        method: 'PUT',
+        url: `${serviceUrl}/api/order/{order-id}`
+    },
+    updateUserCart: {
+        method: 'PUT',
+        url: `${serviceUrl}/api/cart/{email}`
     },
 
 

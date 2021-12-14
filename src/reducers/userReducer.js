@@ -8,6 +8,9 @@ const user = (state = initialState, action) => {
         case 'SAVE-USER': {
             return action.user;
         }
+        case 'CLEAR-USER': {
+            return {}
+        }
         default:
             return(state);
     }

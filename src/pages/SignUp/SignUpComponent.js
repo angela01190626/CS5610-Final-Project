@@ -18,7 +18,7 @@ const SignUpComponent = () => {
             lastName: '',
             emailAddress: '',
             password: '',
-            isPaidMember: '',
+            isPaidMember: false,
         },
         validationSchema: Yup.object({
             firstName: Yup.string()
@@ -32,10 +32,10 @@ const SignUpComponent = () => {
         }),
         onSubmit: values => {
             register(dispatch, values).then(status => {
-                if(status.status == 200)
+                if(status.status === 200)
                 {
                     history.push('/')
-                }else if(status.status == 404)
+                }else if(status.status === 404)
                 {
                     setResult('EmailAddress already present.');
                 }

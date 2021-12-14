@@ -73,12 +73,15 @@ class Checkout extends Component {
         });
 
         console.log(order);
-
-//On successful posting oreder
-
-        history.push({
-            pathname: "/orderSubmitted"
-        });
+        if(user && Object.keys(user).length > 0) {
+            history.push({
+                pathname: "/orderSubmitted"
+            });
+        } else {
+            history.push({
+                pathname: "/login"
+            });
+        }
     }
 
 
