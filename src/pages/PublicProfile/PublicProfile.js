@@ -61,8 +61,9 @@ class PublicProfile extends Component {
 
     fetchUserReviews = async () => {
         const { isLoading } = this.props;
+        const pathParam = window.location.pathname.split('/');
         let request = JSON.parse(JSON.stringify(urls.getUserReviews));
-        request.url = `${request.url}janeDoeTest123@gmail.com`;
+        request.url = `${request.url}${pathParam[2]}`;
         isLoading(true);
         axios.request(request).then((response) => {
             this.setState({
@@ -96,19 +97,12 @@ class PublicProfile extends Component {
                         <div className="rc-header">User Reviews</div>
                         <div className="rc-table">
                             <div className="rc-review">
-                                {
-                                    userReviews && (userReviews.map(review => (
-                                        <Review
-                                            productName={review.productName}
-                                            userName = {`${userProfile.firstName} ${userProfile.lastName}`}
-                                            profilePic = {"https://st2.depositphotos.com/1009634/7235/v/450/depositphotos_72350117-stock-illustration-no-user-profile-picture-hand.jpg"}
-                                            heading={review.heading}
-                                            reviewText={review.comment}
-                                            rating={review.rating}
-                                            userImg={review.photos}
-                                        />
-                                    )))
-                                }
+                                {/*{*/}
+                                {/*    userReviews && (userReviews.map(review => (*/}
+
+                                {/*    )))*/}
+                                {/*}*/}
+                                <Review/>
                             </div>
                         </div>
                     </div>
