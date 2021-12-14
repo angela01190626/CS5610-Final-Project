@@ -6,6 +6,9 @@ import PaymentSetting from "./PaymentSetting";
 import Layout from "../../components/Layout/Layout";
 import urls, {PROFILE_API} from "../../config/url";
 import axios from "axios";
+import {getUserData} from "../../actions/userAction";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 
 class Payment extends Component {
     constructor(props) {
@@ -15,25 +18,25 @@ class Payment extends Component {
         }
     }
 
-    componentDidMount() {
-        const { profile } = this.state;
-        if(Object.keys(profile).length === 0) {
-            this.fetchProfile();
-        }
-    }
-
-    fetchProfile = async () => {
-        const { isLoading } = this.props;
-        let profileId = 'alice@gmail.com';
-        axios.request(`${PROFILE_API}${profileId}`).then((response) => {
-            console.log("Response: ", response.data);
-            this.setState({
-                profile: response.data || {}
-            })
-        }).catch((error) => {
-            console.error(error); //todo: handle exception
-        });
-    }
+    // componentDidMount() {
+    //     const { profile } = this.state;
+    //     if(Object.keys(profile).length === 0) {
+    //         this.fetchProfile();
+    //     }
+    // }
+    //
+    // fetchProfile = async () => {
+    //     const { isLoading } = this.props;
+    //     let profileId = 'alice@gmail.com';
+    //     axios.request(`${PROFILE_API}${profileId}`).then((response) => {
+    //         console.log("Response: ", response.data);
+    //         this.setState({
+    //             profile: response.data || {}
+    //         })
+    //     }).catch((error) => {
+    //         console.error(error); //todo: handle exception
+    //     });
+    // }
 
     renderLeftContent() {
         return(
@@ -44,9 +47,10 @@ class Payment extends Component {
     }
 
     renderMainContent() {
+        const {user} = this.props;
         return(
             <>
-                <PaymentSetting profile={this.state.profile.emailAddress}/>
+                <PaymentSetting user={user}/>
             </>
         )
     }
@@ -71,4 +75,12 @@ class Payment extends Component {
     }
 }
 
-export default Payment;
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+    getUserData: item => dispatch(getUserData(item))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Payment));

@@ -3,16 +3,17 @@ import './profile.css';
 import PhoneInput from "react-phone-input-2";
 import urls, {PROFILE_API} from "../../config/url";
 
-const AddressSetting =() => {
+const AddressSetting =({user}) => {
 
-    const [newProfile, setNewProfile] = useState({});
+    let [newProfile, setNewProfile] = useState({});
 
     useEffect(() =>
-        fetch(`${PROFILE_API}${'alice@gmail.com'}`)
+        fetch(`${PROFILE_API}${user.emailAddress}`)
             .then(response => response.json())
             .then(newProfile => {
                 setNewProfile(newProfile);
             },),[]);
+
     const saveClickHandler = () => {
         fetch(`${PROFILE_API}${newProfile.emailAddress}`, {
             method: 'PUT',
@@ -29,7 +30,6 @@ const AddressSetting =() => {
                 }
             })
             .then((profile) => {
-                // setNewProfile(profile)
                 console.log(profile)
             })
             .catch(function(error) {

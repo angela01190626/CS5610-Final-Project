@@ -5,7 +5,7 @@ import CartTable from "../../components/Cart/CartTable";
 import {CardElement} from "@stripe/react-stripe-js";
 
 class CheckoutComponent extends Component {
-    
+
     removeItem(item) {
         const {removeItemFromCart} = this.props;
         removeItemFromCart({...item, quantity: item.quantity});
@@ -26,7 +26,7 @@ class CheckoutComponent extends Component {
 
     render() {
         const {products, user} = this.props;
-       // const stripe = useStripe(); /*Fix this*/
+        // const stripe = useStripe(); /*Fix this*/
         //const elements = useElements(); /*Fix this*/
         return (
             <>
@@ -41,9 +41,14 @@ class CheckoutComponent extends Component {
                                 <h3>Delivery Address</h3>
                             </div>
                             <div className='address_detail'>
-                                <p>{user.emailAddress}</p>
-                                <p>{user.deliveryAddress1} , {user.deliverAddress2}</p>
-                                <p>{user.city}, {user.state} - {user.zipcode}</p>
+                                {user.deliveryAddress1 ? (
+                                        <>
+                                            <p>{user.deliveryAddress1} , {user.deliverAddress2}</p>
+                                            <p>{user.city}, {user.state} - {user.zipcode}</p>
+                                        </>
+                                    ) :
+                                    <Link to="/address">Add address</Link>
+                                }
                             </div>
                         </div>
 

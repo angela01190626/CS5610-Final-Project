@@ -4,6 +4,10 @@ import AddressSetting from "./AddressSetting";
 import Layout from "../../components/Layout/Layout";
 import urls, {PROFILE_API} from "../../config/url";
 import axios from "axios";
+import {getUserData} from "../../actions/userAction";
+import isLoading from "../../actions/appAction";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
 
 class Address extends Component {
     constructor(props) {
@@ -13,25 +17,25 @@ class Address extends Component {
         }
     }
 
-    componentDidMount() {
-        const { profile } = this.state;
-        if(Object.keys(profile).length === 0) {
-            this.fetchProfile();
-        }
-    }
-
-    fetchProfile = async () => {
-        const { isLoading } = this.props;
-        let profileId = 'alice@gmail.com';
-        axios.request(`${PROFILE_API}${profileId}`).then((response) => {
-            console.log("Response: ", response.data);
-            this.setState({
-                profile: response.data || {}
-            })
-        }).catch((error) => {
-            console.error(error); //todo: handle exception
-        });
-    }
+    // componentDidMount() {
+    //     const { profile } = this.state;
+    //     if(Object.keys(profile).length === 0) {
+    //         this.fetchProfile();
+    //     }
+    // }
+    //
+    // fetchProfile = async () => {
+    //     const { isLoading } = this.props;
+    //     let profileId = 'alice@gmail.com';
+    //     axios.request(`${PROFILE_API}${profileId}`).then((response) => {
+    //         console.log("Response: ", response.data);
+    //         this.setState({
+    //             profile: response.data || {}
+    //         })
+    //     }).catch((error) => {
+    //         console.error(error); //todo: handle exception
+    //     });
+    // }
 
     renderLeftContent() {
         return(
@@ -42,10 +46,11 @@ class Address extends Component {
     }
 
     renderMainContent() {
+        const {user} = this.props;
         return(
             <>
                 <h2>My addresses</h2>
-                <AddressSetting profile={this.state}/>
+                <AddressSetting user={user}/>
             </>
         )
     }
@@ -70,4 +75,12 @@ class Address extends Component {
     }
 }
 
-export default Address;
+const mapStateToProps = state => ({
+    user: state.user,
+});
+
+const mapDispatchToProps = dispatch => ({
+    getUserData: item => dispatch(getUserData(item))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Address));

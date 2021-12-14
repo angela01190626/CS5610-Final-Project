@@ -13,4 +13,10 @@ export function removeItemFromCart(product) {
         product
     }
 }
+
+export function clearCartData() {
+    return {
+        type: 'CLEAR_CART'
+    }
+}
 export default addItemToCart;
