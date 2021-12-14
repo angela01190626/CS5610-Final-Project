@@ -12,7 +12,7 @@ const Review = () => {
     let request = urls.getReviews;
     const pathParam = window.location.pathname.split('/');
     // console.log(request.url);
-    // console.log(pathParam[2]);
+    console.log(pathParam[1]);
 
     useEffect(() => {
         fetch(`${request.url}${pathParam[2]}`)
@@ -23,7 +23,9 @@ const Review = () => {
 
     return (
         <>
-            <ProductReview/>
+            {
+                pathParam[1] === "details" && (<ProductReview/>)
+            }
             <ul className="list-group">
             {
                 reviews.map(review => {

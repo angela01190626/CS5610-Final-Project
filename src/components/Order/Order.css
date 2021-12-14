@@ -1,0 +1,30 @@
+.order-root {
+    width: 100%;
+    border: solid 1px #dddddd;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.order-header{
+    display: flex;
+    background-color: #ddd;
+    padding: 10px;
+}
+.order-details {
+    display: flex;
+    border: solid 1px #b6b4b4;
+    margin-bottom: 10px;
+    padding: 10px;
+}
+.order-status{
+    width: 100%;
+}
+.order-item{
+    display: flex;
+}
+.order-footer{
+    display: flex;
+}
+.status-btn-col-gap {
+    margin-right: 2em !important;
+}

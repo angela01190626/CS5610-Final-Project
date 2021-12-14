@@ -33,8 +33,10 @@ export const deserializeProductDetailResult = (raw) => {
             id: raw.product_id,
             itemName: raw.product_title,
             prodImg: raw.product_main_image_url,
-            cost: raw.app_sale_price,
-            rating: (!!raw.evaluate_rate) ? parseFloat(raw.evaluate_rate.toString().substr(0, 3)) : 3
+            cost: raw.app_sale_price.toString(),
+            rating: (!!raw.product_details &&
+                      !!raw.product_details.Customer_Reviews)
+                     ? parseFloat(raw.product_details.Customer_Reviews.toString().substr(0, 3)) : 3
         };
     return product;
 }

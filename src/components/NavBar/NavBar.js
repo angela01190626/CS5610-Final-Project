@@ -14,6 +14,8 @@ import {FormControl} from 'react-bootstrap';
 import Badge from '@mui/material/Badge';
 import {getUserData, setUserData} from "../../actions/userAction";
 import {profile} from "../../services/profileService";
+import IconButton from '@mui/material/IconButton';
+import Tooltip from '@mui/material/Tooltip';
 
 const getNumCartitems = (state) => state.cart.products;
 const getProfileData = (state) => state.user;
@@ -78,6 +80,8 @@ function NavBar() {
             redirectionUrl = "/login";
         } else if (buttonText === "Cart") {
             redirectionUrl = "/cart";
+        } else if(buttonText === "Order") {
+            redirectionUrl = "/orders";
         }
         history.push({
             pathname: redirectionUrl
@@ -170,6 +174,15 @@ function NavBar() {
         fetchProductCategories()
     )
 
+    const getUserOptionDD = () => {
+        return (
+            <div className="user-hover-dropdown-container">
+                <li>Profile</li>
+                <li>Logout</li>
+            </div>
+        )
+    }
+
     return (
         <Navbar collapseOnSelect expand="lg" bg="dark" variant="dark">
             <Navbar.Brand className="brand-container" onClick={() => onClickNavLink("home")}>ShopEazy</Navbar.Brand>
@@ -199,7 +212,17 @@ function NavBar() {
                     </Nav.Link>
                     <Nav.Link eventKey={2} className="nav-bar-icon"
                               onClick={() => onClickNavLink(loggedIn ? "Profile" : "Sign In")}>
-                        <i className="fas fa-user-alt"></i>
+
+                        <Tooltip title={
+                            <React.Fragment>
+                                {getUserOptionDD()}
+                            </React.Fragment>
+                        }>
+                            <IconButton>
+                                    <i className="fas fa-user-alt nav-bar-icon-color"></i>
+                            </IconButton>
+                        </Tooltip>
+
                     </Nav.Link>
 
                     <Nav.Link eventKey={2} className="nav-bar-icon" onClick={() => onClickNavLink("Cart")}>

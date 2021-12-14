@@ -4,13 +4,18 @@ import { Rating } from 'react-simple-star-rating'
 import urls from "../../config/url";
 
 
-const ProductReview = () => {
-
+const ProductReview = ({product, email}) => {
+    console.log(product, " : ", email);
     let request = urls.getReviews;
     const pathParam = window.location.pathname.split('/');
-    const [review, setReview] = useState({productId: pathParam[2], rating:0, photos:'', avatar:''});
+    let [review, setReview] = useState({productId: pathParam[2], rating:0, photos:'', avatar:''});
     const writeReview = () => {
         // console.log(request.url);
+        review = {
+            ...review,
+            productName: product.itemName,
+            emailAddress: email
+        }
         fetch(`${request.url}${pathParam[2]}`, {
             method: 'POST',
             body: JSON.stringify(review),
@@ -18,12 +23,12 @@ const ProductReview = () => {
                 'content-type': 'application/json'
             }
         })
-            .then(response => response.json())
-            .then(review => setReview(review));
+            .then(response => response.json());
     }
     // console.log(review);
 
     const handleChangeValue = (key,value)=> {
+        console.log("Key: ", key);
         setReview({
             ...review,
             [key]: value
