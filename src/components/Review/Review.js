@@ -29,9 +29,6 @@ const Review = () => {
     }
     return (
         <>
-            {/*{*/}
-            {/*    pathParam[1] === "details" && (<ProductReview/>)*/}
-            {/*}*/}
             <ul className="list-group">
                 {
                     reviews.map(review => {
@@ -57,7 +54,6 @@ const Review = () => {
                                                         </span>
                                                     )
                                                 }
-                                                {/*{`Username: dhruvdhar1@gmail.com`}*/}
                                             </span>
                                                 <span className="review-heading-1">
                                                 <Rating name="size-small" readOnly value={review.rating} size="small" />
@@ -77,23 +73,6 @@ const Review = () => {
                                                 >
                                                     {review.comment}
                                                 </Typography>
-
-
-                                                {/*{*/}
-                                                {/*    (!!review.photos && review.photos.length > 0) && (*/}
-                                                {/*        <ImageList sx={{ width: 500, height: 120 }} cols={3} rowHeight={110}>*/}
-                                                {/*            {review.photos.map((item, idx) => (*/}
-                                                {/*                <ImageListItem key={item}>*/}
-                                                {/*                    <img*/}
-                                                {/*                        src={item}*/}
-                                                {/*                        alt={`review.photos${idx}`}*/}
-                                                {/*                        loading="lazy"*/}
-                                                {/*                    />*/}
-                                                {/*                </ImageListItem>*/}
-                                                {/*            ))}*/}
-                                                {/*        </ImageList>*/}
-                                                {/*    )*/}
-                                                {/*}*/}
                                             </React.Fragment>
                                         }
                                     />
