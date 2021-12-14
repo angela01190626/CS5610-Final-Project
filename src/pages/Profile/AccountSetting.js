@@ -5,7 +5,7 @@ import {PROFILE_API} from "../../config/url";
 const AccountSetting =({user}) => {
 
     let [newProfile, setNewProfile] = useState({});
-
+    let [passwordChanged, setPasswordChanged] = useState(false);
     useEffect(() =>
         fetch(`${PROFILE_API}${user.emailAddress}`)
             .then(response => response.json())
@@ -14,9 +14,13 @@ const AccountSetting =({user}) => {
             },),[]);
 
     const saveClickHandler = () => {
-        fetch(`${PROFILE_API}${newProfile.emailAddress}`, {
+        let payloadObj = JSON.parse(JSON.stringify(newProfile));
+        if(!passwordChanged) {
+            delete payloadObj.password;
+        }
+        fetch(`${PROFILE_API}${payloadObj.emailAddress}`, {
             method: 'PUT',
-            body: JSON.stringify(newProfile),
+            body: JSON.stringify(payloadObj),
             headers: {
                 'content-type': 'application/json'
             }
@@ -24,6 +28,7 @@ const AccountSetting =({user}) => {
             .then((response) => {
                 if(!response.ok) throw new Error(response.status);
                 else {
+                    setPasswordChanged(false);
                     alert("Saved successfully")
                     return response.json();
                 }
@@ -39,6 +44,9 @@ const AccountSetting =({user}) => {
     };
 
     const handleChangeValue = (key,value)=> {
+        if(key === "password") {
+            setPasswordChanged(true);
+        }
         setNewProfile({
             ...newProfile,
             [key]: value
