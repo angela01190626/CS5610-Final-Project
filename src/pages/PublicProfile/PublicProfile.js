@@ -87,7 +87,7 @@ class PublicProfile extends Component {
                         userProfile.isPaidMember && (
                             <div className="prime-status">
                                 <i className="fas fa-award"></i>
-                                &nbsp;&nbsp;Prime member
+                                &nbsp;&nbsp;Subscribed member
                             </div>
                         )
                     }

@@ -143,7 +143,17 @@
     color: white;
 }
 .user-hover-dropdown-container {
-    width: 10rem;
-    height: 5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 10px;
     /*border: solid red;*/
+}
+.nav-welcome-msg{
+    font-size: 20px;
+    margin-bottom: 10px;
+}
+.logout-button {
+    width: 100%;
 }

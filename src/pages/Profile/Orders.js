@@ -4,6 +4,7 @@ import Layout from "../../components/Layout/Layout";
 import Order from "../../components/Order/Order"
 import axios from "axios";
 import urls from "../../config/url";
+import {connect} from "react-redux";
 
 class Orders extends Component {
     constructor(props) {
@@ -14,29 +15,38 @@ class Orders extends Component {
     }
 
     componentDidMount() {
-        // this.fetchAllOrders();
+        this.fetchAllOrders();
     }
 
     renderLeftContent() {
-        const isAdmin = true; //TODO
+        const { user } = this.props;
+        const admin = user && user.isAdmin;
         return(
             <>
-                <Navigation active="orders" isAdmin={isAdmin}/>
+                <Navigation active="orders" isAdmin={admin}/>
             </>
         )
     }
 
+    getOrders() {
+        const { user } = this.props;
+        const {allOrders} = this.state;
+        const admin = user && user.isAdmin;
+        return(
+            allOrders.map(order => (
+                <Order order={order} admin={admin}/>
+            ))
+        )
+    }
+
     renderMainContent() {
-        const { allOrders } = this.state;
         return(
             <>
                 <div className="review-container">
                     <div className="rc-header">Orders</div>
                     <div className="rc-table">
                         <div className="rc-review">
-                            allOrders.map(order => (
-                                <Order/>
-                            ))
+                            {this.getOrders()}
                         </div>
                     </div>
                 </div>
@@ -65,10 +75,16 @@ class Orders extends Component {
 
     fetchAllOrders() {
         const req = JSON.parse(JSON.stringify(urls.getAllOrders));
-        axios.get(req).then(res => {
-            console.log(res);
+        axios.request(req).then(res => {
+            this.setState({
+                allOrders: res.data
+            })
         })
     }
 }
 
-export default Orders;
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+export default connect(mapStateToProps)(Orders);
