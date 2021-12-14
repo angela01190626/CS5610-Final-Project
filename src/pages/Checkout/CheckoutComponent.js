@@ -60,9 +60,12 @@ class CheckoutComponent extends Component {
                                 <h3>Payment Method</h3>
                             </div>
                             <div className='payment_details'>
-                                <form onSubmit={this.handleSubmit}>
-                                    <CardElement onChange={this.handleChange}/>
-                                </form>
+                                {user.cardNumber ? (
+                                        <>
+                                            <p>By Card No: {user.cardNumber}</p>
+                                        </>
+                                    ) :
+                                    <Link to="/payment">Add card details</Link>}
                             </div>
                         </div>
 

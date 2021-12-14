@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {connect, useDispatch} from "react-redux";
+import {connect} from "react-redux";
 
 import CheckoutComponent from "./CheckoutComponent";
 import "./Checkout.css";
@@ -12,10 +12,8 @@ import {clearCartData} from "../../actions/cartAction";
 import CartSummary from "../../components/Cart/CartSummary";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
-import {Link, withRouter} from "react-router-dom";
-import cart from "../../assets/shopping_cart.png";
+import { withRouter} from "react-router-dom";
 import {newOrder} from "../../services/orderService";
-import axios from "axios";
 
 class Checkout extends Component {
 
@@ -103,11 +101,11 @@ class Checkout extends Component {
         return (
 
             <div className="row mt-2">
-                <div className="col-8">
+                <div className="col-12 col-xl-8">
                     <CheckoutComponent user={user} products={products} addItemToCart={(item) => this.addItem(item)}
                                        removeItemFromCart={(item) => this.removeItem(item)}/>
                 </div>
-                <div className="col-4">
+                <div className=".d-none .d-xl-block col-xl-4">
                     <CartSummary products={products} buttonText={'Order Now'}
                                  onButtonClick={() => this.onButtonClick()}/>
                 </div>
