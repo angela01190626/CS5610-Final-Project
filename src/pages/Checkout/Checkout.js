@@ -50,7 +50,7 @@ class Checkout extends Component {
                     estimatedDeliveryDate: deliveryDate,
                     orderPrice: '10', //add value
                     paymentType: 'Card',
-                    orderItems: [
+                    orderItems:
                         (products && products.length > 0) && (
                             products.map((item, index) => (
                                 {
@@ -62,7 +62,7 @@ class Checkout extends Component {
                                     rating: item.rating
                                 }
                             )))
-                    ]
+
                 };
 
         newOrder(order).then((response) => {
