@@ -19,4 +19,11 @@ export function clearCartData() {
         type: 'CLEAR_CART'
     }
 }
+
+export function updateCartValue(cartValue) {
+    return {
+        type: 'UPDATE_CART_VALUE',
+        cartValue
+    }
+}
 export default addItemToCart;

@@ -1,5 +1,6 @@
 const initialState = {
-    products: []
+    products: [],
+    cartValue: 0
 }
 const CartReducer = (state = initialState, action) => {
     let itemIndex = -1;
@@ -53,6 +54,11 @@ const CartReducer = (state = initialState, action) => {
             return {
                 ...state,
                 products: []
+            };
+        case 'UPDATE_CART_VALUE':
+            return {
+                ...state,
+                cartValue: action.cartValue
             };
         default:
             return state;
