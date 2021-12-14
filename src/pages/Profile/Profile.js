@@ -4,7 +4,11 @@ import AccountSetting from "./AccountSetting";
 import Layout from "../../components/Layout/Layout";
 import urls from "../../config/url";
 import axios from "axios";
-import {profile} from "../../services/profileService";
+import {getUserData} from "../../actions/userAction";
+import {connect} from "react-redux";
+import {withRouter} from "react-router-dom";
+import Spinner from "../../components/Spinner/Spinner";
+import isLoading from "../../actions/appAction";
 
 class Profile extends Component {
     constructor(props) {
@@ -12,29 +16,6 @@ class Profile extends Component {
         this.state = {
             profile:{}
         }
-    }
-
-    componentDidMount() {
-        const { profile } = this.state;
-        if(Object.keys(profile).length === 0) {
-            this.fetchProfile();
-        }
-    }
-
-    fetchProfile = async () => {
-        const { isLoading } = this.props;
-        let request = urls.getProfile;
-        // After log in/signup working, we will use the current user's profile
-        let profileId = 'alice@gmail.com';
-        request.url = `${request.url}${profileId}`;
-        axios.request(request).then((response) => {
-            console.log("Response: ", response.data);
-            this.setState({
-                profile: response.data || {}
-            })
-        }).catch((error) => {
-            console.error(error); //todo: handle exception
-        });
     }
 
 
@@ -48,10 +29,13 @@ class Profile extends Component {
     }
 
     renderMainContent() {
+        let {user} = this.props;
+        console.log(user)
+
         return(
             <>
-                {/*{JSON.stringify(this.state)}*/}
-                <AccountSetting />
+                {/*{JSON.stringify(user)}*/}
+                <AccountSetting user={user}/>
             </>
         )
     }
@@ -65,6 +49,7 @@ class Profile extends Component {
     }
 
     render() {
+
         return(
             <div className="container-fluid">
                 <Layout
@@ -76,4 +61,13 @@ class Profile extends Component {
         )
     }
 }
-export default Profile;
+
+const mapStateToProps = state => ({
+    user: state.user
+});
+
+const mapDispatchToProps = dispatch => ({
+    getUserData: item => dispatch(getUserData(item))
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(withRouter(Profile));

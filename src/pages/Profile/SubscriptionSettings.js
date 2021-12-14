@@ -1,12 +1,12 @@
 import React, {Component, useEffect, useState} from "react";
 import {PROFILE_API} from "../../config/url";
 
-const SubscriptionSettings =() => {
+const SubscriptionSettings =({user}) => {
 
-    const [newProfile, setNewProfile] = useState({});
-
+    let [newProfile, setNewProfile] = useState({});
+    console.log(newProfile)
     useEffect(() =>
-        fetch(`${PROFILE_API}${'alice@gmail.com'}`)
+        fetch(`${PROFILE_API}${user.emailAddress}`)
             .then(response => response.json())
             .then(newProfile => {
                 setNewProfile(newProfile);
@@ -20,11 +20,21 @@ const SubscriptionSettings =() => {
                 'content-type': 'application/json'
             }
         })
-            .then(response => response.json())
+            .then((response) => {
+                if(!response.ok) throw new Error(response.status);
+                else {
+                    alert("Saved successfully")
+                    return response.json();
+                }
+            })
             .then((profile) => {
-                // setNewProfile(profile)
                 console.log(profile)
+            })
+            .catch(function(error) {
+                alert('Please save it again!')
+                console.log('Save failed', error.message);
             });
+
     };
 
     const handleChangeValue = (key,value)=> {
@@ -41,7 +51,7 @@ const SubscriptionSettings =() => {
                     <h6>We offer free delivery fees for paid members. Check the box if you want to be our paid members.</h6>
                     <div className="form-group row mb-3 mt-2">
                         <label>
-                            <input type="checkbox" name = "subscribe" checked={newProfile.isPaidMember ='' ? false : newProfile.isPaidMember }
+                            <input type="checkbox" name = "subscribe" checked={newProfile.isPaidMember === false ? false : newProfile.isPaidMember }
                                 onChange={(event) => handleChangeValue('isPaidMember',event.target.checked)}/> Paid Member
                         </label>
                     </div>

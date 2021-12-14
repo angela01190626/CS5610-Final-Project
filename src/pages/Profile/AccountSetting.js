@@ -1,14 +1,13 @@
 import React, {useState, useEffect} from "react";
-import {useDispatch} from "react-redux";
 import PhoneInput from "react-phone-input-2";
-import urls, {PROFILE_API} from "../../config/url";
+import {PROFILE_API} from "../../config/url";
 
-const AccountSetting =() => {
+const AccountSetting =({user}) => {
 
-    const [newProfile, setNewProfile] = useState({});
+    let [newProfile, setNewProfile] = useState({});
 
     useEffect(() =>
-        fetch(`${PROFILE_API}${'alice@gmail.com'}`)
+        fetch(`${PROFILE_API}${user.emailAddress}`)
             .then(response => response.json())
             .then(newProfile => {
                 setNewProfile(newProfile);
@@ -30,7 +29,6 @@ const AccountSetting =() => {
                 }
             })
             .then((profile) => {
-                // setNewProfile(profile)
                 console.log(profile)
             })
             .catch(function(error) {
@@ -49,6 +47,7 @@ const AccountSetting =() => {
 
     return (
         <>
+            {/*{JSON.stringify(newProfile)}*/}
             <h1>Account Information</h1>
             <div className="form-group row mb-3">
                 <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>

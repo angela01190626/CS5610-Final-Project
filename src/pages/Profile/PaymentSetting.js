@@ -3,12 +3,12 @@ import PhoneInput from 'react-phone-input-2';
 import 'react-phone-input-2/lib/style.css'
 import urls, {PROFILE_API} from "../../config/url";
 
-const PaymentSetting =() => {
+const PaymentSetting =({user}) => {
 
-    const [newProfile, setNewProfile] = useState({});
+    let [newProfile, setNewProfile] = useState({});
 
     useEffect(() =>
-        fetch(`${PROFILE_API}${'alice@gmail.com'}`)
+        fetch(`${PROFILE_API}${user.emailAddress}`)
             .then(response => response.json())
             .then(newProfile => {
                 setNewProfile(newProfile);
@@ -30,7 +30,6 @@ const PaymentSetting =() => {
                 }
             })
             .then((profile) => {
-                // setNewProfile(profile)
                 console.log(profile)
             })
             .catch(function(error) {
