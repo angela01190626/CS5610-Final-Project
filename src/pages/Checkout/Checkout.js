@@ -36,51 +36,63 @@ class Checkout extends Component {
 
         const {cart: {products}, user} = this.props;
 
-        const today = new Date();
+        const IsDeliveryAddressAdded = user.deliveryAddress1 ? true : false;
+        const IsCardNumberAdded = user.cardNumber ? true : false;
 
-        const deliveryDate = new Date(today);
+        if(IsDeliveryAddressAdded && IsCardNumberAdded) {
+            const today = new Date();
 
-        deliveryDate.setDate(deliveryDate.getDate() + 6);
+            const deliveryDate = new Date(today);
 
+            deliveryDate.setDate(deliveryDate.getDate() + 6);
 
-                const order = {
-                    emailAddress: user.emailAddress,
-                    orderStatus: 'Shipped',
-                    orderDate: today,
-                    estimatedDeliveryDate: deliveryDate,
-                    orderPrice: '10', //add value
-                    paymentType: 'Card',
-                    orderItems:
-                        (products && products.length > 0) && (
-                            products.map((item, index) => (
-                                {
-                                    itemName: item.name,
-                                    quantity: item.quantity,
-                                    itemPrice: parseInt(item.cost.replace(/,/g, '')),
-                                    productId: item.id,
-                                    prodImg:item.prodImg,
-                                    rating: item.rating
-                                }
-                            )))
+            const order = {
+                emailAddress: user.emailAddress,
+                orderStatus: 'Shipped',
+                orderDate: today,
+                estimatedDeliveryDate: deliveryDate,
+                orderPrice: '10', //add value
+                paymentType: 'Card',
+                orderItems:
+                    (products && products.length > 0) && (
+                        products.map((item, index) => (
+                            {
+                                itemName: item.name,
+                                quantity: item.quantity,
+                                itemPrice: parseInt(item.cost.replace(/,/g, '')),
+                                productId: item.id,
+                                prodImg: item.prodImg,
+                                rating: item.rating
+                            }
+                        )))
 
-                };
+            };
 
-        newOrder(order).then((response) => {
-            this.props.clearCartData();
-            console.log("Response: ", response.data);
-        }).catch((error) => {
-            console.error(error); //todo: handle exception
-        });
-
-        console.log(order);
-        if(user && Object.keys(user).length > 0) {
-            history.push({
-                pathname: "/orderSubmitted"
+            newOrder(order).then((response) => {
+                this.props.clearCartData();
+                console.log("Response: ", response.data);
+            }).catch((error) => {
+                console.error(error); //todo: handle exception
             });
-        } else {
-            history.push({
-                pathname: "/login"
-            });
+
+
+            if (user && Object.keys(user).length > 0) {
+                history.push({
+                    pathname: "/orderSubmitted"
+                });
+            } else {
+                history.push({
+                    pathname: "/login"
+                });
+            }
+        }
+        else if(!IsDeliveryAddressAdded)
+        {
+            alert('Please add Delivery Address to continue');
+        }
+        else if(!IsCardNumberAdded)
+        {
+            alert('Please add Card number to continue');
         }
     }
 

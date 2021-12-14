@@ -38,3 +38,6 @@ export const logout = () =>
         method: 'POST',
         credentials: 'include'
     })
+
+export const getProfile = (emailAddress) =>
+    fetch(`${URL}/user/${emailAddress}`)

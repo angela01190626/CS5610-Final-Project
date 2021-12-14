@@ -13,11 +13,10 @@ import {Navbar, Nav, NavDropdown} from 'react-bootstrap';
 import {FormControl} from 'react-bootstrap';
 import Badge from '@mui/material/Badge';
 import {clearUser, getUserData, setUserData} from "../../actions/userAction";
-import {profile} from "../../services/profileService";
+import {profile, logout, getProfile} from "../../services/profileService";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import {Button, Snackbar} from "@mui/material";
-import {logout} from "../../services/profileService";
 
 const getNumCartitems = (state) => state.cart.products;
 const getProfileData = (state) => state.user;
@@ -31,10 +30,21 @@ function NavBar() {
     const numItems = useSelector(getNumCartitems);
     const profileData = useSelector(getProfileData);
 
+    /*
     useEffect(() => {
         profile().then(res =>
-                           res.json()).then(user => dispatch(setUserData(user)));
+            res.json()).then(user => dispatch(setUserData(user)));
     }, [])
+    */
+
+
+    useEffect(() => {
+        profile().then(res =>
+            res.json()).then(user => getProfile(user.emailAddress).then(res =>
+            res.json()).then(data => dispatch(setUserData(data)
+        )));
+    }, [])
+
     const loggedIn = Object.keys(profileData) && Object.keys(profileData).length > 0;
     const fetchProductCategories = async () => {
         let departments = [];
@@ -52,9 +62,9 @@ function NavBar() {
             localStorage.setItem("searchItem", item);
             fetchSearchResults().then(() => {
                 history.push({
-                                 pathname: "/search",
-                                 search: `?item=${item}`
-                             });
+                    pathname: "/search",
+                    search: `?item=${item}`
+                });
             });
         }
 
@@ -83,17 +93,17 @@ function NavBar() {
             redirectionUrl = "/orders";
         }
         history.push({
-                         pathname: redirectionUrl
-                     });
+            pathname: redirectionUrl
+        });
     }
 
     const onCategoryClick = (department) => {
         if (!!department) {
             fetchCategoryProducts(department).then(() => {
                 history.push({
-                                 pathname: "/search",
-                                 search: `?item=${department.name}`
-                             });
+                    pathname: "/search",
+                    search: `?item=${department.name}`
+                });
             });
         }
     }

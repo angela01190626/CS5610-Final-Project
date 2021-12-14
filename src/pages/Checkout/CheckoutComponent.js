@@ -43,8 +43,11 @@ class CheckoutComponent extends Component {
                             <div className='address_detail'>
                                 {user.deliveryAddress1 ? (
                                         <>
-                                            <p>{user.deliveryAddress1} , {user.deliverAddress2}</p>
-                                            <p>{user.city}, {user.state} - {user.zipcode}</p>
+                                            <p>{user.deliveryAddress1}</p>
+                                            <p>{user.deliveryAddress2}</p>
+                                            <p>{user.city}</p>
+                                            <p>{user.state}</p>
+                                            <p>{user.zipcode}</p>
                                         </>
                                     ) :
                                     <Link to="/address">Add address</Link>
