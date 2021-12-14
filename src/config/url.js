@@ -58,6 +58,12 @@ const urls = {
         method: 'GET',
         url: `${serviceUrl}/api/reviews/`
     },
+
+    getUserReviews: {
+        method: 'GET',
+        url: `${serviceUrl}/api/reviews/user/`
+    },
+
     followUser: {
         method: 'POST',
         url: `${serviceUrl}/api/follow/`
@@ -65,10 +71,6 @@ const urls = {
     getProfile: {
         method: 'GET',
         url: `${serviceUrl}/api/user/`
-    },
-    getUserReviews: {
-        method: 'GET',
-        url: `${serviceUrl}/api/reviews/user/`
     },
     isUserFollowing: {
         method: 'GET',
