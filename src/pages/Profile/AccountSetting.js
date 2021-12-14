@@ -53,7 +53,7 @@ const AccountSetting =({user}) => {
                 <label htmlFor="email-address" className="col-md-12 col-xl-2">Email Address</label>
                 <div className="col-10">
                     <input id="email-address" type="email" className="form-control"
-                           value={newProfile.emailAddress}
+                           value={newProfile && newProfile.emailAddress}
                            disabled="disabled"
                            />
                 </div>
@@ -62,7 +62,7 @@ const AccountSetting =({user}) => {
                 <label htmlFor="password" className="col-md-12 col-xl-2">Password</label>
                 <div className="col-10">
                     <input id="password" type="password" className="form-control"
-                           value={newProfile.password}
+                           value={newProfile && newProfile.password}
                            onChange={(event) => handleChangeValue('password',event.target.value)}
                            />
                 </div>
@@ -76,7 +76,7 @@ const AccountSetting =({user}) => {
                 <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
                 <div className="col-10">
                     <input id="first-name" type="text" className="form-control"
-                           value={newProfile.firstName}
+                           value={newProfile && newProfile.firstName}
                            onChange={(event) => handleChangeValue('firstName',event.target.value)}/>
                 </div>
             </div>
@@ -84,7 +84,7 @@ const AccountSetting =({user}) => {
                 <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
                 <div className="col-10">
                     <input id="last-name" type="text" className="form-control"
-                           value={newProfile.lastName}
+                           value={newProfile && newProfile.lastName}
                            onChange={(event) => handleChangeValue('lastName',event.target.value)}/>
                 </div>
             </div>
@@ -92,7 +92,7 @@ const AccountSetting =({user}) => {
                 <label htmlFor="dofb" className="col-md-12 col-xl-2">Date of birth</label>
                 <div className="col-10">
                     <input id="dofb" type="date" className="form-control"
-                           value={newProfile.dateOfBirth}
+                           value={newProfile && newProfile.dateOfBirth}
                            onChange={(event) => handleChangeValue('dateOfBirth',event.target.value)}/>
                 </div>
             </div>
@@ -102,7 +102,7 @@ const AccountSetting =({user}) => {
                     <PhoneInput
                         className = "form-control"
                         onlyCountries={['us']}
-                        value = {String(newProfile.phone)}
+                        value = {String(newProfile && newProfile.phone)}
                         onChange={(value) => handleChangeValue('phone',value)}/>
                 </div>
             </div>
