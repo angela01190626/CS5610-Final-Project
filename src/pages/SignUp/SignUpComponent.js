@@ -18,7 +18,7 @@ const SignUpComponent = () => {
             lastName: '',
             emailAddress: '',
             password: '',
-            isPaidMember: '',
+            isPaidMember: false,
         },
         validationSchema: Yup.object({
             firstName: Yup.string()
