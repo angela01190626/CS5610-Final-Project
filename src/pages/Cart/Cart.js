@@ -3,7 +3,7 @@ import React, {Component} from 'react';
 import Layout from '../../components/Layout/Layout';
 import cart from "../../assets/shopping_cart.png";
 import {connect} from 'react-redux';
-import {addItemToCart, removeItemFromCart} from '../../actions/cartAction'
+import {addItemToCart, removeItemFromCart, updateCartValue} from '../../actions/cartAction'
 import './Cart.css';
 import CartTable from "../../components/Cart/CartTable";
 import CartSummary from "../../components/Cart/CartSummary";
@@ -50,8 +50,9 @@ class Cart extends Component {
     }
 
     onButtonClick() {
-        const {history} = this.props;
-
+        const {history, updateCartValue} = this.props;
+        const totalValue = this.calculateCartTotal();
+        updateCartValue(totalValue);
         history.push({
             pathname: "/checkout"
         });
@@ -134,5 +135,6 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
     addItemToCart: item => dispatch(addItemToCart(item)),
     removeItemFromCart: item => dispatch(removeItemFromCart(item)),
+    updateCartValue: val => dispatch(updateCartValue(val)),
 });
 export default connect(mapStateToProps, mapDispatchToProps)(Cart);

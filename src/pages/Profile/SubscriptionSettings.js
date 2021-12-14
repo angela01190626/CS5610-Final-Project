@@ -48,15 +48,16 @@ const SubscriptionSettings =({user}) => {
             <>
                 <h2>Subscription</h2>
                 <div className="form-group row mb-1">
-                    <h6>We offer free delivery fees for paid members. Check the box if you want to be our paid members.</h6>
+                    <h6>We offer free delivery fees for subscribed members. Check the box if you want to be our subscribed members.</h6>
                     <div className="form-group row mb-3 mt-2">
                         <label>
-                            <input type="checkbox" name = "subscribe" checked={newProfile.isPaidMember === false ? false : newProfile.isPaidMember }
-                                onChange={(event) => handleChangeValue('isPaidMember',event.target.checked)}/> Paid Member
+                            <input type="checkbox" name = "subscribe" checked={(newProfile && newProfile.isPaidMember) === false
+                                ? false : (newProfile && newProfile.isPaidMember) }
+                                onChange={(event) => handleChangeValue('isPaidMember',event.target.checked)}/> Subscribed Member
                         </label>
                     </div>
                 </div>
-                <button type="button" className="btn btn-primary" onClick={saveClickHandler}>Save</button>
+                <button type="button" className="btn btn-primary" onClick={saveClickHandler}>Subscribe</button>
 
             </>
         )
