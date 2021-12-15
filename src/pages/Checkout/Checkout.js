@@ -42,7 +42,7 @@ class Checkout extends Component {
     onButtonClick() {
         const {history} = this.props;
 
-        const {cart: {products}, user} = this.props;
+        const {cart: {products, cartValue}, user} = this.props;
 
         const IsDeliveryAddressAdded = user.deliveryAddress1 ? true : false;
         const IsCardNumberAdded = user.cardNumber ? true : false;
@@ -59,7 +59,7 @@ class Checkout extends Component {
                 orderStatus: 'Shipped',
                 orderDate: today,
                 estimatedDeliveryDate: deliveryDate,
-                orderPrice: '10', //add value
+                orderPrice: cartValue,
                 paymentType: 'Card',
                 orderItems:
                     (products && products.length > 0) && (
@@ -78,21 +78,14 @@ class Checkout extends Component {
 
             newOrder(order).then((response) => {
                 this.props.clearCartData();
-                console.log("Response: ", response.data);
+                history.push({
+                    pathname: "/orderSubmitted"
+                });
+
             }).catch((error) => {
                 console.error(error); //todo: handle exception
             });
 
-
-            if (user && Object.keys(user).length > 0) {
-                history.push({
-                    pathname: "/orderSubmitted"
-                });
-            } else {
-                history.push({
-                    pathname: "/login"
-                });
-            }
         } else if (!IsDeliveryAddressAdded) {
             this.setState({
                 errorMsg: "Please add Delivery Address to continue"

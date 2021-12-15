@@ -50,12 +50,21 @@ class Cart extends Component {
     }
 
     onButtonClick() {
-        const {history, updateCartValue} = this.props;
+        const {history, updateCartValue, user} = this.props;
+
         const totalValue = this.calculateCartTotal();
-        updateCartValue(1.05 * totalValue);
-        history.push({
-            pathname: "/checkout"
-        });
+        updateCartValue(totalValue);
+
+        if (user && Object.keys(user).length > 0) {
+            history.push({
+                pathname: "/checkout"
+            });
+        } else {
+            history.push({
+                pathname: "/login"
+            });
+        }
+
     }
 
     calculateCartTotal() {
