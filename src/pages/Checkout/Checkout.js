@@ -12,7 +12,7 @@ import {clearCartData} from "../../actions/cartAction";
 import CartSummary from "../../components/Cart/CartSummary";
 import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
-import { withRouter} from "react-router-dom";
+import {Link, withRouter} from "react-router-dom";
 import {newOrder} from "../../services/orderService";
 import {Modal} from "@mui/material";
 import Typography from '@mui/material/Typography';
@@ -26,6 +26,7 @@ class Checkout extends Component {
             errorMsg: ""
         }
     }
+
     removeItem(item) {
         const {removeItemFromCart} = this.props;
         removeItemFromCart({...item, quantity: item.quantity});
@@ -46,7 +47,7 @@ class Checkout extends Component {
         const IsDeliveryAddressAdded = user.deliveryAddress1 ? true : false;
         const IsCardNumberAdded = user.cardNumber ? true : false;
 
-        if(IsDeliveryAddressAdded && IsCardNumberAdded) {
+        if (IsDeliveryAddressAdded && IsCardNumberAdded) {
             const today = new Date();
 
             const deliveryDate = new Date(today);
@@ -92,15 +93,11 @@ class Checkout extends Component {
                     pathname: "/login"
                 });
             }
-        }
-        else if(!IsDeliveryAddressAdded)
-        {
+        } else if (!IsDeliveryAddressAdded) {
             this.setState({
                 errorMsg: "Please add Delivery Address to continue"
             })
-        }
-        else if(!IsCardNumberAdded)
-        {
+        } else if (!IsCardNumberAdded) {
             this.setState({
                 errorMsg: "Please add Card number to continue"
             })
@@ -110,13 +107,28 @@ class Checkout extends Component {
 
     renderMainContent() {
         const {cart: {products}, user} = this.props;
-
+        const {errorMsg} = this.state;
         return (
 
             <div className="row mt-2">
                 <div className="col-12 col-xl-8">
-                    <CheckoutComponent user={user} products={products} addItemToCart={(item) => this.addItem(item)}
-                                       removeItemFromCart={(item) => this.removeItem(item)}/>
+                    <div className='checkout'>
+                        <div className='checkout-container'>
+
+                            <h1>
+                                Checkout (
+                                <Link to="/cart">{products.length} items)</Link>
+                            </h1>
+                            {errorMsg.toString() ? (
+                                <div className='checkout_section'>
+                                    <div className="checkout-error">{errorMsg.toString()}</div>
+                                </div>
+                            ) : null}
+                            <CheckoutComponent user={user} products={products}
+                                               addItemToCart={(item) => this.addItem(item)}
+                                               removeItemFromCart={(item) => this.removeItem(item)}/>
+                        </div>
+                    </div>
                 </div>
                 <div className=".d-none .d-xl-block col-xl-4">
                     <CartSummary products={products} buttonText={'Order Now'}
@@ -129,44 +141,17 @@ class Checkout extends Component {
 
     onModalClose() {
         this.setState({
-                          errorMsg: ""
-                      })
+            errorMsg: ""
+        })
     }
 
     render() {
-        const { errorMsg } = this.state;
-        const style = {
-            position: 'absolute',
-            top: '50%',
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-            width: 400,
-            bgcolor: 'background.paper',
-            border: '2px solid #000',
-            boxShadow: 24,
-            p: 4,
-        };
         return (
             <div className="container-fluid">
                 <div className="row nav-bar">
                     <NavBar/>
                 </div>
                 <div className="row root-content">
-                    <Modal
-                        open={errorMsg && errorMsg.trim() !== ""}
-                        onClose={() => this.onModalClose()}
-                        aria-labelledby="modal-modal-title"
-                        aria-describedby="modal-modal-description"
-                    >
-                        <Box sx={style}>
-                            <Typography id="modal-modal-title" variant="h6" component="h2">
-                                Action Required
-                            </Typography>
-                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-                                {errorMsg}
-                            </Typography>
-                        </Box>
-                    </Modal>
                     {this.renderMainContent()}
                 </div>
                 <div className="row">

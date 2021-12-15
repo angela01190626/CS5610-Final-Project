@@ -93,3 +93,8 @@
         padding: 15px 30px 15px 30px;
     }
 }
+
+.checkout-error{
+    color: red;
+    text-align: left;
+}

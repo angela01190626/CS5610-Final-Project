@@ -4,6 +4,9 @@ import * as Yup from 'yup';
 import {Link, useHistory} from "react-router-dom";
 import {register} from "../../services/profileService";
 import {useDispatch} from "react-redux";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import {Modal} from "@mui/material";
 
 const SignUpComponent = () => {
     const history = useHistory();
@@ -42,7 +45,12 @@ const SignUpComponent = () => {
             });
         },
     });
+
+    const clearResult = () => {
+            setResult("");
+    }
     return (
+
         <>
             <div className="mt-4">
                 <div className="signUp-text-center">
@@ -55,12 +63,13 @@ const SignUpComponent = () => {
                 </div>
 
                 <div className="signUp-sign-in-widget mx-5">
-                    <form className="signUp-form-box" onSubmit={formik.handleSubmit}>
+                    <form className="signUp-form-box" onSubmit={formik.handleSubmit} onChange={clearResult}>
                         <div>
                             <div>
                                 {result.toString() ? (
                                     <div className="signup-error">{result.toString()}</div>
                                 ) : null}
+
                                 <div className="signUp-form-field mt-4">
                                     <input
                                         id="firstName"

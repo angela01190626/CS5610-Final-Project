@@ -11,6 +11,11 @@ const LoginComponent = () => {
     const dispatch = useDispatch();
 
     const [result, setResult] = useState('');
+
+    const clearResult = () => {
+        setResult("");
+    }
+
     return (
         <Formik
             initialValues={{emailAddress: '', password: ''}}
@@ -44,7 +49,7 @@ const LoginComponent = () => {
                 </div>
 
                 <div className="login-sign-in-widget mx-5">
-                <form className="login-form-box" onSubmit={formik.handleSubmit}>
+                <form className="login-form-box" onSubmit={formik.handleSubmit} onChange={clearResult}>
                 <div>
                 <div>
             {result.toString() ? (
