@@ -17,6 +17,8 @@ import {profile, logout, getProfile} from "../../services/profileService";
 import IconButton from '@mui/material/IconButton';
 import Tooltip from '@mui/material/Tooltip';
 import {Button, Snackbar} from "@mui/material";
+import {clearCartData} from "../../actions/cartAction";
+
 
 const getNumCartitems = (state) => state.cart.products;
 const getProfileData = (state) => state.user;
@@ -176,7 +178,8 @@ function NavBar() {
 
     const onLogoutClick = function (e) {
         logout().then(() => {
-            dispatch(clearUser())
+            dispatch(clearUser());
+            dispatch(clearCartData());
             history.push('/');
         })
         setLogoutClicked(true);

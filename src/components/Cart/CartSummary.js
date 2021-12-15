@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import {withRouter} from "react-router";
-
+import { connect } from "react-redux";
 
 class CartSummary extends Component {
 
@@ -25,9 +25,10 @@ class CartSummary extends Component {
     renderCartSummary() {
         const totalCost = this.calculateCartTotal().toFixed(2);
         const totalTax = this.calculateTax(totalCost).toFixed(2);
-        const {buttonText} = this.props;
+        const {buttonText, user} = this.props;
 
-
+        const subscribed = user && user.isPaidMember;
+        const deliveryCharge = subscribed ? 0 : 10;
         return(
             <div className="non-empty-cart-container-2">
                 <div className="cart-summary-header">Summary</div>
@@ -36,9 +37,10 @@ class CartSummary extends Component {
                         <div className="cart-summary-list-item-name">Subtotal</div>
                         <div className="cart-summary-list-item-value">${totalCost}</div>
                     </div>
+
                     <div className="cart-summary-list-items">
-                        <div className="cart-summary-list-item-name">Discount</div>
-                        <div className="cart-summary-list-item-value">$1</div>
+                        <div className="cart-summary-list-item-name">Delivery charges</div>
+                        <div className="cart-summary-list-item-value">${deliveryCharge}</div>
                     </div>
                     <div className="cart-summary-list-items">
                         <div className="cart-summary-list-item-name">Taxes</div>
@@ -46,7 +48,7 @@ class CartSummary extends Component {
                     </div>
                     <div className="cart-summary-list-items">
                         <div className="cart-summary-list-item-name">Total</div>
-                        <div className="cart-summary-list-item-value">${(parseFloat(totalCost) + parseFloat(totalTax)).toFixed(2)}</div>
+                        <div className="cart-summary-list-item-value">${(parseFloat(totalCost) + parseFloat(deliveryCharge) + parseFloat(totalTax)).toFixed(2)}</div>
                     </div>
                 </div>
 
@@ -58,13 +60,14 @@ class CartSummary extends Component {
         );
     }
 
-
-
     render() {
         return(
             this.renderCartSummary()
         );
     }
 }
+const mapStateToProps = (state) => ({
+    user: state.user
+})
 
-export default withRouter(CartSummary);
+export default connect(mapStateToProps)(withRouter(CartSummary));

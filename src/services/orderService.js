@@ -4,7 +4,7 @@ import axios from 'axios';
 let URL = 'https://cs5610-final-node-server.herokuapp.com/api'
 
 if (process.env.NODE_ENV !== 'production') {
-    URL = 'http://localhost:5000/api'
+    URL = 'http://localhost:4000/api'
 }
 
 export const newOrder = (order) =>

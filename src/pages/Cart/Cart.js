@@ -52,14 +52,16 @@ class Cart extends Component {
     onButtonClick() {
         const {history, updateCartValue} = this.props;
         const totalValue = this.calculateCartTotal();
-        updateCartValue(totalValue);
+        updateCartValue(1.05 * totalValue);
         history.push({
             pathname: "/checkout"
         });
     }
 
     calculateCartTotal() {
-        const { cart: { products } } = this.props;
+        const { cart: { products }, user } = this.props;
+        const subscribed = user && user.isPaidMember;
+        const deliveryCharge = subscribed ? 0 : 10;
         let totalValue = products.reduce((acc, curr) => {
             let itemCost;
             if(typeof curr.cost === "string") {
@@ -69,7 +71,7 @@ class Cart extends Component {
             }
             return acc + (itemCost * curr.quantity)
         }, 0)
-        return totalValue;
+        return totalValue + deliveryCharge;
     }
 
     calculateNumItems() {
@@ -130,6 +132,7 @@ class Cart extends Component {
 
 const mapStateToProps = state => ({
     cart: state.cart,
+    user: state.user
 });
 const mapDispatchToProps = dispatch => ({
     addItemToCart: item => dispatch(addItemToCart(item)),
