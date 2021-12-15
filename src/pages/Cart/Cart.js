@@ -102,7 +102,8 @@ class Cart extends Component {
                     Cart: ${totalCost} ({numItems} Items)
                 </div>
                 <CartTable products={products}
-                           onAddClick={(item) => this.addItem(item)}/>
+                           onAddClick={(item) => this.addItem(item)}
+                           onRemoveClick={(item) => this.removeItem(item)}/>
             </div>
         );
     }
