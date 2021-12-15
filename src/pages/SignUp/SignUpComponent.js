@@ -143,24 +143,26 @@ const SignUpComponent = () => {
                                 <div className="mt-4">
                                     <p className="text-muted">
                                         By clicking Create Account, you acknowledge you have read and agreed to
-                                        our&nbsp;
-                                        <a
-                                            href="/#"
-                                            target="_blank"
-                                            rel="noopener"
-                                            aria-label="Terms of use, Opens in a new tab"
-                                            className="privacy-links">
-                                            Terms of Use
-                                        </a>
-                                        &nbsp;and&nbsp;
-                                        <a
-                                            href="../../privacy%20policy/privacy-policy.html"
+                                        our
+                                        {/*&nbsp;*/}
+                                        {/*<a*/}
+                                        {/*    href="/#"*/}
+                                        {/*    target="_blank"*/}
+                                        {/*    rel="noopener"*/}
+                                        {/*    aria-label="Terms of use, Opens in a new tab"*/}
+                                        {/*    className="privacy-links">*/}
+                                        {/*    Terms of Use*/}
+                                        {/*</a>*/}
+                                        {/*&nbsp;and*/}
+                                        &nbsp;
+
+                                        <Link to = "/privacypolicy"
                                             target="_blank"
                                             rel="noopener"
                                             aria-label="Privacy policy, Opens in a new tab"
                                             className="privacy-links">
                                             Privacy Policy
-                                        </a>
+                                        </Link>
                                         .
                                     </p>
                                 </div>
