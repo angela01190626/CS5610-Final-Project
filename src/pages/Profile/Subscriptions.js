@@ -25,17 +25,11 @@ class Subscriptions extends Component {
         console.log(user)
         return(
             <>
-                <SubscriptionSettings user={{user}}/>
+                <SubscriptionSettings user={user}/>
             </>
         )
     }
 
-    renderRightContent() {
-        return(
-            <>
-            </>
-        )
-    }
 
     render() {
         return(
@@ -43,7 +37,7 @@ class Subscriptions extends Component {
                 <Layout
                     left={this.renderLeftContent()}
                     main={this.renderMainContent()}
-                    right={this.renderRightContent()}
+
                 />
             </div>
         )
