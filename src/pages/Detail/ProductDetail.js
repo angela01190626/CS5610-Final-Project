@@ -3,7 +3,7 @@ import Layout from "../../components/Layout/Layout";
 import {Rating} from "@mui/material";
 import "./detail.css";
 import { connect } from "react-redux";
-import urls from "../../config/url";
+import urls, {REVIEW_API} from "../../config/url";
 import axios from "axios";
 import Review from "../../components/Review/Review";
 import isLoading from '../../actions/appAction';
@@ -18,7 +18,8 @@ class ProductDetail extends Component {
         this.state = {
             prodId: '',
             quantity: 0,
-            productDetail: {}
+            productDetail: {},
+            reviews:{}
         }
     }
 
@@ -49,10 +50,25 @@ class ProductDetail extends Component {
             this.setState({
                 productDetail: response.data || {}
             })
+            isLoading(true);
+            axios.request(`${REVIEW_API}${prodId}`).then((response) => {
+                console.log("Response reviews: ", response.data);
+                isLoading(false);
+                this.setState({
+                    reviews: response.data || {}
+                })
+            }).catch((error) => {
+                isLoading(false);
+                console.error(error);
+            });
         }).catch((error) => {
             console.error(error);
             isLoading(false);
         });
+
+
+
+
     }
 
     addItem() {
@@ -82,7 +98,7 @@ class ProductDetail extends Component {
     }
 
     renderMainContent() {
-        const { productDetail } = this.state;
+        const { productDetail, reviews } = this.state;
         const {user} = this.props;
         console.log("API Response: ", productDetail["product_id"]);
         // console.log("API Response: ", productDetail["product_title"]);
@@ -96,6 +112,14 @@ class ProductDetail extends Component {
             detail: productDetail["feature_bullets"],
             available_quantity: productDetail["available_quantity"]
         };
+        let rate = 0;
+        // console.log(reviews.length)
+        for (let i = 0; i < reviews.length; i++) {
+            rate = rate +  reviews[i].rating
+        }
+        let avgRate = rate / reviews.length;
+        console.log(rate)
+
 
         return (
             (prod && Object.keys(prod).length > 0) ? (
@@ -107,7 +131,11 @@ class ProductDetail extends Component {
                         </div>
                         <div className="col-sm-12 col-md-6 p-2">
                             <b><span className="product-align-left p-1">{prod.itemName}</span></b>
-                            <div className="product-align-left p-1"><Rating className="pe-1" name="size-small" readOnly value={prod.rating} size="small"/>({prod.rating})</div>
+                            <div className="product-align-left p-1">
+                                <Rating className="pe-1" name="size-small" readOnly value={reviews.length > 0 ? avgRate : 0} size="small"/>
+                                ({reviews.length > 0 ? avgRate.toFixed(1) : 0})
+                                <span className="ps-1">{reviews.length} reviews</span>
+                            </div>
                             <br/>
                             <div className="product-price p-1">
                                 ${prod.itemPrice} {prod.itemPrice !== prod.originalPrice && (<span className="original-price">{prod.originalPrice}</span>)}
@@ -147,7 +175,10 @@ class ProductDetail extends Component {
                         <hr/>
                         <div className="p-1">
                             <b>Reviews</b>
-                            <ProductReview product={prod}  email={user.emailAddress}/>
+                            {
+                                user && Object.keys(user).length > 0 &&
+                                <ProductReview product={prod} email={user.emailAddress}/>
+                            }
                             <Review productId={prod.productId}/>
                         </div>
                     </div>
