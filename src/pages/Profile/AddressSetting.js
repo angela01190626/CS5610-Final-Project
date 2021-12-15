@@ -2,11 +2,13 @@ import React, {Component, useEffect, useState} from "react";
 import './profile.css';
 import PhoneInput from "react-phone-input-2";
 import urls, {PROFILE_API} from "../../config/url";
+import {Snackbar} from "@mui/material";
+
 
 const AddressSetting =({user}) => {
 
     let [newProfile, setNewProfile] = useState({});
-
+    const [open, setOpen] = useState(false);
     useEffect(() =>
         fetch(`${PROFILE_API}${user.emailAddress}`)
             .then(response => response.json())
@@ -27,17 +29,21 @@ const AddressSetting =({user}) => {
             .then((response) => {
                 if(!response.ok) throw new Error(response.status);
                 else {
-                    alert("Saved successfully")
+                    // alert("Saved successfully")
                     return response.json();
                 }
             })
             .then((profile) => {
                 console.log(profile)
             })
+            .then(setOpen(true))
             .catch(function(error) {
-                alert('Please save it again!')
+                // alert('Please save it again!')
                 console.log('Save failed', error.message);
             });
+        setTimeout(() => {
+            setOpen(false)
+        }, 3000);
 
     };
 
@@ -149,7 +155,14 @@ const AddressSetting =({user}) => {
 
             {/*<button type="button" className="btn btn-primary">Cancel</button>*/}
             <button type="button" className="btn btn-primary button-size" onClick={saveClickHandler}>Save</button>
-
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={saveClickHandler}
+                message="Save Successful!"
+                action={() => {
+                }}
+            />
             </>
         )
 }
