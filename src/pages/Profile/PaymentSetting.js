@@ -15,9 +15,11 @@ const PaymentSetting =({user}) => {
             },),[]);
 
     const saveClickHandler = () => {
-        fetch(`${PROFILE_API}${newProfile.emailAddress}`, {
+        let payloadObject = JSON.parse(JSON.stringify(newProfile));
+        delete payloadObject.password;
+        fetch(`${PROFILE_API}${payloadObject.emailAddress}`, {
             method: 'PUT',
-            body: JSON.stringify(newProfile),
+            body: JSON.stringify(payloadObject),
             headers: {
                 'content-type': 'application/json'
             }
