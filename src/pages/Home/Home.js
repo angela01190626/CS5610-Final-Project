@@ -93,9 +93,10 @@ class Home extends Component {
 
     getMaxCards() {
         const width = window.screen.width;
-        console.log("AAAA : ", width);
         let numCards = 5;
-        if(width < 1120) {
+        if(width < 750) {
+            numCards = 1;
+        } else if(width < 1120) {
             numCards = 2;
         } else if(width < 1500) {
             numCards = 4;
@@ -167,6 +168,7 @@ class Home extends Component {
     renderMainContent() {
         const { trendingItems, sportsItems, computerItems } = this.state;
         const { cartItems } = this.props;
+
         return(
             <div>
                 <PopUp/>
@@ -192,36 +194,12 @@ class Home extends Component {
                 </div>
                 <br/>
 
-                
-                {/* <div>
-                    <Carousel
-                        interval={4000}
-                        autoPlay
-                        infiniteLoop
-                        showArrows={true}
-                        onChange={()=>{}}
-                        onClickItem={()=>{}}
-                        onClickThumb={()=>{}}
-                        showThumbs={false}>
-                        {
-                            CommonCategory.map((category, idx) => (
-                                <div onClick={() => this.onClickGroceryCat(category)}>
-                                    <Category CategoryLabel={category.name}
-                                        key={idx}
-                                        bgImage={category.bgImage}/>  
-                                </div>
-                            ))
-                        }
-                        
-                    </Carousel>
-                </div> */}
-
                 <Label text={"Shop Daily Groceries"} customClass="grey-medium-bold-label" />
-                <div>
+                <div className={"category-panel"}>
                     <ItemsCarousel
                             gutter={10}
                             chevronWidth={60}
-                            numberOfCards={5}
+                            numberOfCards={maxCards || 4}
                             slidesToScroll={2}   
                             outsideChevron={true}
                             activeItemIndex={this.state.commonCategoryIndex}

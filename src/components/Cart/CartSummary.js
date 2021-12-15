@@ -29,7 +29,7 @@ class CartSummary extends Component {
 
 
         return(
-            <div className="non-empty-cart-container">
+            <div className="non-empty-cart-container-2">
                 <div className="cart-summary-header">Summary</div>
                 <div className="cart-summary-list">
                     <div className="cart-summary-list-items">

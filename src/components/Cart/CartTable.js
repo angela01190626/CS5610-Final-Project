@@ -46,9 +46,6 @@ class CartTable extends Component {
                     </div>
                     <div className="prod-price">$ {(itemCost * item.quantity).toFixed(2)}</div>
                 </div>
-                <div className="product-remove">
-                    <i className="far fa-trash-alt cart-item-remove-icon"></i>
-                </div>
             </div>
         )
     }

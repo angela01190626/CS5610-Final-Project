@@ -14,9 +14,18 @@ import NavBar from "../../components/NavBar/NavBar";
 import Footer from "../../components/Footer/Footer";
 import { withRouter} from "react-router-dom";
 import {newOrder} from "../../services/orderService";
+import {Modal} from "@mui/material";
+import Typography from '@mui/material/Typography';
+import Box from '@mui/material/Box';
 
 class Checkout extends Component {
 
+    constructor() {
+        super();
+        this.state = {
+            errorMsg: ""
+        }
+    }
     removeItem(item) {
         const {removeItemFromCart} = this.props;
         removeItemFromCart({...item, quantity: item.quantity});
@@ -86,11 +95,15 @@ class Checkout extends Component {
         }
         else if(!IsDeliveryAddressAdded)
         {
-            alert('Please add Delivery Address to continue');
+            this.setState({
+                errorMsg: "Please add Delivery Address to continue"
+            })
         }
         else if(!IsCardNumberAdded)
         {
-            alert('Please add Card number to continue');
+            this.setState({
+                errorMsg: "Please add Card number to continue"
+            })
         }
     }
 
@@ -114,13 +127,46 @@ class Checkout extends Component {
         )
     }
 
+    onModalClose() {
+        this.setState({
+                          errorMsg: ""
+                      })
+    }
+
     render() {
+        const { errorMsg } = this.state;
+        const style = {
+            position: 'absolute',
+            top: '50%',
+            left: '50%',
+            transform: 'translate(-50%, -50%)',
+            width: 400,
+            bgcolor: 'background.paper',
+            border: '2px solid #000',
+            boxShadow: 24,
+            p: 4,
+        };
         return (
             <div className="container-fluid">
                 <div className="row nav-bar">
                     <NavBar/>
                 </div>
                 <div className="row root-content">
+                    <Modal
+                        open={errorMsg && errorMsg.trim() !== ""}
+                        onClose={() => this.onModalClose()}
+                        aria-labelledby="modal-modal-title"
+                        aria-describedby="modal-modal-description"
+                    >
+                        <Box sx={style}>
+                            <Typography id="modal-modal-title" variant="h6" component="h2">
+                                Action Required
+                            </Typography>
+                            <Typography id="modal-modal-description" sx={{ mt: 2 }}>
+                                {errorMsg}
+                            </Typography>
+                        </Box>
+                    </Modal>
                     {this.renderMainContent()}
                 </div>
                 <div className="row">
