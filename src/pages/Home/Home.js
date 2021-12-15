@@ -199,7 +199,7 @@ class Home extends Component {
                     <ItemsCarousel
                             gutter={10}
                             chevronWidth={60}
-                            numberOfCards={maxCards || 4}
+                            numberOfCards={maxCards || 5}
                             slidesToScroll={2}   
                             outsideChevron={true}
                             activeItemIndex={this.state.commonCategoryIndex}
