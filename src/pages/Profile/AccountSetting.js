@@ -1,11 +1,13 @@
 import React, {useState, useEffect} from "react";
 import PhoneInput from "react-phone-input-2";
 import {PROFILE_API} from "../../config/url";
+import {Snackbar} from "@mui/material";
 
 const AccountSetting =({user}) => {
 
     let [newProfile, setNewProfile] = useState({});
     let [passwordChanged, setPasswordChanged] = useState(false);
+    const [open, setOpen] = useState(false);
     useEffect(() =>
         fetch(`${PROFILE_API}${user.emailAddress}`)
             .then(response => response.json())
@@ -29,17 +31,21 @@ const AccountSetting =({user}) => {
                 if(!response.ok) throw new Error(response.status);
                 else {
                     setPasswordChanged(false);
-                    alert("Saved successfully")
+                    // alert("Saved successfully")
                     return response.json();
                 }
             })
             .then((profile) => {
                 console.log(profile)
             })
+            .then(setOpen(true))
             .catch(function(error) {
-                alert('Please save it again!')
+                // alert('Please save it again!')
                 console.log('Save failed', error.message);
             });
+        setTimeout(() => {
+            setOpen(false)
+        }, 3000);
 
     };
 
@@ -117,7 +123,16 @@ const AccountSetting =({user}) => {
             <div className="btn-group" role="group" aria-label="Basic example">
                 <button type="button" className="btn btn-primary" onClick={saveClickHandler}>Save</button>
             </div>
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={saveClickHandler}
+                message="Save Successful!"
+                action={() => {
+                }}
+            />
         </>
+
     )
 }
 
