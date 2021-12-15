@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from "react";
-import {Avatar} from '@mui/material';
+import {Avatar, Snackbar} from '@mui/material';
 import { Rating } from 'react-simple-star-rating'
 import urls from "../../config/url";
 
@@ -9,6 +9,7 @@ const ProductReview = ({product, email}) => {
     let request = urls.getReviews;
     const pathParam = window.location.pathname.split('/');
     let [review, setReview] = useState({productId: pathParam[2], rating:0, photos:'', avatar:''});
+    const [open, setOpen] = useState(false);
     const writeReview = () => {
         // console.log(request.url);
         review = {
@@ -23,7 +24,12 @@ const ProductReview = ({product, email}) => {
                 'content-type': 'application/json'
             }
         })
-            .then(response => response.json());
+            .then(response => response.json())
+            .then(setOpen(true));
+
+        setTimeout(() => {
+            setOpen(false)
+        }, 3000);
     }
     // console.log(review);
 
@@ -67,6 +73,14 @@ const ProductReview = ({product, email}) => {
                     Submit
                 </button>
             </div>
+            <Snackbar
+                open={open}
+                autoHideDuration={6000}
+                onClose={writeReview}
+                message="Review submitted!"
+                action={() => {
+                }}
+            />
         </>
     );
 }
