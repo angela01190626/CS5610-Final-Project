@@ -124,11 +124,8 @@ class PublicProfile extends Component {
         let request = urls.followUser;
         const url = `${request.url}${followee}`
         isLoading(true);
-        axios.request(url, {
-            method: "POST",
-            data: {
+        axios.put(url, {
                 follower
-            }
         }).then((response) => {
             this.setState({
                 following: true
@@ -146,6 +143,8 @@ class PublicProfile extends Component {
 
     renderLeftContent() {
         const { following } = this.state;
+        const { user } = this.props;
+        const loggedIn = user && Object.keys(user).length > 0
         return(
             <div className="left-pane-container">
                 <div className="profile-pic-container">
@@ -156,9 +155,13 @@ class PublicProfile extends Component {
                 <div className="follow-container">
                     {/* TODO: check if user already follows thie person */}
                     {
-                        !following ? (
-                            <Button variant="contained" onClick={() => this.followUser()}>+ Follow</Button>
-                        ) : (
+                        !following && loggedIn && (
+                                       <Button variant="contained" onClick={() => this.followUser()}>+
+                                           Follow</Button>
+                                   )
+                    }
+                    {
+                        following && loggedIn && (
                             <Button variant="contained" onClick={() => this.unfollowUser()}>Unfollow</Button>
                         )
                     }

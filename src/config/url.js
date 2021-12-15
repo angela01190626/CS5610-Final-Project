@@ -65,7 +65,7 @@ const urls = {
     },
 
     followUser: {
-        method: 'POST',
+        method: 'PUT',
         url: `${serviceUrl}/api/follow/`
     },
     getProfile: {
