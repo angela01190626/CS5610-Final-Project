@@ -19,27 +19,31 @@ class PublicProfile extends Component {
         }
     }
 
-    componentDidMount() {
-        this.fetchUserProfile();
-        this.fetchUserReviews();
-        this.idUserFollowing();
+     componentDidMount() {
+         this.fetchUserProfile();
+         this.fetchUserReviews();
+         setTimeout(() => {
+             this.isUserFollowing();
+         }, 2000);
     }
 
-    idUserFollowing = async () => {
+    isUserFollowing = async () => {
         const { isLoading, user } = this.props;
         const followee = window.location.pathname.split("/").at(2);
         const follower = user.emailAddress;
-        let request = urls.isUserFollowing;
-        const url = `${request.url}/${follower}/${followee}`
-        axios.request(url).then((response) => {
-            this.setState({
-                following: response.data.following
-            })
-            isLoading(false);
-        }).catch((error) => {
-            isLoading(false);
-            console.error(error); //todo: handle exception
-        });
+        if(followee && follower) {
+            let request = urls.isUserFollowing;
+            const url = `${request.url}/${follower}/${followee}`
+            axios.request(url).then((response) => {
+                this.setState({
+                                  following: response.data
+                              })
+                isLoading(false);
+            }).catch((error) => {
+                isLoading(false);
+                console.error(error); //todo: handle exception
+            });
+        }
     }
 
     fetchUserProfile = async () => {
@@ -53,6 +57,7 @@ class PublicProfile extends Component {
                 userProfile: response.data
             });
             isLoading(false);
+
         }).catch((error) => {
             isLoading(false);
             console.error(error); //todo: handle exception

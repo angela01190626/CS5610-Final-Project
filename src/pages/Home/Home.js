@@ -20,6 +20,8 @@ import getSearchResults, { getSearchedValue } from '../../actions/searchAction';
 import addItemToCart, { removeItemFromCart } from '../../actions/cartAction';
 import { deserializeProductSearchResult } from '../../deserializer/search';
 import { getItemQuantity } from '../../deserializer/search';
+import Answer from '../Test/Answer';
+import Adder from '../Test/Addre';
 
 let maxCards = 0;
 class Home extends Component {
@@ -341,21 +343,25 @@ class Home extends Component {
     }
 
     render() {
-        const {loading} = this.props;
-        console.log("LLL : ", loading);
-        return(
-            loading ? (
-                <Spinner />
-            ) : 
-            (
-                <div className="container-fluid">
-                    <Layout
-                        left={this.renderLeftContent()} 
-                        main={this.renderMainContent()}
-                        right={this.renderRightContent()}
-                    />
-                </div>
-            )
+        // const {loading} = this.props;
+        // console.log("LLL : ", loading);
+        // return(
+        //     loading ? (
+        //         <Spinner />
+        //     ) : 
+        //     (
+        //         <div className="container-fluid">
+        //             <Layout
+        //                 left={this.renderLeftContent()} 
+        //                 main={this.renderMainContent()}
+        //                 right={this.renderRightContent()}
+        //             />
+        //         </div>
+        //     )
+        // )
+        return (
+            // <Answer />
+            <Adder />
         )
     }
 }

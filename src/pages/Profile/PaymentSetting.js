@@ -109,18 +109,6 @@ const PaymentSetting =({user}) => {
                                    onChange={(event) => handleChangeValue('cvv',event.target.value)}/>
                         </div>
                     </div>
-
-                    <div className="form-group row mb-3">
-                        <label htmlFor="phone-number" className="col-md-12 col-xl-2">Phone number</label>
-                        <div className="col-10">
-                            <PhoneInput
-                                        className = "form-control"
-                                        onlyCountries={['us']}
-                                        value = {String(newProfile.phone)}
-                                        onChange={(value) => handleChangeValue('phone',value)}/>
-
-                        </div>
-                    </div>
                 </div>
                 <button type="button" className="btn btn-primary" onClick={saveClickHandler}>Save</button>
                 <Snackbar

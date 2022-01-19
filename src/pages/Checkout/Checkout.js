@@ -17,6 +17,7 @@ import {newOrder} from "../../services/orderService";
 import {Modal} from "@mui/material";
 import Typography from '@mui/material/Typography';
 import Box from '@mui/material/Box';
+import cart from "../../assets/shopping_cart.png";
 
 class Checkout extends Component {
 
@@ -51,8 +52,8 @@ class Checkout extends Component {
             const today = new Date();
 
             const deliveryDate = new Date(today);
-
-            deliveryDate.setDate(deliveryDate.getDate() + 6);
+            const deliveryDays = (user && user.isPaidMember) ? 5 : 10;
+            deliveryDate.setDate(deliveryDate.getDate() + deliveryDays);
 
             const order = {
                 emailAddress: user.emailAddress,
@@ -97,21 +98,40 @@ class Checkout extends Component {
         }
     }
 
+    renderEmptyCart() {
+        return (
+            <div className="empty-cart-container">
+                <div className="heading-text">
+                    Your cart is empty
+                </div>
+                <div className="sub-heading-text">
+                    Check out what we're featuring now!
+                </div>
+                <Link to="/home">
+                    <div className="go-hp-btn">
+                        Go to Homepage
+                    </div>
+                </Link>
+                <img src={cart} className="cart-icon" alt="cart-icon"></img>
+
+            </div>
+        );
+    }
 
     renderMainContent() {
         const {cart: {products}, user} = this.props;
         const {errorMsg} = this.state;
         return (
-
+            products.length > 0 ? (
             <div className="row mt-2">
                 <div className="col-12 col-xl-8">
                     <div className='checkout'>
                         <div className='checkout-container'>
 
-                            <h1>
+                            <h2>
                                 Checkout (
                                 <Link to="/cart">{products.length} items)</Link>
-                            </h1>
+                            </h2>
                             {errorMsg.toString() ? (
                                 <div className='checkout_section'>
                                     <div className="checkout-error">{errorMsg.toString()}</div>
@@ -128,7 +148,9 @@ class Checkout extends Component {
                                  onButtonClick={() => this.onButtonClick()}/>
                 </div>
             </div>
-
+            ) : (
+                this.renderEmptyCart()
+            )
         )
     }
 

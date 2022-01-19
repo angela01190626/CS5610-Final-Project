@@ -38,9 +38,15 @@ class Address extends Component {
     // }
 
     renderLeftContent() {
+        const { user } = this.props;
+        const admin = user && user.isAdmin;
+        const paidMember = user && user.isPaidMember;
         return(
             <>
-                <Navigation active="address"/>
+                <Navigation active="address"
+                            isAdmin={admin}
+                            isPaidMember={paidMember}
+                />
             </>
         )
     }

@@ -13,9 +13,15 @@ class Subscriptions extends Component {
     }
 
     renderLeftContent() {
+        const { user } = this.props;
+        const admin = user && user.isAdmin;
+        const paidMember = user && user.isPaidMember;
         return(
             <>
-                <Navigation active="notifications"/>
+                <Navigation active="notifications"
+                            isAdmin={admin}
+                            isPaidMember={paidMember}
+                />
             </>
         )
     }

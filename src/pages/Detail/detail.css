@@ -64,3 +64,6 @@
     font-size: small;
     padding-top: 20px;
 }
+.min-prod-img-width{
+    min-width: 400px;
+}

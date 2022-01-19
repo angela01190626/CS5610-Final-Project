@@ -7,7 +7,8 @@ import {useDispatch} from "react-redux";
 const Navigation = (
     {
         active = 'profile',
-        isAdmin
+        isAdmin,
+        isPaidMember
     }) => {
     const history = useHistory();
     const dispatch = useDispatch();
@@ -51,6 +52,16 @@ const Navigation = (
                                 Subscriptions
                             </span>
                 </Link>
+                {
+                    isPaidMember && (
+                        <Link to="/benefits" className={`list-group-item ${active === 'benefits' ? 'active' : ''}`}>
+                            <i className="fa fa-bell"/>
+                            <span className="left-padding d-none d-xl-inline-block">
+                                Your Benefits
+                            </span>
+                        </Link>
+                            )
+                }
                 <a className="list-group-item" onClick={logoutUser}>
                     <i className="fas fa-sign-out-alt"/>
                     <span className="left-padding d-none d-xl-inline-block">

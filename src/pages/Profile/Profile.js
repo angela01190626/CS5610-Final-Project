@@ -20,10 +20,15 @@ class Profile extends Component {
 
 
     renderLeftContent() {
-        const isAdmin = true; //TODO
+        const { user } = this.props;
+        const admin = user && user.isAdmin;
+        const paidMember = user && user.isPaidMember;
         return(
            <>
-                <Navigation active="profile" isAdmin={isAdmin}/>
+                <Navigation active="profile"
+                            isAdmin={admin}
+                            isPaidMember={paidMember}
+                />
            </>
         )
     }

@@ -12,3 +12,12 @@
 .react-tel-input .form-control {
     width: 100%;
 }
+.account-settings-form-root{
+}
+.phone-input-style{
+    width: 100% !important;
+    max-width: 100%;
+}
+.form-control {
+    margin-right: 0 !important;
+}

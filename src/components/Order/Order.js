@@ -19,8 +19,9 @@ class Order extends Component {
         const orderDate = new Date(order.orderDate);
         const orderDatePlusReturnWindow = new Date();
         orderDatePlusReturnWindow.setDate(deliveryDate.getDate() + 15); //TODO: check this
-        console.log("------: ", deliveryDate + "---------" + orderDatePlusReturnWindow);
-        const disableCancelReturn = new Date() > orderDatePlusReturnWindow;
+        const disableCancelReturn = order.orderStatus === "DELIVERED" ||
+                                    order.orderStatus === "RETURNED" ||
+                                    order.orderStatus === "CANCELLED";
         return(
             <div className="order-root">
                 <div className="order-header" >
@@ -80,16 +81,25 @@ class Order extends Component {
                 {
                     admin ? (
                         <span onClick={(e) => this.delegateAdminAction(e)}>
-                            <Button variant="contained" className={"status-btn-col-gap"}>ORDERED</Button>
-                            <Button variant="contained" className={"status-btn-col-gap"}>SHIPPED</Button>
-                            <Button variant="contained" className={"status-btn-col-gap"}>DELIVERED</Button>
-                            <Button variant="contained" className={"status-btn-col-gap"}>RETURNED</Button>
-                            <Button variant="contained" className={"status-btn-col-gap"}>CANCELLED</Button>
+                            <Button variant="contained" className={"status-btn-col-gap"}
+                                    disabled={disableCancelReturn} data-status={"ORDERED"}>ORDERED</Button>
+                            <Button variant="contained" className={"status-btn-col-gap"}
+                                    disabled={disableCancelReturn} data-status={"SHIPPED"}>SHIPPED</Button>
+                            <Button variant="contained" className={"status-btn-col-gap"}
+                                    disabled={disableCancelReturn} data-status={"DELIVERED"}>DELIVERED</Button>
+                            <Button variant="contained" className={"status-btn-col-gap"}
+                                    disabled={disableCancelReturn} data-status={"RETURNED"}>RETURNED</Button>
+                            <Button variant="contained" className={"status-btn-col-gap"}
+                                    disabled={disableCancelReturn} data-status={"CANCELLED"}>CANCELLED</Button>
                         </span>
                     ) : (
                         <div onClick={(e) => this.delegateAdminAction(e)}>
-                            <Button variant="contained" className={"status-btn-col-gap"} disabled={disableCancelReturn}>Cancel Order</Button>
-                            <Button variant="contained" className={"status-btn-col-gap"} disabled={disableCancelReturn}>Return</Button>
+                            <Button variant="contained" className={"status-btn-col-gap"}
+                                    disabled={disableCancelReturn} data-status={"CANCELLED"}
+                            >Cancel Order</Button>
+                            <Button variant="contained" className={"status-btn-col-gap"}
+                                    disabled={disableCancelReturn} data-status={"RETURNED"}
+                            >Return</Button>
                         </div>
                     )
                 }
@@ -101,16 +111,17 @@ class Order extends Component {
     delegateAdminAction(e) {
         const {order} = this.props;
         let newObj = JSON.parse(JSON.stringify(order))
+        // console.log("Status: ",  e.target.dataset.status);
         newObj = {
             ...newObj,
-            orderStatus: e.target.innerText
+            orderStatus: e.target.dataset.status
         }
-        console.log("HHHHHH: ", newObj);
         let request = JSON.parse(JSON.stringify(urls.updateOrderStatus));
         request.url = request.url.replace("{order-id}", newObj._id);
         axios.put(request.url, {
                 ...newObj
         }).then((response) => {
+            window.location.reload(false);
             console.log("Status changed.....", response.data)
         }).catch((error) => {
             console.error(error); //todo: handle exception

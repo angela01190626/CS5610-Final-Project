@@ -86,42 +86,44 @@ const AccountSetting =({user}) => {
             </div>
             <hr/>
             <h1>Personal Information</h1>
-            <div className="form-group row mb-3">
-                <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
-                <div className="col-10">
-                    <input id="first-name" type="text" className="form-control"
-                           value={newProfile && newProfile.firstName}
-                           onChange={(event) => handleChangeValue('firstName',event.target.value)}/>
+            <div className={"account-settings-form-root"}>
+                <div className="form-group row mb-3">
+                    <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
+                    <div className="col-10">
+                        <input id="first-name" type="text" className="form-control"
+                               value={newProfile && newProfile.firstName}
+                               onChange={(event) => handleChangeValue('firstName',event.target.value)}/>
+                    </div>
                 </div>
-            </div>
-            <div className="form-group row mb-3">
-                <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
-                <div className="col-10">
-                    <input id="last-name" type="text" className="form-control"
-                           value={newProfile && newProfile.lastName}
-                           onChange={(event) => handleChangeValue('lastName',event.target.value)}/>
+                <div className="form-group row mb-3">
+                    <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
+                    <div className="col-10">
+                        <input id="last-name" type="text" className="form-control"
+                               value={newProfile && newProfile.lastName}
+                               onChange={(event) => handleChangeValue('lastName',event.target.value)}/>
+                    </div>
                 </div>
-            </div>
-            <div className="form-group row mb-3">
-                <label htmlFor="dofb" className="col-md-12 col-xl-2">Date of birth</label>
-                <div className="col-10">
-                    <input id="dofb" type="date" className="form-control"
-                           value={newProfile && newProfile.dateOfBirth}
-                           onChange={(event) => handleChangeValue('dateOfBirth',event.target.value)}/>
+                <div className="form-group row mb-3">
+                    <label htmlFor="dofb" className="col-md-12 col-xl-2">Date of birth</label>
+                    <div className="col-10">
+                        <input id="dofb" type="date" className="form-control"
+                               value={newProfile && newProfile.dateOfBirth}
+                               onChange={(event) => handleChangeValue('dateOfBirth',event.target.value)}/>
+                    </div>
                 </div>
-            </div>
-            <div className="form-group row mb-3">
-                <label htmlFor="number" className="col-md-12 col-xl-2">Phone number</label>
-                <div className="col-10">
-                    <PhoneInput
-                        className = "form-control"
-                        onlyCountries={['us']}
-                        value = {String(newProfile && newProfile.phone)}
-                        onChange={(value) => handleChangeValue('phone',value)}/>
+                <div className="form-group row mb-3">
+                    <label htmlFor="number" className="col-md-12 col-xl-2">Phone number</label>
+                    <div className="col-10">
+                        <PhoneInput
+                            className = "phone-input-style"
+                            onlyCountries={['us']}
+                            value = {String(newProfile && newProfile.phone)}
+                            onChange={(value) => handleChangeValue('phone',value)}/>
+                    </div>
                 </div>
-            </div>
-            <div className="btn-group" role="group" aria-label="Basic example">
-                <button type="button" className="btn btn-primary" onClick={saveClickHandler}>Save</button>
+                <div className="btn-group" role="group" aria-label="Basic example">
+                    <button type="button" className="btn btn-primary" onClick={saveClickHandler}>Save</button>
+                </div>
             </div>
             <Snackbar
                 open={open}
