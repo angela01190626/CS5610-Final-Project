@@ -5,7 +5,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 export const PROFILE_API = `${serviceUrl}/api/user/`;
 export const REVIEW_API = `${serviceUrl}/api/reviews/`;
-const API_KEY = "fffb52e2c6msh7bf751858ca8521p16a129jsnb2cb8f33e3b9";
+const API_KEY = "a0ed87af78mshd7825033f2ee4fcp1e1f6bjsn8ac1837dbc90";
 const urls = {
     productSearch: {
         method: 'GET',

@@ -1,0 +1,23 @@
+.benefit-container-root{
+    display: flex;
+    flex-direction: column;
+}
+.benefit-container {
+    display: flex;
+    /*border: solid red;*/
+    width: 100%;
+    padding-bottom: 20px;
+}
+.benefit-img{
+}
+.benefit-desc{
+    padding-left: 20px;
+    padding-top: 10px;
+    font-size: 20px;
+    font-family: 'Roboto', sans-serif;
+}
+.benefit-img-dimension{
+    border: solid 1px #6c6c6c;
+    height: 15rem;
+    width: 25rem;
+}

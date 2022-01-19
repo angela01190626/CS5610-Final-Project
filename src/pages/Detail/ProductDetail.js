@@ -126,7 +126,7 @@ class ProductDetail extends Component {
                 <>
                     {/*{JSON.stringify(this.state.productDetail)}*/}
                     <div className="row">
-                        <div className ="col-sm-12 col-md-6 p-2 center-image">
+                        <div className ="col-md-12 col-lg-6 p-2 center-image min-prod-img-width">
                             <img className="prod-image" src = {prod.prodImg} alt="product" />
                         </div>
                         <div className="col-sm-12 col-md-6 p-2">

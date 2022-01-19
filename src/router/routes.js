@@ -20,6 +20,7 @@ import PublicProfile from '../pages/PublicProfile/PublicProfile';
 import {loadStripe} from "@stripe/stripe-js"
 import {Elements} from "@stripe/react-stripe-js";
 import OrderSubmitted from "../pages/Checkout/OrderSubmission";
+import Benefits from "../pages/Profile/Benefits";
 const promise= loadStripe('pk_test_51JzaaoGZHW3thxot5OHX6RZlaHgw1f1V0R4Klu0fL6oyeJj4RDNkzEWp9jOEBsF9Ha2SGv64evhpzub3Y5wDWTSK00Jnaflgby');
 
 const createRoutes = () => (
@@ -47,6 +48,7 @@ const createRoutes = () => (
                 <Route exact path={"/details/:productId"} component={ProductDetail}/>
                 <Route exact path={"/cart"} component={Cart}/>
                 <Route exact path={"/orderSubmitted"} component={OrderSubmitted}/>
+                <Route exact path={"/benefits"} component={Benefits}/>
             </div>
         </Router>
 

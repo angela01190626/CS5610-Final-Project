@@ -21,9 +21,13 @@ class Orders extends Component {
     renderLeftContent() {
         const { user } = this.props;
         const admin = user && user.isAdmin;
+        const paidMember = user && user.isPaidMember;
         return(
             <>
-                <Navigation active="orders" isAdmin={admin}/>
+                <Navigation active="orders"
+                            isAdmin={admin}
+                            isPaidMember={paidMember}
+                />
             </>
         )
     }
@@ -75,6 +79,10 @@ class Orders extends Component {
 
     fetchAllOrders() {
         const req = JSON.parse(JSON.stringify(urls.getAllOrders));
+        const {user} = this.props;
+        if(user && !user.isAdmin && user.emailAddress) {
+            req.url = `${req.url}/${user.emailAddress}`
+        }
         axios.request(req).then(res => {
             this.setState({
                 allOrders: res.data

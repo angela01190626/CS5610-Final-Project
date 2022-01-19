@@ -1,4 +1,8 @@
-.checkout-container > h1{
+.checkout-container > h2{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 50px;
     text-align: center;
     padding: 10px ;
     font-weight: 400;
@@ -7,7 +11,7 @@
     color: white;
 }
 
-.checkout-container > h1 a{
+.checkout-container > h2 a{
     text-decoration: none;
     color: white;
 

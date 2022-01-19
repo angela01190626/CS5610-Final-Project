@@ -76,7 +76,7 @@ const AddressSetting =({user}) => {
                         <label htmlFor="first-name" className="col-md-12 col-xl-2">First name</label>
                         <div className="col-10">
                             <input id="first-name" type="text" className="form-control"
-                                   value={newProfile.firstName}
+                                   value={newProfile && newProfile.firstName}
                                    onChange={(event) => handleChangeValue('firstName',event.target.value)}/>
                         </div>
                     </div>
@@ -84,7 +84,7 @@ const AddressSetting =({user}) => {
                         <label htmlFor="last-name" className="col-md-12 col-xl-2">Last name</label>
                         <div className="col-10">
                             <input id="last-name" type="text" className="form-control"
-                                   value={newProfile.lastName}
+                                   value={newProfile && newProfile.lastName}
                                    onChange={(event) => handleChangeValue('lastName',event.target.value)}/>
                         </div>
                     </div>
@@ -92,7 +92,7 @@ const AddressSetting =({user}) => {
                         <label htmlFor="street-address" className="col-md-12 col-xl-2">Street address</label>
                         <div className="col-10">
                             <input id="street-address" type="text" className="form-control"
-                                   value={newProfile.deliveryAddress1}
+                                   value={newProfile && newProfile.deliveryAddress1}
                                    onChange={(event) => handleChangeValue('deliveryAddress1',event.target.value)}/>
                         </div>
                     </div>
@@ -100,7 +100,7 @@ const AddressSetting =({user}) => {
                         <label htmlFor="apt" className="col-md-12 col-xl-2">Apt, suite, etc.(optional)</label>
                         <div className="col-10">
                             <input id="apt" type="text" className="form-control"
-                                   value={newProfile.deliveryAddress2}
+                                   value={newProfile && newProfile.deliveryAddress2}
                                    onChange={(event) => handleChangeValue('deliveryAddress2',event.target.value)}/>
                         </div>
                     </div>
@@ -108,14 +108,14 @@ const AddressSetting =({user}) => {
                         <label htmlFor="city" className="col-md-12 col-xl-2">City</label>
                         <div className="col-10">
                             <input id="city" type="text" className="form-control"
-                                   value={newProfile.city}
+                                   value={newProfile && newProfile.city}
                                    onChange={(event) => handleChangeValue('city',event.target.value)}/>
                         </div>
                     </div>
                     <div className="form-group row mb-3">
                         <label htmlFor="state" className="col-md-12 col-xl-2">State</label>
                         <div className="col-10">
-                            <select className="form-control" value={newProfile.state} onChange={(e)=>handleChangeValue('state',e.target.value)}>
+                            <select className="form-control" value={newProfile && newProfile.state} onChange={(e)=>handleChangeValue('state',e.target.value)}>
                                 {
                                     states.map(item=><option value={item.value}>{item.label}</option>)
                                 }
@@ -136,7 +136,7 @@ const AddressSetting =({user}) => {
                         <div className="col-10">
                             <input id="zip-code" type="text" className="form-control"
                                    minLength="5" maxLength="5"
-                                   value={newProfile.zipcode}
+                                   value={newProfile && newProfile.zipcode}
                                    onChange={(event) => handleChangeValue('zipcode',event.target.value)}/>
                         </div>
                     </div>
@@ -146,7 +146,7 @@ const AddressSetting =({user}) => {
                             <PhoneInput
                                 className = "form-control"
                                 onlyCountries={['us']}
-                                value = {String(newProfile.phone)}
+                                value = {newProfile && String(newProfile.phone)}
                                 onChange={(value) => handleChangeValue('phone',value)}/>
                         </div>
                     </div>

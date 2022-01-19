@@ -29,8 +29,37 @@ class Search extends Component {
             const item = decodeURI(new URLSearchParams(location.search).get("item"));
             this.setState({
                 searchedProduct: item
-            });
+            }, () => this.fetchSearchResults());
         }
+    }
+
+    fetchSearchResults() {
+        const { searchedProduct } = this.state;
+        const {isLoading, getSearchResults, getSearchedValue } = this.props;
+        let request = urls.productSearch;
+        request = {
+            ...request,
+            params: {
+                ...request.params,
+                keyword: searchedProduct,
+                filter: `https://www.amazon.com/s?k=${searchedProduct}&rh=p_n_condition-type%3ANew&dc&qid=1637861937&ref=sr_nr_p_n_condition-type_1`
+            }
+        }
+        const searchQuery = {
+            name: searchedProduct,
+            id: searchedProduct,
+            pageNum: 1
+        };
+        isLoading(true);
+        getSearchedValue(searchQuery);
+        axios.request(request).then((response) => {
+            const productList = deserializeProductSearchResult(response.data.docs);
+            getSearchResults(productList);
+            isLoading(false);
+        }).catch((error) => {
+            isLoading(false);
+            console.error(error); //todo: handle exception
+        }); //DO NOT UN-COMMENT, DO NOT REMOVE
     }
 
     static getDerivedStateFromProps(props, state) {

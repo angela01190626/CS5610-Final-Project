@@ -39,9 +39,15 @@ class Payment extends Component {
     // }
 
     renderLeftContent() {
+        const { user } = this.props;
+        const admin = user && user.isAdmin;
+        const paidMember = user && user.isPaidMember;
         return(
             <>
-                <Navigation active="payment"/>
+                <Navigation active="payment"
+                            isAdmin={admin}
+                            isPaidMember={paidMember}
+                />
             </>
         )
     }

@@ -38,7 +38,7 @@ class Privacypolicy extends Component {
                         update your password, first and last name, date of birth, delivery address, phone number, email address,
                         credit/debit information. <br/>
 
-                        In some circumstances, you may choose to be our paid member and follow/unfollow the other uses in our website.
+                        In some circumstances, you may choose to be our paid member and follow/unfollow the other users in our website.
 
 
                     </p>
@@ -50,7 +50,7 @@ class Privacypolicy extends Component {
                     <h2>How we use your information</h2>
                     <p>
                         We will use your information to meet your expectations and give you a great experience with our
-                        online shopping website. For example,
+                        online shopping website. For example,<br/>
                         • To create and maintain your account<br/>
                         • To determine the delivery fees<br/>
                         • To analyze your shopping behaviors<br/>
